@@ -2,10 +2,10 @@
 
 This is the working area for the individual Internet-Draft, "A YANG Module for Entitlement Inventory".
 
-* [Editor's Copy](https://dr2lopez.github.io/entitlement-inventory/#go.draft-ietf-ivy-entitlement-inventory.html)
+* [Editor's Copy](https://ietf-ivy-wg.github.io/network-inventory-entitlement/#go.draft-ietf-ivy-entitlement-inventory.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-ivy-entitlement-inventory)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-ietf-ivy-entitlement-inventory)
-* [Compare Editor's Copy to Individual Draft](https://dr2lopez.github.io/entitlement-inventory/#go.draft-ietf-ivy-entitlement-inventory.diff)
+* [Compare Editor's Copy to Individual Draft](https://ietf-ivy-wg.github.io/network-inventory-entitlement/#go.draft-ietf-ivy-entitlement-inventory.diff)
 
 
 ## Contributing
