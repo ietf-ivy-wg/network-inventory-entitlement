@@ -5,10 +5,10 @@
 Network Inventory YANG WG                                     M. Palmero
 Internet-Draft                                               Independent
 Intended status: Standards Track                              C. Cardona
-Expires: 24 December 2026                                            NTT
+Expires: 26 December 2026                                            NTT
                                                                 D. Lopez
                                                               Telefonica
-                                                            22 June 2026
+                                                            24 June 2026
 
 
                 A YANG Module for Entitlement Inventory
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 December 2026.
+   This Internet-Draft will expire on 26 December 2026.
 
 Copyright Notice
 
