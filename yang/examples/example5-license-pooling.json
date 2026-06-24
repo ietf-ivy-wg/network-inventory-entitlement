@@ -221,7 +221,7 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": [
                   "Company-A"
                 ]
@@ -268,7 +268,7 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": [
                   "Company-A"
                 ]

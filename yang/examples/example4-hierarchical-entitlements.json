@@ -14,7 +14,7 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": [
                   "Enterprise Networks"
                 ]
@@ -43,7 +43,7 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": [
                   "Enterprise Networks"
                 ]
