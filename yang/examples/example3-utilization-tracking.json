@@ -135,7 +135,7 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": ["Enterprise Corp"]
               }
             },
@@ -158,7 +158,7 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": ["Enterprise Corp"]
               }
             },
@@ -181,10 +181,10 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": ["Enterprise Corp"]
               },
-              "users_names": {
+              "users-names": {
                 "users": ["telecom-admin"]
               }
             },

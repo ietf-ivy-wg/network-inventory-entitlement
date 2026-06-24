@@ -14,7 +14,7 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": [
                   "corp-a"
                 ]
@@ -41,7 +41,7 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": [
                   "corp-a"
                 ]
@@ -68,12 +68,12 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": [
                   "corp-a"
                 ]
               },
-              "users_names": {
+              "users-names": {
                 "users": [
                   "admin"
                 ]
@@ -103,12 +103,12 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": [
                   "corp-a"
                 ]
               },
-              "users_names": {
+              "users-names": {
                 "users": [
                   "admin"
                 ]
@@ -138,12 +138,12 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": [
                   "corp-a"
                 ]
               },
-              "users_names": {
+              "users-names": {
                 "users": [
                   "security-admin"
                 ]

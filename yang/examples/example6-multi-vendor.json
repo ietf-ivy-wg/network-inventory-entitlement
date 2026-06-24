@@ -200,12 +200,12 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": [
                   "Enterprise IT Dept"
                 ]
               },
-              "users_names": {
+              "users-names": {
                 "users": [
                   "network-admin"
                 ]
@@ -233,12 +233,12 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": [
                   "Enterprise IT Dept"
                 ]
               },
-              "users_names": {
+              "users-names": {
                 "users": [
                   "datacenter-ops"
                 ]
@@ -268,12 +268,12 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": [
                   "Enterprise IT Dept"
                 ]
               },
-              "users_names": {
+              "users-names": {
                 "users": [
                   "datacenter-ops"
                 ]
@@ -321,12 +321,12 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations_names": {
+              "organizations-names": {
                 "organizations": [
                   "Enterprise IT Dept"
                 ]
               },
-              "users_names": {
+              "users-names": {
                 "users": [
                   "datacenter-ops",
                   "noc-team"
