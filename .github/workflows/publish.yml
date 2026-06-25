@@ -49,6 +49,13 @@ jobs:
     - name: "Validate YANG"
       run: make yang-check
 
+    - name: "Check generated YANG files are committed"
+      run: |
+        if ! git diff --exit-code -- trees yang/trees; then
+          echo "::error::Generated YANG tree files are stale. Run 'make yang-check' locally and commit the changes."
+          exit 1
+        fi
+
     - name: "Build Drafts"
       uses: martinthomson/i-d-template@v1
       with:
