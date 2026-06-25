@@ -23,3 +23,15 @@ draft-ietf-ivy-entitlement-inventory.xml
 package-lock.json
 report.xml
 !requirements.txt
+
+# Editor/backups
+*.md~
+.DS_Store
+
+# Generated draft artifacts
+*.unpaginated.txt
+
+# YANG template/tool generated content
+yang/models/
+yang/coverage/.coverage_yang
+yang/coverage/*.txt
