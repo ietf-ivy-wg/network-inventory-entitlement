@@ -27,6 +27,7 @@ endif
 
 # Validate examples against YANG schema
 validate: yang/ietf-entitlement-inventory.yang
+	./validate-all.sh
 	./validate-examples.sh
 
 # Full validation: regenerate trees and validate examples
