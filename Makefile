@@ -34,6 +34,10 @@ validate: yang/ietf-entitlement-inventory.yang
 yang-check: trees validate
 	@echo "All YANG checks passed."
 
+# Generate YANG example coverage report
+coverage: yang/ietf-entitlement-inventory.yang
+	./yang-coverage.sh
+
 $(LIBDIR)/main.mk:
 ifneq (,$(shell grep "path *= *$(LIBDIR)" .gitmodules 2>/dev/null))
 	git submodule sync

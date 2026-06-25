@@ -11,7 +11,19 @@
       {
         "name": "ietf-entitlement-inventory",
         "revision": "2026-05-25",
-        "namespace": "urn:ietf:params:xml:ns:yang:entitlement-inventory",
+        "namespace": "urn:ietf:params:xml:ns:yang:ietf-entitlement-inventory",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "example-capability-framework",
+        "revision": "2025-12-05",
+        "namespace": "urn:example:capability-framework",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "example-capability-extension",
+        "revision": "2025-12-05",
+        "namespace": "urn:example:capability-extension",
         "conformance-type": "implement"
       },
       {

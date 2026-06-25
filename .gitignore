@@ -33,7 +33,10 @@ report.xml
 
 # YANG template/tool generated content
 yang/models/
-yang/coverage/.coverage_yang
-yang/coverage/*.txt
 
 .python-version
+
+# YANG coverage output
+
+# YANG coverage output
+yang/coverage.txt
