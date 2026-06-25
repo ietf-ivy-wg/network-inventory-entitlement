@@ -5,12 +5,12 @@
 Network Inventory YANG WG                                     M. Palmero
 Internet-Draft                                               Independent
 Intended status: Standards Track                              C. Cardona
-Expires: 26 December 2026                                            NTT
+Expires: 27 December 2026                                            NTT
                                                                 D. Lopez
                                                               Telefonica
                                                                  I. Busi
                                                                   Huawei
-                                                            24 June 2026
+                                                            25 June 2026
 
 
                 A YANG Module for Entitlement Inventory
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 December 2026.
+   This Internet-Draft will expire on 27 December 2026.
 
 Copyright Notice
 
@@ -1040,7 +1040,6 @@ Table of Contents
        reference
          "draft-ietf-ivy-entitlement-inventory-02";
      }
-
      revision 2025-10-20 {
        description
          "First full draft version for
@@ -1433,13 +1432,13 @@ Table of Contents
              }
              description
                "Reference to parent entitlement if this is derived or
-        child entitlement (e.g., an upgrade add-on referencing
-        its base license). Implementations MUST NOT create
-        circular references among entitlements. Although this
-        constraint cannot be fully enforced via YANG 'must'
-        statements due to XPath 1.0 limitations, management
-        systems SHOULD validate the full entitlement hierarchy
-        for cycles before committing changes.";
+                child entitlement (e.g., an upgrade add-on referencing
+                its base license). Implementations MUST NOT create
+                circular references among entitlements. Although this
+                constraint cannot be fully enforced via YANG 'must'
+                statements due to XPath 1.0 limitations, management
+                systems SHOULD validate the full entitlement hierarchy
+                for cycles before committing changes.";
            }
            container entitlement-attachment {
              description
