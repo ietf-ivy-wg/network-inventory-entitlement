@@ -16,15 +16,15 @@
        |     +--ro description?      string
        |     +--ro resource-name?    string
        |     +--ro units?            string
-       |     +--ro max-value?        int32
-       |     +--ro current-value?    int32
+       |     +--ro max-value?        uint32
+       |     +--ro current-value?    uint32
        +--ro parent-entitlement-uid?   -> ../../entitlement/entitlement-id
        +--ro entitlement-attachment
           +--ro universal-access?   boolean
           +--ro holders
-          |  +--ro organizations_names
+          |  +--ro organizations-names
           |  |  +--ro organizations*   string
-          |  +--ro users_names
+          |  +--ro users-names
           |     +--ro users*   string
           +--ro assets
              +--ro elements
