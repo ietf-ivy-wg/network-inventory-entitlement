@@ -1,0 +1,40 @@
+name: "YANG Coverage"
+
+on:
+  push:
+    paths:
+      - "yang/**"
+      - "yang-coverage.sh"
+      - "setup-yang-models.sh"
+      - "Makefile"
+      - ".github/workflows/yang-coverage.yml"
+  pull_request:
+    paths:
+      - "yang/**"
+      - "yang-coverage.sh"
+      - "setup-yang-models.sh"
+      - "Makefile"
+      - ".github/workflows/yang-coverage.yml"
+  workflow_dispatch:
+
+jobs:
+  coverage:
+    name: "YANG Coverage"
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: "Checkout"
+      uses: actions/checkout@v4
+
+    - name: "Install uv"
+      uses: astral-sh/setup-uv@v6
+
+    - name: "Generate YANG coverage"
+      run: make coverage
+
+    - name: "Upload coverage report"
+      uses: actions/upload-artifact@v4
+      with:
+        name: yang-coverage
+        path: yang/coverage.txt
+        if-no-files-found: error

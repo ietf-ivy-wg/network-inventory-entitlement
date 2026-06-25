@@ -1,0 +1,49 @@
+{
+  "ietf-yang-library:modules-state": {
+    "module-set-id": "entitlement-inventory-set",
+    "module": [
+      {
+        "name": "ietf-network-inventory",
+        "revision": "2026-05-27",
+        "namespace": "urn:ietf:params:xml:ns:yang:ietf-network-inventory",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "ietf-entitlement-inventory",
+        "revision": "2026-05-25",
+        "namespace": "urn:ietf:params:xml:ns:yang:ietf-entitlement-inventory",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "example-capability-framework",
+        "revision": "2025-12-05",
+        "namespace": "urn:example:capability-framework",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "example-capability-extension",
+        "revision": "2025-12-05",
+        "namespace": "urn:example:capability-extension",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "ietf-yang-types",
+        "revision": "2025-06-23",
+        "namespace": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "conformance-type": "import"
+      },
+      {
+        "name": "iana-hardware",
+        "revision": "2018-03-13",
+        "namespace": "urn:ietf:params:xml:ns:yang:iana-hardware",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "ietf-inet-types",
+        "revision": "2025-06-23",
+        "namespace": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "conformance-type": "import"
+      }
+    ]
+  }
+}

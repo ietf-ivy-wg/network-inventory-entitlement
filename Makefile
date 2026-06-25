@@ -27,11 +27,16 @@ endif
 
 # Validate examples against YANG schema
 validate: yang/ietf-entitlement-inventory.yang
+	./validate-all.sh
 	./validate-examples.sh
 
 # Full validation: regenerate trees and validate examples
 yang-check: trees validate
 	@echo "All YANG checks passed."
+
+# Generate YANG example coverage report
+coverage: yang/ietf-entitlement-inventory.yang
+	./yang-coverage.sh
 
 $(LIBDIR)/main.mk:
 ifneq (,$(shell grep "path *= *$(LIBDIR)" .gitmodules 2>/dev/null))

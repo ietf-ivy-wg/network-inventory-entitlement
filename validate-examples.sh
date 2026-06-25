@@ -2,24 +2,35 @@
 set -x
 set -e
 
+./setup-yang-models.sh
 
 # Specify the directory and the command
 DIRECTORY="yang/examples"
-COMMAND="yanglint -p . -p /Users/camilo/Documents/Projects/drafts/bmp_yang_model/other_examples/yang/experimental -p /Users/camilo/.pyenv/versions/3.13.5/share/yang/modules/ietf /Users/camilo/.pyenv/versions/3.13.5/share/yang/modules/iana/iana-hardware.yang  yang/ietf-entitlement-inventory.yang"
+MODELS="yang/models"
+IANA_HARDWARE="$MODELS/standard/ietf/RFC/iana-hardware@2018-03-13.yang"
 
-# Command for capability extension example (requires additional modules)
-COMMAND_EXT="yanglint -p . -p /Users/camilo/Documents/Projects/drafts/bmp_yang_model/other_examples/yang/experimental -p /Users/camilo/.pyenv/versions/3.13.5/share/yang/modules/ietf /Users/camilo/.pyenv/versions/3.13.5/share/yang/modules/iana/iana-hardware.yang yang/ietf-entitlement-inventory.yang yang/examples/example-capability-framework.yang yang/examples/example-capability-extension.yang"
+if [ ! -f "$IANA_HARDWARE" ]; then
+  echo "Could not find $IANA_HARDWARE"
+  exit 1
+fi
 
-# Loop through all files in the directory
-for FILE in "$DIRECTORY"/*
+COMMAND="yanglint \
+  -p . \
+  -p yang \
+  -p yang/examples \
+  -p $MODELS/standard/ietf/RFC \
+  -p $MODELS/experimental/ietf-extracted-YANG-modules \
+  -p $MODELS/standard/ieee/published/802.1 \
+  $IANA_HARDWARE \
+  yang/ietf-entitlement-inventory.yang \
+  yang/examples/example-capability-framework.yang \
+  yang/examples/example-capability-extension.yang"
+
+# Loop through all valid JSON files in the directory
+for FILE in "$DIRECTORY"/valid-*.json
 do
-  # Check if it's a file (not a directory)
-  if [ -f "$FILE" ]; then
-    # Use extended command for capability extension JSON
-    if [[ "$FILE" == *"example8-capability-extension.json" ]]; then
-      $COMMAND_EXT "$FILE"
-    else
-      $COMMAND "$FILE"
-    fi
-  fi
+  # If no files match, skip cleanly
+  [ -f "$FILE" ] || continue
+
+  $COMMAND "$FILE"
 done
