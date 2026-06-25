@@ -419,7 +419,7 @@ This example answers the fundamental questions:
 ### JSON Example
 
 ~~~
-{::include yang/examples/example1-basic-structure.json}
+{::include yang/examples/valid-example1-basic-structure.json}
 ~~~
 
 ## Expired License Handling
@@ -447,7 +447,7 @@ Implementation considerations should consider:
 ### JSON Example
 
 ~~~
-{::include yang/examples/example2-expired-license.json}
+{::include yang/examples/valid-example2-expired-license.json}
 ~~~
 
 ## Utilization Tracking with Restrictions
@@ -460,7 +460,7 @@ This example shows comprehensive utilization tracking across multiple capabiliti
 ### JSON Example
 
 ~~~
-{::include yang/examples/example3-utilization-tracking.json}
+{::include yang/examples/valid-example3-utilization-tracking.json}
 ~~~
 
 ## Hierarchical Entitlements
@@ -471,7 +471,7 @@ This example demonstrates the parent-entitlement-uid mechanism for modeling enti
 ### JSON Example
 
 ~~~
-{::include yang/examples/example4-hierarchical-entitlements.json}
+{::include yang/examples/valid-example4-hierarchical-entitlements.json}
 ~~~
 
 ## License Pooling
@@ -482,7 +482,7 @@ This example shows how shared entitlements can be installed across multiple netw
 ### JSON Example
 
 ~~~
-{::include yang/examples/example5-license-pooling.json}
+{::include yang/examples/valid-example5-license-pooling.json}
 ~~~
 
 ## Multi-Vendor Environment
@@ -493,7 +493,7 @@ This example illustrates entitlement management in a heterogeneous network with 
 ### JSON Example
 
 ~~~
-{::include yang/examples/example6-multi-vendor.json}
+{::include yang/examples/valid-example6-multi-vendor.json}
 ~~~
 
 ## Component-Level Entitlements
@@ -505,7 +505,7 @@ This example demonstrates entitlement tracking at the component level within a m
 ### JSON Example
 
 ~~~
-{::include yang/examples/example7-modular-components.json}
+{::include yang/examples/valid-example7-modular-components.json}
 ~~~
 
 ## Capability Class Extension
@@ -516,7 +516,7 @@ This example demonstrates extending the capability-class identity to reference e
 ### JSON Example
 
 ~~~
-{::include yang/examples/example8-capability-extension.json}
+{::include yang/examples/valid-example8-capability-extension.json}
 ~~~
 
 # Operational Considerations
