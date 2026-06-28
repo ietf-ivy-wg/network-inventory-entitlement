@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-06-25T03:52:02.473245+00:00",
+  "timestamp": "2026-06-28T04:04:58.643499+00:00",
   "repo": "ietf-ivy-wg/network-inventory-entitlement",
   "labels": [
     {
@@ -76,6 +76,60 @@
       "mergeCommit": {
         "oid": "48a44bd89a510a69da4383d9fa784a03d97c9dc4"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDORlv9Xc7qpqpY",
+      "title": "File structure for yang validation",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-entitlement/pull/2",
+      "state": "MERGED",
+      "author": "jccardonar",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-06-25T16:29:10Z",
+      "updatedAt": "2026-06-25T16:59:38Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-entitlement",
+      "baseRefName": "main",
+      "baseRefOid": "48a44bd89a510a69da4383d9fa784a03d97c9dc4",
+      "headRepository": "ietf-ivy-wg/network-inventory-entitlement",
+      "headRefName": "file_structure_yang",
+      "headRefOid": "1ff06415ad578262dd1e9c9894165092401c7a7d",
+      "closedAt": "2026-06-25T16:59:38Z",
+      "mergedAt": "2026-06-25T16:59:38Z",
+      "mergedBy": "dr2lopez",
+      "mergeCommit": {
+        "oid": "b4fa1bb15d9d9f7f994c0f816a97b93e9c30417a"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDORlv9Xc7q3CuP",
+      "title": "updating the repo to github",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-entitlement/pull/3",
+      "state": "OPEN",
+      "author": "marisolpalmero",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-06-26T06:20:12Z",
+      "updatedAt": "2026-06-26T06:20:12Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-entitlement",
+      "baseRefName": "main",
+      "baseRefOid": "b4fa1bb15d9d9f7f994c0f816a97b93e9c30417a",
+      "headRepository": "marisolpalmero/network-inventory-entitlement",
+      "headRefName": "reference",
+      "headRefOid": "13ee70bbd9c18bd28b0e86f8c7b5757eca1d115d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
