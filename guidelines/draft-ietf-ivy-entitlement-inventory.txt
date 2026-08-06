@@ -5,12 +5,12 @@
 Network Inventory YANG WG                                     M. Palmero
 Internet-Draft                                               Independent
 Intended status: Standards Track                              C. Cardona
-Expires: 6 February 2027                                             NTT
+Expires: 7 February 2027                                             NTT
                                                                 D. Lopez
                                                               Telefonica
                                                                  I. Busi
                                                                   Huawei
-                                                           5 August 2026
+                                                           6 August 2026
 
 
                 A YANG Module for Entitlement Inventory
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 February 2027.
+   This Internet-Draft will expire on 7 February 2027.
 
 Copyright Notice
 
@@ -94,18 +94,17 @@ Table of Contents
        3.1.1.  Progressive Model Complexity
      3.2.  Capabilities
        3.2.1.  Extending Capability Classes
-     3.3.  Entitlements
-       3.3.1.  Reverse Mapping from Entitlements to Capabilities
-     3.4.  Entitlement Attachment
-     3.5.  Installed Entitlements
-     3.6.  Implementation Considerations
-       3.6.1.  Level 1: Centralized Entitlement Inventory
-       3.6.2.  Level 2: Installed Entitlements on Assets
-       3.6.3.  Level 3: Capabilities Reporting
-       3.6.4.  Level 4: Capability-Entitlement Linkage
-       3.6.5.  Level 5: Restrictions Reporting
-     3.7.  Model Definition
-       3.7.1.  Model tree
+       3.2.2.  Reverse Mapping from Entitlements to Capabilities
+     3.3.  Entitlement Attachment
+     3.4.  Installed Entitlements
+     3.5.  Implementation Considerations
+       3.5.1.  Level 1: Centralized Entitlement Inventory
+       3.5.2.  Level 2: Installed Entitlements on Assets
+       3.5.3.  Level 3: Capabilities Reporting
+       3.5.4.  Level 4: Capability-Entitlement Linkage
+       3.5.5.  Level 5: Restrictions Reporting
+     3.6.  Model Definition
+       3.6.1.  Model tree
    4.  Implementation Examples and Validation Scenarios
      4.1.  Overview of Examples
      4.2.  Basic Structure
@@ -466,9 +465,26 @@ Table of Contents
    "ietf-network-inventory" module in [BaseInventory] according to the
    following tree:
 
-   (Artwork only available as YANGTREE: see
-   https://www.ietf.org/archive/id/draft-ietf-ivy-entitlement-inventory-
-   latest.html)
+    +--ro capabilities!
+       +--ro capability-class* [capability-class]
+          +--ro capability-class    identityref
+          +--ro capability* [capability-id]
+             +--ro capability-id                      string
+             +--ro extended-capability-description?   string
+             +--ro entitlement-state!
+             |  +--ro allowed?   boolean
+             |  +--ro in-use?    boolean
+             +--ro supporting-entitlements!
+             |  +--ro supporting-entitlement* [entitlement-id]
+             |     +--ro entitlement-id    leafref
+             +--ro capability-restrictions!
+                +--ro capability-restriction* [restriction-id]
+                   +--ro restriction-id    string
+                   +--ro description?      string
+                   +--ro resource-name?    string
+                   +--ro units?            string
+                   +--ro max-value?        uint32
+                   +--ro current-value?    uint32
 
    For any given network asset, the capabilities list MAY include all
    potential capabilities advertised by the vendor, and MUST include
@@ -647,13 +663,13 @@ Table of Contents
 
    This pattern allows capability definitions to evolve independently
    while maintaining a clean integration with the entitlement inventory
-   through the capability-class identity mechanism.
-
-3.3.  Entitlements
+   through the capability-class identity mechanism. g ## Entitlements
 
    The entitlement modeling augments "network-inventory" in the ietf-
    network-inventory module in [BaseInventory] with a top-level
    entitlements container according to the following tree:
+
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
 
     +--ro entitlements!
        +--ro entitlement* [entitlement-id]
@@ -675,8 +691,8 @@ Table of Contents
           |     +--ro units?            string
           |     +--ro max-value?        uint32
           |     +--ro current-value?    uint32
-          +--ro parent-entitlement-uid?
-          |       -> ../../entitlement/entitlement-id
+          +--ro parent-entitlement-uid?   -> ../../entitlement/\
+                                                          entitlement-id
           +--ro entitlement-attachment
              +--ro universal-access?   boolean
              +--ro holders
@@ -686,11 +702,15 @@ Table of Contents
              |     +--ro users*   string
              +--ro assets
                 +--ro elements
-                |  +--ro network-elements*   leafref
+                |  +--ro network-elements*   -> /inv:network-inventory/\
+                                  network-elements/network-element/ne-id
                 +--ro components
                    +--ro component* [network-element component-id]
-                      +--ro network-element    leafref
-                      +--ro component-id       leafref
+                      +--ro network-element    -> /inv:network-\
+                        inventory/network-elements/network-element/ne-id
+                      +--ro component-id       -> /inv:network-\
+   inventory/network-elements/network-element[inv:ne-id=current()/../\
+                      network-element]/components/component/component-id
 
    Figure 6 depicts the relationship between the Entitlement Inventory
    model and other models.  The Entitlement Inventory model enhances the
@@ -796,7 +816,7 @@ Table of Contents
    monitoring systems to recognize when multiple locations reference
    related entitlements.
 
-3.3.1.  Reverse Mapping from Entitlements to Capabilities
+3.2.2.  Reverse Mapping from Entitlements to Capabilities
 
    While the model includes links from capabilities to supporting
    entitlements, some inventory operators may need to evaluate
@@ -810,7 +830,7 @@ Table of Contents
    Standardization of such reverse mappings is outside the scope of this
    document.
 
-3.4.  Entitlement Attachment
+3.3.  Entitlement Attachment
 
    The "entitlement" container holds a container called "entitlement-
    attachment" which relates how the entitlement is operationally linked
@@ -850,7 +870,7 @@ Table of Contents
    scenarios fall under the "what if" category, which is not covered by
    this model.
 
-3.5.  Installed Entitlements
+3.4.  Installed Entitlements
 
    Since capabilities are optional in network assets, the model also
    provides an augmentation to track entitlements that are installed
@@ -858,9 +878,10 @@ Table of Contents
    and "component" in the "ietf-network-inventory" module provides local
    entitlement storage according to the following tree:
 
-   (Artwork only available as YANGTREE: see
-   https://www.ietf.org/archive/id/draft-ietf-ivy-entitlement-inventory-
-   latest.html)
+    +--ro installed-entitlements!
+       +--ro entitlement* [entitlement-id]
+          +--ro entitlement-id    leafref
+          +--ro in-use?           boolean
 
    The installed entitlements represent references to entitlements that
    are currently active and entitling the network asset.  The
@@ -879,7 +900,7 @@ Table of Contents
    license instance to avoid double-counting.  This point requires
    further exploration in future instances of this document.
 
-3.6.  Implementation Considerations
+3.5.  Implementation Considerations
 
    The model is designed to support partial implementations.  Not all
    systems need to implement every container or feature.  The use of
@@ -892,7 +913,7 @@ Table of Contents
    model incrementally, from basic entitlement tracking to full
    capability and restriction reporting:
 
-3.6.1.  Level 1: Centralized Entitlement Inventory
+3.5.1.  Level 1: Centralized Entitlement Inventory
 
    The minimal implementation populates the top-level entitlements
    container under network-inventory.  This provides a centralized
@@ -902,7 +923,7 @@ Table of Contents
    At this level, the system answers: What entitlements does the
    organization have?
 
-3.6.2.  Level 2: Installed Entitlements on Assets
+3.5.2.  Level 2: Installed Entitlements on Assets
 
    Building on Level 1, implementations can populate the installed-
    entitlements container on network elements and/or components.  This
@@ -912,7 +933,7 @@ Table of Contents
    At this level, the system additionally answers: Which entitlements
    are actively entitling which assets?
 
-3.6.3.  Level 3: Capabilities Reporting
+3.5.3.  Level 3: Capabilities Reporting
 
    Implementations that can report device capabilities populate the
    capabilities container on network elements and/or components.  This
@@ -922,7 +943,7 @@ Table of Contents
    At this level, the system additionally answers: What can each asset
    do?
 
-3.6.4.  Level 4: Capability-Entitlement Linkage
+3.5.4.  Level 4: Capability-Entitlement Linkage
 
    Advanced implementations populate the supporting-entitlements
    container within each capability.  This links capabilities to the
@@ -939,7 +960,7 @@ Table of Contents
    At this level, the system additionally answers: Which entitlements
    enable which capabilities?  What is allowed and what is in use?
 
-3.6.5.  Level 5: Restrictions Reporting
+3.5.5.  Level 5: Restrictions Reporting
 
    Full implementations populate restriction information at two levels:
 
@@ -958,7 +979,7 @@ Table of Contents
    Implementations SHOULD document which levels they support and any
    deviations from this progression.
 
-3.7.  Model Definition
+3.6.  Model Definition
 
    module ietf-entitlement-inventory {
      yang-version 1.1;
@@ -1515,7 +1536,7 @@ Table of Contents
    {sourcecode-markers="true" sourcecode-name="ietf-entitlement-
    inventory@2026-05-25.yang"}
 
-3.7.1.  Model tree
+3.6.1.  Model tree
 
    module: ietf-entitlement-inventory
 
