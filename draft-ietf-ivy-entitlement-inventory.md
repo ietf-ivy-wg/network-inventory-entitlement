@@ -227,7 +227,7 @@ The following extension module extends the `capability-class` identity and augme
 ~~~~
 
 This pattern allows capability definitions to evolve independently while maintaining a clean integration with the entitlement inventory through the capability-class identity mechanism.
-g
+
 ## Entitlements
 
 The entitlement modeling augments "network-inventory" in the ietf-network-inventory module in {{BaseInventory}} with a top-level entitlements container according to the following tree:
