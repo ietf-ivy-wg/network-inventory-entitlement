@@ -47,7 +47,9 @@ pyang -f tree --tree-line-length=69 $PYANG_PATHS $YANG_DIR/ietf-entitlement-inve
 
 # Generate capability subtree (extract from first network-element augment only)
 echo "Generating capability subtree..."
+# ... Previous script
 pyang -f tree --tree-line-length=69 $PYANG_PATHS $YANG_DIR/ietf-entitlement-inventory.yang 2>/dev/null | \
+sed -e ':a' -e 'N' -e '$!ba' -e 's/  augment \/inv:network-inventory\/inv:network-elements\n[ \t]*\/inv:network-element:/  augment \/inv:network-inventory\/inv:network-elements\/inv:network-element:/g' | \
 awk '
   # Enter the network-element augment
   /^  augment \/inv:network-inventory\/inv:network-elements\/inv:network-element:$/ {in_ne=1; next}
@@ -66,7 +68,7 @@ awk '
 
 # Generate entitlements subtree
 echo "Generating entitlements subtree..."
-pyang -f tree --tree-line-length=69 $PYANG_PATHS $YANG_DIR/ietf-entitlement-inventory.yang 2>/dev/null | \
+pyang -f tree $PYANG_PATHS $YANG_DIR/ietf-entitlement-inventory.yang 2>/dev/null | \
 awk '
   # Enter the inventory-root augment
   /^  augment \/inv:network-inventory:$/ {in_inv=1; next}
@@ -85,6 +87,7 @@ awk '
 # Generate installed-entitlements subtree (from network-element augment)
 echo "Generating installed-entitlements subtree..."
 pyang -f tree --tree-line-length=69 $PYANG_PATHS $YANG_DIR/ietf-entitlement-inventory.yang 2>/dev/null | \
+sed -e ':a' -e 'N' -e '$!ba' -e 's/  augment \/inv:network-inventory\/inv:network-elements\n[ \t]*\/inv:network-element:/  augment \/inv:network-inventory\/inv:network-elements\/inv:network-element:/g' | \
 awk '
   /^  augment \/inv:network-inventory\/inv:network-elements\/inv:network-element:$/ {in_ne=1; next}
   /^  augment / {in_ne=0}

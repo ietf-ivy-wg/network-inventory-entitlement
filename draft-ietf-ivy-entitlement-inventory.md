@@ -38,7 +38,6 @@ author:
     email: "italo.busi@huawei.com"
 
 normative:
- RFC8341:
 
 informative:
  BaseInventory: I-D.ietf-ivy-network-inventory-yang
@@ -148,33 +147,33 @@ To represent the complex relationships between network elements, capabilities, a
 
 {{fig-extBaseNetworkInventory}} depicts the initial step, highlighting the base network inventory and the areas to be extended: hardware, software, and entitlements. These extensions are necessary to properly model the relationships.
 
-~~~{::nomarkdown}aasvg{:/}
+~~~~ aasvg
 {::include art/extensionBaseNetworkInventory.txt}
-~~~
+~~~~
 {: #fig-extBaseNetworkInventory title="Base Network Inventory Entitlement extension" }
 
 
 {{fig-ascii-art_baseInventory}} illustrates the initial relationship between network elements and entitlements, which is two-way: entitlements SHOULD be attached to NEs, and NEs SHOULD have entitlements installed.
 
-~~~{::nomarkdown}aasvg{:/}
+~~~~ aasvg
 {::include art/ascii-art_baseInventory.txt}
-~~~
+~~~~
 {: #fig-ascii-art_baseInventory title="Relationship between entitlements and Base Inventory" }
 
 
 {{fig-capabilities_baseinventory}} depicts NE support capabilities by means of entitlements that authorize their use.
 
-~~~{::nomarkdown}aasvg{:/}
+~~~~ aasvg
 {::include art/capabilities_baseinventory.txt}
-~~~
+~~~~
 {: #fig-capabilities_baseinventory title="Capabilities integration with the Base Inventory" }
 
 
 Finally, NE support capabilities thanks to entitlements that entitle them of their use under certain constraints as shown in {{fig-capabilities_restrictions}}.
 
-~~~{::nomarkdown}aasvg{:/}
+~~~~ aasvg
 {::include art/capabilities_restrictions.txt}
-~~~
+~~~~
 {: #fig-capabilities_restrictions title="Complete model with restrictions" }
 
 
@@ -228,7 +227,7 @@ The following extension module extends the `capability-class` identity and augme
 ~~~~
 
 This pattern allows capability definitions to evolve independently while maintaining a clean integration with the entitlement inventory through the capability-class identity mechanism.
-
+g
 ## Entitlements
 
 The entitlement modeling augments "network-inventory" in the ietf-network-inventory module in {{BaseInventory}} with a top-level entitlements container according to the following tree:

@@ -1,0 +1,4 @@
+ +--ro installed-entitlements!
+    +--ro entitlement* [entitlement-id]
+       +--ro entitlement-id    leafref
+       +--ro in-use?           boolean

@@ -18,8 +18,7 @@
        |     +--ro units?            string
        |     +--ro max-value?        uint32
        |     +--ro current-value?    uint32
-       +--ro parent-entitlement-uid?
-       |       -> ../../entitlement/entitlement-id
+       +--ro parent-entitlement-uid?   -> ../../entitlement/entitlement-id
        +--ro entitlement-attachment
           +--ro universal-access?   boolean
           +--ro holders
@@ -29,8 +28,8 @@
           |     +--ro users*   string
           +--ro assets
              +--ro elements
-             |  +--ro network-elements*   leafref
+             |  +--ro network-elements*   -> /inv:network-inventory/network-elements/network-element/ne-id
              +--ro components
                 +--ro component* [network-element component-id]
-                   +--ro network-element    leafref
-                   +--ro component-id       leafref
+                   +--ro network-element    -> /inv:network-inventory/network-elements/network-element/ne-id
+                   +--ro component-id       -> /inv:network-inventory/network-elements/network-element[inv:ne-id=current()/../network-element]/components/component/component-id

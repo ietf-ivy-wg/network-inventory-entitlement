@@ -1,0 +1,20 @@
+ +--ro capabilities!
+    +--ro capability-class* [capability-class]
+       +--ro capability-class    identityref
+       +--ro capability* [capability-id]
+          +--ro capability-id                      string
+          +--ro extended-capability-description?   string
+          +--ro entitlement-state!
+          |  +--ro allowed?   boolean
+          |  +--ro in-use?    boolean
+          +--ro supporting-entitlements!
+          |  +--ro supporting-entitlement* [entitlement-id]
+          |     +--ro entitlement-id    leafref
+          +--ro capability-restrictions!
+             +--ro capability-restriction* [restriction-id]
+                +--ro restriction-id    string
+                +--ro description?      string
+                +--ro resource-name?    string
+                +--ro units?            string
+                +--ro max-value?        uint32
+                +--ro current-value?    uint32
