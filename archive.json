@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-08-06T02:44:41.509547+00:00",
+  "timestamp": "2026-08-09T01:54:01.604094+00:00",
   "repo": "ietf-ivy-wg/network-inventory-entitlement",
   "labels": [
     {
@@ -143,21 +143,56 @@
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
-      "body": "Aligned IANA and Security considerations with RFC9907 guidelines Resolved folding issues with YANG trees and JSON examples Added code markers for YANG model",
+      "body": "Aligned IANA and Security considerations with RFC9907 guidelines\r\nResolved folding issues with YANG trees and JSON examples Added code markers for YANG model",
       "createdAt": "2026-08-05T13:24:16Z",
-      "updatedAt": "2026-08-05T13:24:26Z",
+      "updatedAt": "2026-08-07T12:59:00Z",
       "baseRepository": "ietf-ivy-wg/network-inventory-entitlement",
       "baseRefName": "main",
       "baseRefOid": "b4fa1bb15d9d9f7f994c0f816a97b93e9c30417a",
       "headRepository": "ietf-ivy-wg/network-inventory-entitlement",
       "headRefName": "guidelines",
-      "headRefOid": "843647075c3cf9eb04e1961590857f19fbd07c11",
+      "headRefOid": "18e763478c7dd2e86029370522ab1070679a7f40",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "marisolpalmero",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Many thanks, Im good with the changes as well",
+          "createdAt": "2026-08-07T09:16:47Z",
+          "updatedAt": "2026-08-07T09:16:47Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDORlv9Xc8AAAABIr4HbA",
+          "commit": {
+            "abbreviatedOid": "047158d"
+          },
+          "author": "jccardonar",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "All good!",
+          "createdAt": "2026-08-06T19:55:02Z",
+          "updatedAt": "2026-08-06T22:12:55Z",
+          "comments": [
+            {
+              "originalPosition": 83,
+              "body": "I guess this g is an error?",
+              "createdAt": "2026-08-06T19:55:02Z",
+              "updatedAt": "2026-08-06T22:12:55Z"
+            },
+            {
+              "originalPosition": 83,
+              "body": "(I fixed it)",
+              "createdAt": "2026-08-06T22:11:56Z",
+              "updatedAt": "2026-08-06T22:12:55Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
