@@ -142,12 +142,7 @@ Table of Contents
      5.3.  Performance Considerations
      5.4.  Migration and Version Compatibility
    6.  IANA Considerations
-     6.1.  URI Registration
-     6.2.  YANG Module Name Registration
    7.  Security Considerations
-     7.1.  Entitlement Data Sensitivity
-     7.2.  Entitlement Tampering
-     7.3.  Information Disclosure
    8.  References
      8.1.  Normative References
      8.2.  Informative References
@@ -472,26 +467,26 @@ Table of Contents
    "ietf-network-inventory" module in [BaseInventory] according to the
    following tree:
 
- +--ro capabilities!
-    +--ro capability-class* [capability-class]
-       +--ro capability-class    identityref
-       +--ro capability* [capability-id]
-          +--ro capability-id                      string
-          +--ro extended-capability-description?   string
-          +--ro entitlement-state!
-          |  +--ro allowed?   boolean
-          |  +--ro in-use?    boolean
-          +--ro supporting-entitlements!
-          |  +--ro supporting-entitlement* [entitlement-id]
-          |     +--ro entitlement-id    -> ../../../../../../installed-entitlements/entitlement/entitlement-id
-          +--ro capability-restrictions!
-             +--ro capability-restriction* [restriction-id]
-                +--ro restriction-id    string
-                +--ro description?      string
-                +--ro resource-name?    string
-                +--ro units?            string
-                +--ro max-value?        uint32
-                +--ro current-value?    uint32
+    +--ro capabilities!
+       +--ro capability-class* [capability-class]
+          +--ro capability-class    identityref
+          +--ro capability* [capability-id]
+             +--ro capability-id                      string
+             +--ro extended-capability-description?   string
+             +--ro entitlement-state!
+             |  +--ro allowed?   boolean
+             |  +--ro in-use?    boolean
+             +--ro supporting-entitlements!
+             |  +--ro supporting-entitlement* [entitlement-id]
+             |     +--ro entitlement-id    leafref
+             +--ro capability-restrictions!
+                +--ro capability-restriction* [restriction-id]
+                   +--ro restriction-id    string
+                   +--ro description?      string
+                   +--ro resource-name?    string
+                   +--ro units?            string
+                   +--ro max-value?        uint32
+                   +--ro current-value?    uint32
 
    For any given network asset, the capabilities list MAY include all
    potential capabilities advertised by the vendor, and MUST include
@@ -678,41 +673,42 @@ Table of Contents
    network-inventory module in [BaseInventory] with a top-level
    entitlements container according to the following tree:
 
- +--ro entitlements!
-    +--ro entitlement* [entitlement-id]
-       +--ro entitlement-id            string
-       +--ro product-id?               string
-       +--ro sku?                      string
-       +--ro vendor?                   string
-       +--ro part-number?              string
-       +--ro state?                    entitlement-state-t
-       +--ro renewal-profile
-       |  +--ro activation-date?   yang:date-and-time
-       |  +--ro start-date?        yang:date-and-time
-       |  +--ro expiration-date?   yang:date-and-time
-       +--ro restrictions!
-       |  +--ro restriction* [restriction-id]
-       |     +--ro restriction-id    string
-       |     +--ro description?      string
-       |     +--ro resource-name?    string
-       |     +--ro units?            string
-       |     +--ro max-value?        uint32
-       |     +--ro current-value?    uint32
-       +--ro parent-entitlement-uid?   -> ../../entitlement/entitlement-id
-       +--ro entitlement-attachment
-          +--ro universal-access?   boolean
-          +--ro holders
-          |  +--ro organizations-names
-          |  |  +--ro organizations*   string
-          |  +--ro users-names
-          |     +--ro users*   string
-          +--ro assets
-             +--ro elements
-             |  +--ro network-elements*   -> /inv:network-inventory/network-elements/network-element/ne-id
-             +--ro components
-                +--ro component* [network-element component-id]
-                   +--ro network-element    -> /inv:network-inventory/network-elements/network-element/ne-id
-                   +--ro component-id       -> /inv:network-inventory/network-elements/network-element[inv:ne-id=current()/../network-element]/components/component/component-id
+    +--ro entitlements!
+       +--ro entitlement* [entitlement-id]
+          +--ro entitlement-id            string
+          +--ro product-id?               string
+          +--ro sku?                      string
+          +--ro vendor?                   string
+          +--ro part-number?              string
+          +--ro state?                    entitlement-state-t
+          +--ro renewal-profile
+          |  +--ro activation-date?   yang:date-and-time
+          |  +--ro start-date?        yang:date-and-time
+          |  +--ro expiration-date?   yang:date-and-time
+          +--ro restrictions!
+          |  +--ro restriction* [restriction-id]
+          |     +--ro restriction-id    string
+          |     +--ro description?      string
+          |     +--ro resource-name?    string
+          |     +--ro units?            string
+          |     +--ro max-value?        uint32
+          |     +--ro current-value?    uint32
+          +--ro parent-entitlement-uid?
+          |       -> ../../entitlement/entitlement-id
+          +--ro entitlement-attachment
+             +--ro universal-access?   boolean
+             +--ro holders
+             |  +--ro organizations-names
+             |  |  +--ro organizations*   string
+             |  +--ro users-names
+             |     +--ro users*   string
+             +--ro assets
+                +--ro elements
+                |  +--ro network-elements*   leafref
+                +--ro components
+                   +--ro component* [network-element component-id]
+                      +--ro network-element    leafref
+                      +--ro component-id       leafref
 
    Figure 6 depicts the relationship between the Entitlement Inventory
    model and other models.  The Entitlement Inventory model enhances the
@@ -880,10 +876,10 @@ Table of Contents
    and "component" in the "ietf-network-inventory" module provides local
    entitlement storage according to the following tree:
 
- +--ro installed-entitlements!
-    +--ro entitlement* [entitlement-id]
-       +--ro entitlement-id    -> /inv:network-inventory/ei:entitlements/entitlement/entitlement-id
-       +--ro in-use?           boolean
+    +--ro installed-entitlements!
+       +--ro entitlement* [entitlement-id]
+          +--ro entitlement-id    leafref
+          +--ro in-use?           boolean
 
    The installed entitlements represent references to entitlements that
    are currently active and entitling the network asset.  The
@@ -1535,98 +1531,106 @@ Table of Contents
      }
    }
 
+   {sourcecode-markers="true" sourcecode-name="ietf-entitlement-
+   inventory@2026-05-25.yang"}
+
 3.7.1.  Model tree
 
-module: ietf-entitlement-inventory
+   module: ietf-entitlement-inventory
 
-  augment /inv:network-inventory/inv:network-elements/inv:network-element:
-    +--ro installed-entitlements!
-       +--ro entitlement* [entitlement-id]
-          +--ro entitlement-id    -> /inv:network-inventory/ei:entitlements/entitlement/entitlement-id
-          +--ro in-use?           boolean
-  augment /inv:network-inventory/inv:network-elements/inv:network-element/inv:components/inv:component:
-    +--ro installed-entitlements!
-       +--ro entitlement* [entitlement-id]
-          +--ro entitlement-id    -> /inv:network-inventory/ei:entitlements/entitlement/entitlement-id
-          +--ro in-use?           boolean
-  augment /inv:network-inventory/inv:network-elements/inv:network-element:
-    +--ro capabilities!
-       +--ro capability-class* [capability-class]
-          +--ro capability-class    identityref
-          +--ro capability* [capability-id]
-             +--ro capability-id                      string
-             +--ro extended-capability-description?   string
-             +--ro entitlement-state!
-             |  +--ro allowed?   boolean
-             |  +--ro in-use?    boolean
-             +--ro supporting-entitlements!
-             |  +--ro supporting-entitlement* [entitlement-id]
-             |     +--ro entitlement-id    -> ../../../../../../installed-entitlements/entitlement/entitlement-id
-             +--ro capability-restrictions!
-                +--ro capability-restriction* [restriction-id]
-                   +--ro restriction-id    string
-                   +--ro description?      string
-                   +--ro resource-name?    string
-                   +--ro units?            string
-                   +--ro max-value?        uint32
-                   +--ro current-value?    uint32
-  augment /inv:network-inventory/inv:network-elements/inv:network-element/inv:components/inv:component:
-    +--ro capabilities!
-       +--ro capability-class* [capability-class]
-          +--ro capability-class    identityref
-          +--ro capability* [capability-id]
-             +--ro capability-id                      string
-             +--ro extended-capability-description?   string
-             +--ro entitlement-state!
-             |  +--ro allowed?   boolean
-             |  +--ro in-use?    boolean
-             +--ro supporting-entitlements!
-             |  +--ro supporting-entitlement* [entitlement-id]
-             |     +--ro entitlement-id    -> ../../../../../../installed-entitlements/entitlement/entitlement-id
-             +--ro capability-restrictions!
-                +--ro capability-restriction* [restriction-id]
-                   +--ro restriction-id    string
-                   +--ro description?      string
-                   +--ro resource-name?    string
-                   +--ro units?            string
-                   +--ro max-value?        uint32
-                   +--ro current-value?    uint32
-  augment /inv:network-inventory:
-    +--ro entitlements!
-       +--ro entitlement* [entitlement-id]
-          +--ro entitlement-id            string
-          +--ro product-id?               string
-          +--ro sku?                      string
-          +--ro vendor?                   string
-          +--ro part-number?              string
-          +--ro state?                    entitlement-state-t
-          +--ro renewal-profile
-          |  +--ro activation-date?   yang:date-and-time
-          |  +--ro start-date?        yang:date-and-time
-          |  +--ro expiration-date?   yang:date-and-time
-          +--ro restrictions!
-          |  +--ro restriction* [restriction-id]
-          |     +--ro restriction-id    string
-          |     +--ro description?      string
-          |     +--ro resource-name?    string
-          |     +--ro units?            string
-          |     +--ro max-value?        uint32
-          |     +--ro current-value?    uint32
-          +--ro parent-entitlement-uid?   -> ../../entitlement/entitlement-id
-          +--ro entitlement-attachment
-             +--ro universal-access?   boolean
-             +--ro holders
-             |  +--ro organizations-names
-             |  |  +--ro organizations*   string
-             |  +--ro users-names
-             |     +--ro users*   string
-             +--ro assets
-                +--ro elements
-                |  +--ro network-elements*   -> /inv:network-inventory/network-elements/network-element/ne-id
-                +--ro components
-                   +--ro component* [network-element component-id]
-                      +--ro network-element    -> /inv:network-inventory/network-elements/network-element/ne-id
-                      +--ro component-id       -> /inv:network-inventory/network-elements/network-element[inv:ne-id=current()/../network-element]/components/component/component-id
+     augment /inv:network-inventory/inv:network-elements
+               /inv:network-element:
+       +--ro installed-entitlements!
+          +--ro entitlement* [entitlement-id]
+             +--ro entitlement-id    leafref
+             +--ro in-use?           boolean
+     augment /inv:network-inventory/inv:network-elements
+               /inv:network-element/inv:components/inv:component:
+       +--ro installed-entitlements!
+          +--ro entitlement* [entitlement-id]
+             +--ro entitlement-id    leafref
+             +--ro in-use?           boolean
+     augment /inv:network-inventory/inv:network-elements
+               /inv:network-element:
+       +--ro capabilities!
+          +--ro capability-class* [capability-class]
+             +--ro capability-class    identityref
+             +--ro capability* [capability-id]
+                +--ro capability-id                      string
+                +--ro extended-capability-description?   string
+                +--ro entitlement-state!
+                |  +--ro allowed?   boolean
+                |  +--ro in-use?    boolean
+                +--ro supporting-entitlements!
+                |  +--ro supporting-entitlement* [entitlement-id]
+                |     +--ro entitlement-id    leafref
+                +--ro capability-restrictions!
+                   +--ro capability-restriction* [restriction-id]
+                      +--ro restriction-id    string
+                      +--ro description?      string
+                      +--ro resource-name?    string
+                      +--ro units?            string
+                      +--ro max-value?        uint32
+                      +--ro current-value?    uint32
+     augment /inv:network-inventory/inv:network-elements
+               /inv:network-element/inv:components/inv:component:
+       +--ro capabilities!
+          +--ro capability-class* [capability-class]
+             +--ro capability-class    identityref
+             +--ro capability* [capability-id]
+                +--ro capability-id                      string
+                +--ro extended-capability-description?   string
+                +--ro entitlement-state!
+                |  +--ro allowed?   boolean
+                |  +--ro in-use?    boolean
+                +--ro supporting-entitlements!
+                |  +--ro supporting-entitlement* [entitlement-id]
+                |     +--ro entitlement-id    leafref
+                +--ro capability-restrictions!
+                   +--ro capability-restriction* [restriction-id]
+                      +--ro restriction-id    string
+                      +--ro description?      string
+                      +--ro resource-name?    string
+                      +--ro units?            string
+                      +--ro max-value?        uint32
+                      +--ro current-value?    uint32
+     augment /inv:network-inventory:
+       +--ro entitlements!
+          +--ro entitlement* [entitlement-id]
+             +--ro entitlement-id            string
+             +--ro product-id?               string
+             +--ro sku?                      string
+             +--ro vendor?                   string
+             +--ro part-number?              string
+             +--ro state?                    entitlement-state-t
+             +--ro renewal-profile
+             |  +--ro activation-date?   yang:date-and-time
+             |  +--ro start-date?        yang:date-and-time
+             |  +--ro expiration-date?   yang:date-and-time
+             +--ro restrictions!
+             |  +--ro restriction* [restriction-id]
+             |     +--ro restriction-id    string
+             |     +--ro description?      string
+             |     +--ro resource-name?    string
+             |     +--ro units?            string
+             |     +--ro max-value?        uint32
+             |     +--ro current-value?    uint32
+             +--ro parent-entitlement-uid?
+             |       -> ../../entitlement/entitlement-id
+             +--ro entitlement-attachment
+                +--ro universal-access?   boolean
+                +--ro holders
+                |  +--ro organizations-names
+                |  |  +--ro organizations*   string
+                |  +--ro users-names
+                |     +--ro users*   string
+                +--ro assets
+                   +--ro elements
+                   |  +--ro network-elements*   leafref
+                   +--ro components
+                      +--ro component* [network-element component-id]
+                         +--ro network-element    leafref
+                         +--ro component-id       leafref
 
 4.  Implementation Examples and Validation Scenarios
 
@@ -1733,82 +1737,85 @@ module: ietf-entitlement-inventory
 
 4.2.3.  JSON Example
 
-{
-  "ietf-network-inventory:network-inventory": {
-    "network-elements": {
-      "network-element": [
-        {
-          "ne-id": "router-1",
-          "components": {
-            "component": [
-              {
-                "component-id": "chassis-router-1",
-                "class": "iana-hardware:chassis"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:installed-entitlements": {
-            "entitlement": [
-              {
-                "entitlement-id": "ent-1"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:capabilities": {
-            "capability-class": [
-              {
-                "capability-class": "basic-capability-description",
-                "capability": [
-                  {
-                    "capability-id": "generic-routing-functions",
-                    "extended-capability-description": "Basic routing capabilities",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": true
-                    },
-                "supporting-entitlements": {
-                    "supporting-entitlement": [
-                      {
-                        "entitlement-id": "ent-1"
-                      }
-                    ]
-            }
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "ietf-entitlement-inventory:entitlements": {
-          "entitlement": [
-            {
-              "entitlement-id": "ent-1",
-              "product-id": "prod-1",
-              "state": "active",
-              "renewal-profile": {
-                "activation-date": "2025-01-01T00:00:00Z",
-                "expiration-date": "2026-01-01T00:00:00Z"
-              },
-              "entitlement-attachment": {
-                "universal-access": false,
-                "holders": {
-                  "organizations-names": {
-                    "organizations": ["org-1"]
-                  }
-                },
-                "assets": {
-                "elements": {
-                  "network-elements": ["router-1"]
-                }
-              }
-              }
-            }
-          ]
-        }
-  }
-}
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
+   {
+     "ietf-network-inventory:network-inventory": {
+       "network-elements": {
+         "network-element": [
+           {
+             "ne-id": "router-1",
+             "components": {
+               "component": [
+                 {
+                   "component-id": "chassis-router-1",
+                   "class": "iana-hardware:chassis"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:installed-entitlements": {
+               "entitlement": [
+                 {
+                   "entitlement-id": "ent-1"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:capabilities": {
+               "capability-class": [
+                 {
+                   "capability-class": "basic-capability-description",
+                   "capability": [
+                     {
+                       "capability-id": "generic-routing-functions",
+                       "extended-capability-description": "Basic \
+                                                  routing capabilities",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": true
+                       },
+                   "supporting-entitlements": {
+                       "supporting-entitlement": [
+                         {
+                           "entitlement-id": "ent-1"
+                         }
+                       ]
+               }
+                     }
+                   ]
+                 }
+               ]
+             }
+           }
+         ]
+       },
+       "ietf-entitlement-inventory:entitlements": {
+             "entitlement": [
+               {
+                 "entitlement-id": "ent-1",
+                 "product-id": "prod-1",
+                 "state": "active",
+                 "renewal-profile": {
+                   "activation-date": "2025-01-01T00:00:00Z",
+                   "expiration-date": "2026-01-01T00:00:00Z"
+                 },
+                 "entitlement-attachment": {
+                   "universal-access": false,
+                   "holders": {
+                     "organizations-names": {
+                       "organizations": ["org-1"]
+                     }
+                   },
+                   "assets": {
+                   "elements": {
+                     "network-elements": ["router-1"]
+                   }
+                 }
+                 }
+               }
+             ]
+           }
+     }
+   }
 
 4.3.  Expired License Handling
 
@@ -1857,177 +1864,183 @@ module: ietf-entitlement-inventory
 
 4.3.3.  JSON Example
 
-{
-  "ietf-network-inventory:network-inventory": {
-    "ietf-entitlement-inventory:entitlements": {
-      "entitlement": [
-        {
-          "entitlement-id": "security-features",
-          "product-id": "SEC-ADVANCED-1Y",
-          "state": "expired",
-          "renewal-profile": {
-            "start-date": "2023-10-01T00:00:00Z",
-            "activation-date": "2023-10-01T00:00:00Z",
-            "expiration-date": "2024-10-01T00:00:00Z"
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": ["org-1"]
-              }
-            },
-            "assets": {
-              "elements": {
-                "network-elements": ["edge-router-12"]
-              }
-            }
-          }
-        },
-        {
-          "entitlement-id": "basic-routing-active",
-          "product-id": "ROUTING-BASE-3Y",
-          "state": "active",
-          "renewal-profile": {
-            "start-date": "2024-01-01T00:00:00Z",
-            "activation-date": "2024-01-01T00:00:00Z",
-            "expiration-date": "2027-01-01T00:00:00Z"
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": ["org-1"]
-              }
-            },
-            "assets": {
-              "elements": {
-                "network-elements": ["edge-router-12"]
-              }
-            }
-          }
-        }
-      ]
-    },
-    "network-elements": {
-      "network-element": [
-        {
-        "ne-id": "edge-router-12",
-        "components": {
-          "component": [
-            {
-              "component-id": "main-chassis",
-              "class": "iana-hardware:chassis"
-            }
-          ]
-        },
-        "ietf-entitlement-inventory:installed-entitlements": {
-          "entitlement": [
-            {
-              "entitlement-id": "security-features",
-              "in-use": false
-            },
-            {
-              "entitlement-id": "basic-routing-active",
-              "in-use": true
-            }
-          ]
-        },
-        "ietf-entitlement-inventory:capabilities": {
-          "capability-class": [
-            {
-              "capability-class": "basic-capability-description",
-              "capability": [
-                {
-                  "capability-id": "stateful-firewall",
-                  "extended-capability-description": "Stateful firewall",
-                  "entitlement-state": {
-                    "allowed": false,
-                    "in-use": false
-                  },
-                  "supporting-entitlements": {
-                  "supporting-entitlement": [
-                    {
-                      "entitlement-id": "security-features"
-                    }
-                  ]
-                  },
-                  "capability-restrictions": {
-                  "capability-restriction": [
-                    {
-                      "restriction-id": "firewall-sessions",
-                      "description": "Maximum concurrent firewall sessions",
-                      "resource-name": "sessions",
-                      "units": "connections",
-                      "max-value": 50000,
-                      "current-value": 0
-                    }
-                  ]
-                }
-                },
-                {
-                  "capability-id": "ipsec-vpn",
-                  "extended-capability-description": "IPSec VPN tunnels",
-                  "entitlement-state": {
-                    "allowed": false,
-                    "in-use": false
-                  },
-                  "supporting-entitlements": {
-                  "supporting-entitlement": [
-                    {
-                      "entitlement-id": "security-features"
-                    }
-                  ]
-                  },
-                  "capability-restrictions": {
-                  "capability-restriction": [
-                    {
-                      "restriction-id": "vpn-tunnels",
-                      "description": "Maximum VPN tunnels",
-                      "resource-name": "tunnels",
-                      "units": "tunnels",
-                      "max-value": 100,
-                      "current-value": 0
-                    }
-                  ]
-                  }
-                },
-                {
-                  "capability-id": "ospf-routing",
-                  "extended-capability-description": "OSPF",
-                  "entitlement-state": {
-                    "allowed": true,
-                    "in-use": true
-                  },
-                  "supporting-entitlements": {
-                  "supporting-entitlement": [
-                    {
-                      "entitlement-id": "basic-routing-active"
-                    }
-                  ]
-                  },
-                  "capability-restrictions": {
-                  "capability-restriction": [
-                    {
-                      "restriction-id": "ospf-neighbors",
-                      "description": "Maximum OSPF neighbor adjacencies, just to give an example :)",
-                      "resource-name": "neighbors",
-                      "units": "adjacencies",
-                      "max-value": 50,
-                      "current-value": 8
-                    }
-                  ]
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      }
-      ]
-    }
-  }
-}
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
+   {
+     "ietf-network-inventory:network-inventory": {
+       "ietf-entitlement-inventory:entitlements": {
+         "entitlement": [
+           {
+             "entitlement-id": "security-features",
+             "product-id": "SEC-ADVANCED-1Y",
+             "state": "expired",
+             "renewal-profile": {
+               "start-date": "2023-10-01T00:00:00Z",
+               "activation-date": "2023-10-01T00:00:00Z",
+               "expiration-date": "2024-10-01T00:00:00Z"
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": ["org-1"]
+                 }
+               },
+               "assets": {
+                 "elements": {
+                   "network-elements": ["edge-router-12"]
+                 }
+               }
+             }
+           },
+           {
+             "entitlement-id": "basic-routing-active",
+             "product-id": "ROUTING-BASE-3Y",
+             "state": "active",
+             "renewal-profile": {
+               "start-date": "2024-01-01T00:00:00Z",
+               "activation-date": "2024-01-01T00:00:00Z",
+               "expiration-date": "2027-01-01T00:00:00Z"
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": ["org-1"]
+                 }
+               },
+               "assets": {
+                 "elements": {
+                   "network-elements": ["edge-router-12"]
+                 }
+               }
+             }
+           }
+         ]
+       },
+       "network-elements": {
+         "network-element": [
+           {
+           "ne-id": "edge-router-12",
+           "components": {
+             "component": [
+               {
+                 "component-id": "main-chassis",
+                 "class": "iana-hardware:chassis"
+               }
+             ]
+           },
+           "ietf-entitlement-inventory:installed-entitlements": {
+             "entitlement": [
+               {
+                 "entitlement-id": "security-features",
+                 "in-use": false
+               },
+               {
+                 "entitlement-id": "basic-routing-active",
+                 "in-use": true
+               }
+             ]
+           },
+           "ietf-entitlement-inventory:capabilities": {
+             "capability-class": [
+               {
+                 "capability-class": "basic-capability-description",
+                 "capability": [
+                   {
+                     "capability-id": "stateful-firewall",
+                     "extended-capability-description": "Stateful \
+                                                              firewall",
+                     "entitlement-state": {
+                       "allowed": false,
+                       "in-use": false
+                     },
+                     "supporting-entitlements": {
+                     "supporting-entitlement": [
+                       {
+                         "entitlement-id": "security-features"
+                       }
+                     ]
+                     },
+                     "capability-restrictions": {
+                     "capability-restriction": [
+                       {
+                         "restriction-id": "firewall-sessions",
+                         "description": "Maximum concurrent firewall \
+                                                              sessions",
+                         "resource-name": "sessions",
+                         "units": "connections",
+                         "max-value": 50000,
+                         "current-value": 0
+                       }
+                     ]
+                   }
+                   },
+                   {
+                     "capability-id": "ipsec-vpn",
+                     "extended-capability-description": "IPsec VPN \
+                                                               tunnels",
+                     "entitlement-state": {
+                       "allowed": false,
+                       "in-use": false
+                     },
+                     "supporting-entitlements": {
+                     "supporting-entitlement": [
+                       {
+                         "entitlement-id": "security-features"
+                       }
+                     ]
+                     },
+                     "capability-restrictions": {
+                     "capability-restriction": [
+                       {
+                         "restriction-id": "vpn-tunnels",
+                         "description": "Maximum VPN tunnels",
+                         "resource-name": "tunnels",
+                         "units": "tunnels",
+                         "max-value": 100,
+                         "current-value": 0
+                       }
+                     ]
+                     }
+                   },
+                   {
+                     "capability-id": "ospf-routing",
+                     "extended-capability-description": "OSPF",
+                     "entitlement-state": {
+                       "allowed": true,
+                       "in-use": true
+                     },
+                     "supporting-entitlements": {
+                     "supporting-entitlement": [
+                       {
+                         "entitlement-id": "basic-routing-active"
+                       }
+                     ]
+                     },
+                     "capability-restrictions": {
+                     "capability-restriction": [
+                       {
+                         "restriction-id": "ospf-neighbors",
+                         "description": "Maximum OSPF neighbor \
+                               adjacencies, just to give an example :)",
+                         "resource-name": "neighbors",
+                         "units": "adjacencies",
+                         "max-value": 50,
+                         "current-value": 8
+                       }
+                     ]
+                     }
+                   }
+                 ]
+               }
+             ]
+           }
+         }
+         ]
+       }
+     }
+   }
 
 4.4.  Utilization Tracking with Restrictions
 
@@ -2043,218 +2056,223 @@ module: ietf-entitlement-inventory
 
 4.4.3.  JSON Example
 
-{
-  "ietf-network-inventory:network-inventory": {
-    "network-elements": {
-    "network-element": [
-      {
-        "ne-id": "enterprise-router-5",
-        "components": {
-          "component": [
-            {
-              "component-id": "main-chassis",
-              "class": "iana-hardware:chassis"
-            }
-          ]
-        },
-        "ietf-entitlement-inventory:installed-entitlements": {
-          "entitlement": [
-            {
-              "entitlement-id": "security-suite-ent",
-              "in-use": true
-            },
-            {
-              "entitlement-id": "advanced-routing-ent",
-              "in-use": true
-            },
-            {
-              "entitlement-id": "voice-gateway-ent",
-              "in-use": false
-            }
-          ]
-        },
-        "ietf-entitlement-inventory:capabilities": {
-          "capability-class": [
-            {
-              "capability-class": "basic-capability-description",
-              "capability": [
-                {
-                  "capability-id": "firewall",
-                  "extended-capability-description": "firewall",
-                  "entitlement-state": {
-                    "allowed": true,
-                    "in-use": true
-                  },
-                  "supporting-entitlements": {
-                    "supporting-entitlement": [
-                      {
-                        "entitlement-id": "security-suite-ent"
-                      }
-                    ]
-                  },
-                  "capability-restrictions": {
-                    "capability-restriction": [
-                      {
-                        "restriction-id": "concurrent-sessions",
-                      "description": "Maximum concurrent firewall sessions",
-                      "resource-name": "sessions",
-                      "units": "connections",
-                        "max-value": 100000,
-                        "current-value": 45000
-                      }
-                    ]
-                  }
-                },
-                {
-                  "capability-id": "vpn",
-                  "extended-capability-description": "IPSec VPN tunnels",
-                  "entitlement-state": {
-                    "allowed": true,
-                    "in-use": true
-                  },
-                  "supporting-entitlements": {
-                    "supporting-entitlement": [
-                      {
-                        "entitlement-id": "security-suite-ent"
-                      }
-                    ]
-                  },
-                  "capability-restrictions": {
-                    "capability-restriction": [
-                      {
-                        "restriction-id": "tunnel-count",
-                      "description": "Maximum VPN tunnels",
-                      "resource-name": "tunnels",
-                      "units": "count",
-                        "max-value": 500,
-                        "current-value": 120
-                      }
-                    ]
-                  }
-                },
-                {
-                  "capability-id": "bgp-advanced",
-                  "extended-capability-description": "Advanced BGP features including route reflector",
-                  "entitlement-state": {
-                    "allowed": true,
-                    "in-use": true
-                  },
-                  "supporting-entitlements": {
-                    "supporting-entitlement": [
-                      {
-                        "entitlement-id": "advanced-routing-ent"
-                      }
-                    ]
-                  },
-                  "capability-restrictions": {
-                    "capability-restriction": [
-                      {
-                        "restriction-id": "bgp-peers",
-                      "description": "Maximum BGP peer sessions",
-                      "resource-name": "peers",
-                      "units": "sessions",
-                        "max-value": 200,
-                        "current-value": 75
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      }
-    ]
-    },
-    "ietf-entitlement-inventory:entitlements": {
-      "entitlement": [
-        {
-          "entitlement-id": "security-suite-ent",
-          "product-id": "SEC-SUITE-ENTERPRISE-001",
-          "state": "active",
-          "renewal-profile": {
-            "start-date": "2024-06-01T00:00:00Z",
-            "activation-date": "2024-06-15T00:00:00Z",
-            "expiration-date": "2025-06-15T00:00:00Z"
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": ["Enterprise Corp"]
-              }
-            },
-            "assets": {
-              "elements": {
-                "network-elements": ["enterprise-router-5"]
-              }
-            }
-          }
-        },
-        {
-          "entitlement-id": "advanced-routing-ent",
-          "product-id": "ROUTING-ADVANCED-001",
-          "state": "active",
-          "renewal-profile": {
-            "start-date": "2024-06-01T00:00:00Z",
-            "activation-date": "2024-06-15T00:00:00Z",
-            "expiration-date": "2025-06-15T00:00:00Z"
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": ["Enterprise Corp"]
-              }
-            },
-            "assets": {
-              "elements": {
-                "network-elements": ["enterprise-router-5"]
-              }
-            }
-          }
-        },
-        {
-          "entitlement-id": "voice-gateway-ent",
-          "product-id": "VOICE-GW-PREMIUM-001",
-          "state": "active",
-          "renewal-profile": {
-            "start-date": "2024-12-01T00:00:00Z",
-            "activation-date": "2024-12-15T00:00:00Z",
-            "expiration-date": "2025-12-15T00:00:00Z"
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": ["Enterprise Corp"]
-              },
-              "users-names": {
-                "users": ["telecom-admin"]
-              }
-            },
-            "assets": {
-              "elements": {
-                "network-elements": ["enterprise-router-5"]
-              }
-            }
-          },
-          "restrictions": {
-            "restriction": [
-              {
-                "restriction-id": "voice-channels",
-                "description": "Maximum concurrent voice channels",
-                "units": "channels",
-                "max-value": 100,
-                "current-value": 0
-              }
-            ]
-          }
-        }
-      ]
-    }
-  }
-}
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
+   {
+     "ietf-network-inventory:network-inventory": {
+       "network-elements": {
+       "network-element": [
+         {
+           "ne-id": "enterprise-router-5",
+           "components": {
+             "component": [
+               {
+                 "component-id": "main-chassis",
+                 "class": "iana-hardware:chassis"
+               }
+             ]
+           },
+           "ietf-entitlement-inventory:installed-entitlements": {
+             "entitlement": [
+               {
+                 "entitlement-id": "security-suite-ent",
+                 "in-use": true
+               },
+               {
+                 "entitlement-id": "advanced-routing-ent",
+                 "in-use": true
+               },
+               {
+                 "entitlement-id": "voice-gateway-ent",
+                 "in-use": false
+               }
+             ]
+           },
+           "ietf-entitlement-inventory:capabilities": {
+             "capability-class": [
+               {
+                 "capability-class": "basic-capability-description",
+                 "capability": [
+                   {
+                     "capability-id": "firewall",
+                     "extended-capability-description": "firewall",
+                     "entitlement-state": {
+                       "allowed": true,
+                       "in-use": true
+                     },
+                     "supporting-entitlements": {
+                       "supporting-entitlement": [
+                         {
+                           "entitlement-id": "security-suite-ent"
+                         }
+                       ]
+                     },
+                     "capability-restrictions": {
+                       "capability-restriction": [
+                         {
+                           "restriction-id": "concurrent-sessions",
+                         "description": "Maximum concurrent firewall \
+                                                              sessions",
+                         "resource-name": "sessions",
+                         "units": "connections",
+                           "max-value": 100000,
+                           "current-value": 45000
+                         }
+                       ]
+                     }
+                   },
+                   {
+                     "capability-id": "vpn",
+                     "extended-capability-description": "IPsec VPN \
+                                                               tunnels",
+                     "entitlement-state": {
+                       "allowed": true,
+                       "in-use": true
+                     },
+                     "supporting-entitlements": {
+                       "supporting-entitlement": [
+                         {
+                           "entitlement-id": "security-suite-ent"
+                         }
+                       ]
+                     },
+                     "capability-restrictions": {
+                       "capability-restriction": [
+                         {
+                           "restriction-id": "tunnel-count",
+                         "description": "Maximum VPN tunnels",
+                         "resource-name": "tunnels",
+                         "units": "count",
+                           "max-value": 500,
+                           "current-value": 120
+                         }
+                       ]
+                     }
+                   },
+                   {
+                     "capability-id": "bgp-advanced",
+                     "extended-capability-description": "Advanced BGP \
+                                    features including route reflector",
+                     "entitlement-state": {
+                       "allowed": true,
+                       "in-use": true
+                     },
+                     "supporting-entitlements": {
+                       "supporting-entitlement": [
+                         {
+                           "entitlement-id": "advanced-routing-ent"
+                         }
+                       ]
+                     },
+                     "capability-restrictions": {
+                       "capability-restriction": [
+                         {
+                           "restriction-id": "bgp-peers",
+                         "description": "Maximum BGP peer sessions",
+                         "resource-name": "peers",
+                         "units": "sessions",
+                           "max-value": 200,
+                           "current-value": 75
+                         }
+                       ]
+                     }
+                   }
+                 ]
+               }
+             ]
+           }
+         }
+       ]
+       },
+       "ietf-entitlement-inventory:entitlements": {
+         "entitlement": [
+           {
+             "entitlement-id": "security-suite-ent",
+             "product-id": "SEC-SUITE-ENTERPRISE-001",
+             "state": "active",
+             "renewal-profile": {
+               "start-date": "2024-06-01T00:00:00Z",
+               "activation-date": "2024-06-15T00:00:00Z",
+               "expiration-date": "2025-06-15T00:00:00Z"
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": ["Enterprise Corp"]
+                 }
+               },
+               "assets": {
+                 "elements": {
+                   "network-elements": ["enterprise-router-5"]
+                 }
+               }
+             }
+           },
+           {
+             "entitlement-id": "advanced-routing-ent",
+             "product-id": "ROUTING-ADVANCED-001",
+             "state": "active",
+             "renewal-profile": {
+               "start-date": "2024-06-01T00:00:00Z",
+               "activation-date": "2024-06-15T00:00:00Z",
+               "expiration-date": "2025-06-15T00:00:00Z"
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": ["Enterprise Corp"]
+                 }
+               },
+               "assets": {
+                 "elements": {
+                   "network-elements": ["enterprise-router-5"]
+                 }
+               }
+             }
+           },
+           {
+             "entitlement-id": "voice-gateway-ent",
+             "product-id": "VOICE-GW-PREMIUM-001",
+             "state": "active",
+             "renewal-profile": {
+               "start-date": "2024-12-01T00:00:00Z",
+               "activation-date": "2024-12-15T00:00:00Z",
+               "expiration-date": "2025-12-15T00:00:00Z"
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": ["Enterprise Corp"]
+                 },
+                 "users-names": {
+                   "users": ["telecom-admin"]
+                 }
+               },
+               "assets": {
+                 "elements": {
+                   "network-elements": ["enterprise-router-5"]
+                 }
+               }
+             },
+             "restrictions": {
+               "restriction": [
+                 {
+                   "restriction-id": "voice-channels",
+                   "description": "Maximum concurrent voice channels",
+                   "units": "channels",
+                   "max-value": 100,
+                   "current-value": 0
+                 }
+               ]
+             }
+           }
+         ]
+       }
+     }
+   }
 
 4.5.  Hierarchical Entitlements
 
@@ -2268,332 +2286,343 @@ module: ietf-entitlement-inventory
 
 4.5.2.  JSON Example
 
-{
-  "ietf-network-inventory:network-inventory": {
-    "ietf-entitlement-inventory:entitlements": {
-      "entitlement": [
-        {
-          "entitlement-id": "bronze-routing-base",
-          "product-id": "ROUTER-BRONZE-BASE",
-          "state": "active",
-          "renewal-profile": {
-            "start-date": "2024-01-01T00:00:00Z",
-            "activation-date": "2024-01-15T00:00:00Z",
-            "expiration-date": "2027-01-15T00:00:00Z"
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": [
-                  "Enterprise Networks"
-                ]
-              }
-            },
-            "assets": {
-              "elements": {
-                "network-elements": [
-                  "branch-router-1",
-                  "branch-router-2"
-                ]
-              }
-            }
-          }
-        },
-        {
-          "entitlement-id": "silver-routing-upgrade",
-          "product-id": "ROUTER-SILVER-UPGRADE",
-          "parent-entitlement-uid": "bronze-routing-base",
-          "state": "active",
-          "renewal-profile": {
-            "start-date": "2025-06-01T00:00:00Z",
-            "activation-date": "2025-06-15T00:00:00Z",
-            "expiration-date": "2027-01-15T00:00:00Z"
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": [
-                  "Enterprise Networks"
-                ]
-              }
-            },
-            "assets": {
-              "elements": {
-                "network-elements": [
-                  "branch-router-2"
-                ]
-              }
-            }
-          }
-        }
-      ]
-    },
-    "network-elements": {
-      "network-element": [
-        {
-          "ne-id": "branch-router-1",
-          "components": {
-            "component": [
-              {
-                "component-id": "main-unit",
-                "class": "iana-hardware:chassis"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:installed-entitlements": {
-            "entitlement": [
-              {
-                "entitlement-id": "bronze-routing-base",
-                "in-use": true
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:capabilities": {
-            "capability-class": [
-              {
-                "capability-class": "basic-capability-description",
-                "capability": [
-                  {
-                    "capability-id": "ospf-routing",
-                    "extended-capability-description": "OSPF dynamic routing protocol",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": true
-                    },
-                    "supporting-entitlements": {
-                      "supporting-entitlement": [
-                        {
-                          "entitlement-id": "bronze-routing-base"
-                        }
-                      ]
-                    },
-                    "capability-restrictions": {
-                      "capability-restriction": [
-                        {
-                          "restriction-id": "ospf-areas",
-                          "description": "Maximum OSPF areas",
-                          "resource-name": "routing-areas",
-                          "units": "areas",
-                          "max-value": 10,
-                          "current-value": 3
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "capability-id": "static-routing",
-                    "extended-capability-description": "Static route configuration",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": true
-                    },
-                    "supporting-entitlements": {
-                      "supporting-entitlement": [
-                        {
-                          "entitlement-id": "bronze-routing-base"
-                        }
-                      ]
-                    },
-                    "capability-restrictions": {
-                      "capability-restriction": [
-                        {
-                          "restriction-id": "static-routes",
-                          "description": "Maximum static routes",
-                          "resource-name": "routes",
-                          "units": "routes",
-                          "max-value": 500,
-                          "current-value": 127
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "ne-id": "branch-router-2",
-          "components": {
-            "component": [
-              {
-                "component-id": "main-unit",
-                "class": "iana-hardware:chassis"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:installed-entitlements": {
-            "entitlement": [
-              {
-                "entitlement-id": "bronze-routing-base",
-                "in-use": true
-              },
-              {
-                "entitlement-id": "silver-routing-upgrade",
-                "in-use": true
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:capabilities": {
-            "capability-class": [
-              {
-                "capability-class": "basic-capability-description",
-                "capability": [
-                  {
-                    "capability-id": "ospf-routing",
-                    "extended-capability-description": "OSPF dynamic routing protocol",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": true
-                    },
-                    "supporting-entitlements": {
-                      "supporting-entitlement": [
-                        {
-                          "entitlement-id": "bronze-routing-base"
-                        }
-                      ]
-                    },
-                    "capability-restrictions": {
-                      "capability-restriction": [
-                        {
-                          "restriction-id": "ospf-areas",
-                          "description": "Maximum OSPF areas",
-                          "resource-name": "routing-areas",
-                          "units": "areas",
-                          "max-value": 10,
-                          "current-value": 5
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "capability-id": "static-routing",
-                    "extended-capability-description": "Static route configuration",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": true
-                    },
-                    "supporting-entitlements": {
-                      "supporting-entitlement": [
-                        {
-                          "entitlement-id": "bronze-routing-base"
-                        }
-                      ]
-                    },
-                    "capability-restrictions": {
-                      "capability-restriction": [
-                        {
-                          "restriction-id": "static-routes",
-                          "description": "Maximum static routes",
-                          "resource-name": "routes",
-                          "units": "routes",
-                          "max-value": 500,
-                          "current-value": 89
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "capability-id": "bgp-routing",
-                    "extended-capability-description": "BGP routing protocol with route policies",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": true
-                    },
-                    "supporting-entitlements": {
-                      "supporting-entitlement": [
-                        {
-                          "entitlement-id": "bronze-routing-base"
-                        },
-                        {
-                          "entitlement-id": "silver-routing-upgrade"
-                        }
-                      ]
-                    },
-                    "capability-restrictions": {
-                      "capability-restriction": [
-                        {
-                          "restriction-id": "bgp-peers",
-                          "description": "Maximum BGP peer sessions",
-                          "resource-name": "bgp-sessions",
-                          "units": "peers",
-                          "max-value": 100,
-                          "current-value": 24
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "capability-id": "mpls",
-                    "extended-capability-description": "MPLS label switching",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": true
-                    },
-                    "supporting-entitlements": {
-                      "supporting-entitlement": [
-                        {
-                          "entitlement-id": "bronze-routing-base"
-                        },
-                        {
-                          "entitlement-id": "silver-routing-upgrade"
-                        }
-                      ]
-                    },
-                    "capability-restrictions": {
-                      "capability-restriction": [
-                        {
-                          "restriction-id": "mpls-lsps",
-                          "description": "Maximum MPLS label-switched paths",
-                          "resource-name": "lsps",
-                          "units": "paths",
-                          "max-value": 200,
-                          "current-value": 87
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "capability-id": "advanced-qos",
-                    "extended-capability-description": "Advanced QoS with traffic shaping",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": false
-                    },
-                    "supporting-entitlements": {
-                      "supporting-entitlement": [
-                        {
-                          "entitlement-id": "bronze-routing-base"
-                        },
-                        {
-                          "entitlement-id": "silver-routing-upgrade"
-                        }
-                      ]
-                    },
-                    "capability-restrictions": {
-                      "capability-restriction": [
-                        {
-                          "restriction-id": "qos-classes",
-                          "description": "Maximum QoS traffic classes",
-                          "resource-name": "qos-classes",
-                          "units": "classes",
-                          "max-value": 16,
-                          "current-value": 0
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ]
-    }
-  }
-}
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
+   {
+     "ietf-network-inventory:network-inventory": {
+       "ietf-entitlement-inventory:entitlements": {
+         "entitlement": [
+           {
+             "entitlement-id": "bronze-routing-base",
+             "product-id": "ROUTER-BRONZE-BASE",
+             "state": "active",
+             "renewal-profile": {
+               "start-date": "2024-01-01T00:00:00Z",
+               "activation-date": "2024-01-15T00:00:00Z",
+               "expiration-date": "2027-01-15T00:00:00Z"
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": [
+                     "Enterprise Networks"
+                   ]
+                 }
+               },
+               "assets": {
+                 "elements": {
+                   "network-elements": [
+                     "branch-router-1",
+                     "branch-router-2"
+                   ]
+                 }
+               }
+             }
+           },
+           {
+             "entitlement-id": "silver-routing-upgrade",
+             "product-id": "ROUTER-SILVER-UPGRADE",
+             "parent-entitlement-uid": "bronze-routing-base",
+             "state": "active",
+             "renewal-profile": {
+               "start-date": "2025-06-01T00:00:00Z",
+               "activation-date": "2025-06-15T00:00:00Z",
+               "expiration-date": "2027-01-15T00:00:00Z"
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": [
+                     "Enterprise Networks"
+                   ]
+                 }
+               },
+               "assets": {
+                 "elements": {
+                   "network-elements": [
+                     "branch-router-2"
+                   ]
+                 }
+               }
+             }
+           }
+         ]
+       },
+       "network-elements": {
+         "network-element": [
+           {
+             "ne-id": "branch-router-1",
+             "components": {
+               "component": [
+                 {
+                   "component-id": "main-unit",
+                   "class": "iana-hardware:chassis"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:installed-entitlements": {
+               "entitlement": [
+                 {
+                   "entitlement-id": "bronze-routing-base",
+                   "in-use": true
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:capabilities": {
+               "capability-class": [
+                 {
+                   "capability-class": "basic-capability-description",
+                   "capability": [
+                     {
+                       "capability-id": "ospf-routing",
+                       "extended-capability-description": "OSPF \
+                                              dynamic routing protocol",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": true
+                       },
+                       "supporting-entitlements": {
+                         "supporting-entitlement": [
+                           {
+                             "entitlement-id": "bronze-routing-base"
+                           }
+                         ]
+                       },
+                       "capability-restrictions": {
+                         "capability-restriction": [
+                           {
+                             "restriction-id": "ospf-areas",
+                             "description": "Maximum OSPF areas",
+                             "resource-name": "routing-areas",
+                             "units": "areas",
+                             "max-value": 10,
+                             "current-value": 3
+                           }
+                         ]
+                       }
+                     },
+                     {
+                       "capability-id": "static-routing",
+                       "extended-capability-description": "Static \
+                                                   route configuration",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": true
+                       },
+                       "supporting-entitlements": {
+                         "supporting-entitlement": [
+                           {
+                             "entitlement-id": "bronze-routing-base"
+                           }
+                         ]
+                       },
+                       "capability-restrictions": {
+                         "capability-restriction": [
+                           {
+                             "restriction-id": "static-routes",
+                             "description": "Maximum static routes",
+                             "resource-name": "routes",
+                             "units": "routes",
+                             "max-value": 500,
+                             "current-value": 127
+                           }
+                         ]
+                       }
+                     }
+                   ]
+                 }
+               ]
+             }
+           },
+           {
+             "ne-id": "branch-router-2",
+             "components": {
+               "component": [
+                 {
+                   "component-id": "main-unit",
+                   "class": "iana-hardware:chassis"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:installed-entitlements": {
+               "entitlement": [
+                 {
+                   "entitlement-id": "bronze-routing-base",
+                   "in-use": true
+                 },
+                 {
+                   "entitlement-id": "silver-routing-upgrade",
+                   "in-use": true
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:capabilities": {
+               "capability-class": [
+                 {
+                   "capability-class": "basic-capability-description",
+                   "capability": [
+                     {
+                       "capability-id": "ospf-routing",
+                       "extended-capability-description": "OSPF \
+                                              dynamic routing protocol",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": true
+                       },
+                       "supporting-entitlements": {
+                         "supporting-entitlement": [
+                           {
+                             "entitlement-id": "bronze-routing-base"
+                           }
+                         ]
+                       },
+                       "capability-restrictions": {
+                         "capability-restriction": [
+                           {
+                             "restriction-id": "ospf-areas",
+                             "description": "Maximum OSPF areas",
+                             "resource-name": "routing-areas",
+                             "units": "areas",
+                             "max-value": 10,
+                             "current-value": 5
+                           }
+                         ]
+                       }
+                     },
+                     {
+                       "capability-id": "static-routing",
+                       "extended-capability-description": "Static \
+                                                   route configuration",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": true
+                       },
+                       "supporting-entitlements": {
+                         "supporting-entitlement": [
+                           {
+                             "entitlement-id": "bronze-routing-base"
+                           }
+                         ]
+                       },
+                       "capability-restrictions": {
+                         "capability-restriction": [
+                           {
+                             "restriction-id": "static-routes",
+                             "description": "Maximum static routes",
+                             "resource-name": "routes",
+                             "units": "routes",
+                             "max-value": 500,
+                             "current-value": 89
+                           }
+                         ]
+                       }
+                     },
+                     {
+                       "capability-id": "bgp-routing",
+                       "extended-capability-description": "BGP routing \
+                                          protocol with route policies",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": true
+                       },
+                       "supporting-entitlements": {
+                         "supporting-entitlement": [
+                           {
+                             "entitlement-id": "bronze-routing-base"
+                           },
+                           {
+                             "entitlement-id": "silver-routing-upgrade"
+                           }
+                         ]
+                       },
+                       "capability-restrictions": {
+                         "capability-restriction": [
+                           {
+                             "restriction-id": "bgp-peers",
+                             "description": "Maximum BGP peer sessions",
+                             "resource-name": "bgp-sessions",
+                             "units": "peers",
+                             "max-value": 100,
+                             "current-value": 24
+                           }
+                         ]
+                       }
+                     },
+                     {
+                       "capability-id": "mpls",
+                       "extended-capability-description": "MPLS label \
+                                                             switching",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": true
+                       },
+                       "supporting-entitlements": {
+                         "supporting-entitlement": [
+                           {
+                             "entitlement-id": "bronze-routing-base"
+                           },
+                           {
+                             "entitlement-id": "silver-routing-upgrade"
+                           }
+                         ]
+                       },
+                       "capability-restrictions": {
+                         "capability-restriction": [
+                           {
+                             "restriction-id": "mpls-lsps",
+                             "description": "Maximum MPLS label-\
+                                                        switched paths",
+                             "resource-name": "lsps",
+                             "units": "paths",
+                             "max-value": 200,
+                             "current-value": 87
+                           }
+                         ]
+                       }
+                     },
+                     {
+                       "capability-id": "advanced-qos",
+                       "extended-capability-description": "Advanced \
+                                              QoS with traffic shaping",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": false
+                       },
+                       "supporting-entitlements": {
+                         "supporting-entitlement": [
+                           {
+                             "entitlement-id": "bronze-routing-base"
+                           },
+                           {
+                             "entitlement-id": "silver-routing-upgrade"
+                           }
+                         ]
+                       },
+                       "capability-restrictions": {
+                         "capability-restriction": [
+                           {
+                             "restriction-id": "qos-classes",
+                             "description": "Maximum QoS traffic \
+                                                               classes",
+                             "resource-name": "qos-classes",
+                             "units": "classes",
+                             "max-value": 16,
+                             "current-value": 0
+                           }
+                         ]
+                       }
+                     }
+                   ]
+                 }
+               ]
+             }
+           }
+         ]
+       }
+     }
+   }
 
 4.6.  License Pooling
 
@@ -2608,296 +2637,307 @@ module: ietf-entitlement-inventory
 
 4.6.2.  JSON Example
 
-{
-  "ietf-network-inventory:network-inventory": {
-    "network-elements": {
-      "network-element": [
-        {
-          "ne-id": "datacenter-router-1",
-          "components": {
-            "component": [
-              {
-                "component-id": "main-chassis",
-                "class": "iana-hardware:chassis"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:installed-entitlements": {
-            "entitlement": [
-              {
-                "entitlement-id": "enterprise-license-pool"
-              },
-              {
-                "entitlement-id": "advanced-security-pool"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:capabilities": {
-            "capability-class": [
-              {
-                "capability-class": "basic-capability-description",
-                "capability": [
-                  {
-                    "capability-id": "enterprise-routing",
-                    "extended-capability-description": "Enterprise routing protocols",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": true
-                    },
-                    "supporting-entitlements": {
-                      "supporting-entitlement": [
-                        {
-                          "entitlement-id": "enterprise-license-pool"
-                        }
-                      ]
-                    },
-                    "capability-restrictions": {
-                      "capability-restriction": [
-                        {
-                          "restriction-id": "bgp-peers",
-                          "description": "Maximum BGP peers",
-                          "resource-name": "bgp-sessions",
-                          "units": "peers",
-                          "max-value": 500,
-                          "current-value": 245
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "capability-id": "advanced-firewall",
-                    "extended-capability-description": "Enterprise firewall",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": true
-                    },
-                    "supporting-entitlements": {
-                      "supporting-entitlement": [
-                        {
-                          "entitlement-id": "advanced-security-pool"
-                        }
-                      ]
-                    },
-                    "capability-restrictions": {
-                      "capability-restriction": [
-                        {
-                          "restriction-id": "firewall-throughput",
-                          "description": "Maximum firewall throughput",
-                          "resource-name": "throughput",
-                          "units": "Gbps",
-                          "max-value": 40,
-                          "current-value": 28
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "ne-id": "datacenter-router-2",
-          "components": {
-            "component": [
-              {
-                "component-id": "main-chassis",
-                "class": "iana-hardware:chassis"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:installed-entitlements": {
-            "entitlement": [
-              {
-                "entitlement-id": "enterprise-license-pool"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:capabilities": {
-            "capability-class": [
-              {
-                "capability-class": "basic-capability-description",
-                "capability": [
-                  {
-                    "capability-id": "enterprise-routing",
-                    "extended-capability-description": "Enterprise routing protocol",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": true
-                    },
-                    "supporting-entitlements": {
-                      "supporting-entitlement": [
-                        {
-                          "entitlement-id": "enterprise-license-pool"
-                        }
-                      ]
-                    },
-                    "capability-restrictions": {
-                      "capability-restriction": [
-                        {
-                          "restriction-id": "bgp-peers",
-                          "description": "Maximum BGP peers",
-                          "resource-name": "bgp-sessions",
-                          "units": "peers",
-                          "max-value": 500,
-                          "current-value": 178
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "ne-id": "branch-router-1",
-          "components": {
-            "component": [
-              {
-                "component-id": "main-unit",
-                "class": "iana-hardware:chassis"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:installed-entitlements": {
-            "entitlement": [
-              {
-                "entitlement-id": "advanced-security-pool"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:capabilities": {
-            "capability-class": [
-              {
-                "capability-class": "basic-capability-description",
-                "capability": [
-                  {
-                    "capability-id": "advanced-firewall",
-                    "extended-capability-description": "Enterprise firewall",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": true
-                    },
-                    "supporting-entitlements": {
-                      "supporting-entitlement": [
-                        {
-                          "entitlement-id": "advanced-security-pool"
-                        }
-                      ]
-                    },
-                    "capability-restrictions": {
-                      "capability-restriction": [
-                        {
-                          "restriction-id": "firewall-throughput",
-                          "description": "Maximum firewall throughput",
-                          "resource-name": "throughput",
-                          "units": "Gbps",
-                          "max-value": 10,
-                          "current-value": 7
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "ietf-entitlement-inventory:entitlements": {
-      "entitlement": [
-        {
-          "entitlement-id": "enterprise-license-pool",
-          "product-id": "ENT-ROUTER-POOL-100",
-          "state": "active",
-          "renewal-profile": {
-            "start-date": "2025-01-01T00:00:00Z",
-            "activation-date": "2025-01-15T00:00:00Z",
-            "expiration-date": "2026-01-15T00:00:00Z"
-          },
-          "restrictions": {
-            "restriction": [
-              {
-                "restriction-id": "license-consumption",
-                "description": "Enterprise router licenses consumed from pool",
-                "units": "licenses",
-                "max-value": 100,
-                "current-value": 87
-              }
-            ]
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": [
-                  "Company-A"
-                ]
-              }
-            },
-            "assets": {
-              "elements": {
-                "network-elements": [
-                  "datacenter-router-1",
-                  "datacenter-router-2"
-                ]
-              }
-            }
-          }
-        },
-        {
-          "entitlement-id": "advanced-security-pool",
-          "product-id": "SEC-FIREWALL-POOL-25",
-          "state": "active",
-          "renewal-profile": {
-            "start-date": "2025-03-01T00:00:00Z",
-            "activation-date": "2025-03-01T00:00:00Z",
-            "expiration-date": "2026-03-01T00:00:00Z"
-          },
-          "restrictions": {
-            "restriction": [
-              {
-                "restriction-id": "license-consumption",
-                "description": "Security licenses consumed from pool (high utilization)",
-                "units": "licenses",
-                "max-value": 25,
-                "current-value": 21
-              },
-              {
-                "restriction-id": "total-throughput",
-                "description": "Aggregate firewall throughput across all devices (real-time snapshot)",
-                "resource-name": "throughput",
-                "units": "Gbps",
-                "max-value": 100,
-                "current-value": 50
-              }
-            ]
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": [
-                  "Company-A"
-                ]
-              }
-            },
-            "assets": {
-              "elements": {
-                "network-elements": [
-                  "datacenter-router-1",
-                  "branch-router-1"
-                ]
-              }
-            }
-          }
-        }
-      ]
-    }
-  }
-}
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
+   {
+     "ietf-network-inventory:network-inventory": {
+       "network-elements": {
+         "network-element": [
+           {
+             "ne-id": "datacenter-router-1",
+             "components": {
+               "component": [
+                 {
+                   "component-id": "main-chassis",
+                   "class": "iana-hardware:chassis"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:installed-entitlements": {
+               "entitlement": [
+                 {
+                   "entitlement-id": "enterprise-license-pool"
+                 },
+                 {
+                   "entitlement-id": "advanced-security-pool"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:capabilities": {
+               "capability-class": [
+                 {
+                   "capability-class": "basic-capability-description",
+                   "capability": [
+                     {
+                       "capability-id": "enterprise-routing",
+                       "extended-capability-description": "Enterprise \
+                                                     routing protocols",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": true
+                       },
+                       "supporting-entitlements": {
+                         "supporting-entitlement": [
+                           {
+                             "entitlement-id": "enterprise-license-pool"
+                           }
+                         ]
+                       },
+                       "capability-restrictions": {
+                         "capability-restriction": [
+                           {
+                             "restriction-id": "bgp-peers",
+                             "description": "Maximum BGP peers",
+                             "resource-name": "bgp-sessions",
+                             "units": "peers",
+                             "max-value": 500,
+                             "current-value": 245
+                           }
+                         ]
+                       }
+                     },
+                     {
+                       "capability-id": "advanced-firewall",
+                       "extended-capability-description": "Enterprise \
+                                                              firewall",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": true
+                       },
+                       "supporting-entitlements": {
+                         "supporting-entitlement": [
+                           {
+                             "entitlement-id": "advanced-security-pool"
+                           }
+                         ]
+                       },
+                       "capability-restrictions": {
+                         "capability-restriction": [
+                           {
+                             "restriction-id": "firewall-throughput",
+                             "description": "Maximum firewall \
+                                                            throughput",
+                             "resource-name": "throughput",
+                             "units": "Gbps",
+                             "max-value": 40,
+                             "current-value": 28
+                           }
+                         ]
+                       }
+                     }
+                   ]
+                 }
+               ]
+             }
+           },
+           {
+             "ne-id": "datacenter-router-2",
+             "components": {
+               "component": [
+                 {
+                   "component-id": "main-chassis",
+                   "class": "iana-hardware:chassis"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:installed-entitlements": {
+               "entitlement": [
+                 {
+                   "entitlement-id": "enterprise-license-pool"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:capabilities": {
+               "capability-class": [
+                 {
+                   "capability-class": "basic-capability-description",
+                   "capability": [
+                     {
+                       "capability-id": "enterprise-routing",
+                       "extended-capability-description": "Enterprise \
+                                                      routing protocol",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": true
+                       },
+                       "supporting-entitlements": {
+                         "supporting-entitlement": [
+                           {
+                             "entitlement-id": "enterprise-license-pool"
+                           }
+                         ]
+                       },
+                       "capability-restrictions": {
+                         "capability-restriction": [
+                           {
+                             "restriction-id": "bgp-peers",
+                             "description": "Maximum BGP peers",
+                             "resource-name": "bgp-sessions",
+                             "units": "peers",
+                             "max-value": 500,
+                             "current-value": 178
+                           }
+                         ]
+                       }
+                     }
+                   ]
+                 }
+               ]
+             }
+           },
+           {
+             "ne-id": "branch-router-1",
+             "components": {
+               "component": [
+                 {
+                   "component-id": "main-unit",
+                   "class": "iana-hardware:chassis"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:installed-entitlements": {
+               "entitlement": [
+                 {
+                   "entitlement-id": "advanced-security-pool"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:capabilities": {
+               "capability-class": [
+                 {
+                   "capability-class": "basic-capability-description",
+                   "capability": [
+                     {
+                       "capability-id": "advanced-firewall",
+                       "extended-capability-description": "Enterprise \
+                                                              firewall",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": true
+                       },
+                       "supporting-entitlements": {
+                         "supporting-entitlement": [
+                           {
+                             "entitlement-id": "advanced-security-pool"
+                           }
+                         ]
+                       },
+                       "capability-restrictions": {
+                         "capability-restriction": [
+                           {
+                             "restriction-id": "firewall-throughput",
+                             "description": "Maximum firewall \
+                                                            throughput",
+                             "resource-name": "throughput",
+                             "units": "Gbps",
+                             "max-value": 10,
+                             "current-value": 7
+                           }
+                         ]
+                       }
+                     }
+                   ]
+                 }
+               ]
+             }
+           }
+         ]
+       },
+       "ietf-entitlement-inventory:entitlements": {
+         "entitlement": [
+           {
+             "entitlement-id": "enterprise-license-pool",
+             "product-id": "ENT-ROUTER-POOL-100",
+             "state": "active",
+             "renewal-profile": {
+               "start-date": "2025-01-01T00:00:00Z",
+               "activation-date": "2025-01-15T00:00:00Z",
+               "expiration-date": "2026-01-15T00:00:00Z"
+             },
+             "restrictions": {
+               "restriction": [
+                 {
+                   "restriction-id": "license-consumption",
+                   "description": "Enterprise router licenses consumed \
+                                                             from pool",
+                   "units": "licenses",
+                   "max-value": 100,
+                   "current-value": 87
+                 }
+               ]
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": [
+                     "Company-A"
+                   ]
+                 }
+               },
+               "assets": {
+                 "elements": {
+                   "network-elements": [
+                     "datacenter-router-1",
+                     "datacenter-router-2"
+                   ]
+                 }
+               }
+             }
+           },
+           {
+             "entitlement-id": "advanced-security-pool",
+             "product-id": "SEC-FIREWALL-POOL-25",
+             "state": "active",
+             "renewal-profile": {
+               "start-date": "2025-03-01T00:00:00Z",
+               "activation-date": "2025-03-01T00:00:00Z",
+               "expiration-date": "2026-03-01T00:00:00Z"
+             },
+             "restrictions": {
+               "restriction": [
+                 {
+                   "restriction-id": "license-consumption",
+                   "description": "Security licenses consumed from \
+                                               pool (high utilization)",
+                   "units": "licenses",
+                   "max-value": 25,
+                   "current-value": 21
+                 },
+                 {
+                   "restriction-id": "total-throughput",
+                   "description": "Aggregate firewall throughput \
+                               across all devices (real-time snapshot)",
+                   "resource-name": "throughput",
+                   "units": "Gbps",
+                   "max-value": 100,
+                   "current-value": 50
+                 }
+               ]
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": [
+                     "Company-A"
+                   ]
+                 }
+               },
+               "assets": {
+                 "elements": {
+                   "network-elements": [
+                     "datacenter-router-1",
+                     "branch-router-1"
+                   ]
+                 }
+               }
+             }
+           }
+         ]
+       }
+     }
+   }
 
 4.7.  Multi-Vendor Environment
 
@@ -2912,354 +2952,368 @@ module: ietf-entitlement-inventory
 
 4.7.2.  JSON Example
 
-{
-  "ietf-network-inventory:network-inventory": {
-    "network-elements": {
-      "network-element": [
-        {
-          "ne-id": "vendor-a-router-hq-1",
-          "components": {
-            "component": [
-              {
-                "component-id": "chassis",
-                "class": "iana-hardware:chassis"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:installed-entitlements": {
-            "entitlement": [
-              {
-                "entitlement-id": "vendor-a-sdwan-consumption"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:capabilities": {
-            "capability-class": [
-              {
-                "capability-class": "basic-capability-description",
-                "capability": [
-                  {
-                    "capability-id": "sd-wan",
-                    "extended-capability-description": "SD-WAN with consumption-based billing",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": true
-                    },
-                    "supporting-entitlements": {
-                      "supporting-entitlement": [
-                        {
-                          "entitlement-id": "vendor-a-sdwan-consumption"
-                        }
-                      ]
-                    },
-                    "capability-restrictions": {
-                      "capability-restriction": [
-                        {
-                          "restriction-id": "active-tunnels",
-                          "description": "Current active SD-WAN tunnels",
-                          "resource-name": "tunnels",
-                          "units": "count",
-                          "max-value": 100,
-                          "current-value": 45
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "ne-id": "vendor-b-switch-dc-1",
-          "components": {
-            "component": [
-              {
-                "component-id": "main-unit",
-                "class": "iana-hardware:chassis"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:installed-entitlements": {
-            "entitlement": [
-              {
-                "entitlement-id": "vendor-b-datacenter-perpetual"
-              },
-              {
-                "entitlement-id": "vendor-b-support-subscription"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:capabilities": {
-            "capability-class": [
-              {
-                "capability-class": "basic-capability-description",
-                "capability": [
-                  {
-                    "capability-id": "evpn-vxlan",
-                    "extended-capability-description": "EVPN-VXLAN overlay",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": true
-                    },
-                    "supporting-entitlements": {
-                      "supporting-entitlement": [
-                        {
-                          "entitlement-id": "vendor-b-datacenter-perpetual"
-                        },
-                        {
-                          "entitlement-id": "vendor-b-support-subscription"
-                        }
-                      ]
-                    },
-                    "capability-restrictions": {
-                      "capability-restriction": [
-                        {
-                          "restriction-id": "vxlan-tunnels",
-                          "description": "Maximum VXLAN tunnel endpoints",
-                          "resource-name": "vteps",
-                          "units": "endpoints",
-                          "max-value": 500,
-                          "current-value": 234
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "ne-id": "vendor-c-switch-dc-2",
-          "components": {
-            "component": [
-              {
-                "component-id": "chassis",
-                "class": "iana-hardware:chassis"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:installed-entitlements": {
-            "entitlement": [
-              {
-                "entitlement-id": "vendor-c-telemetry-tier-standard"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:capabilities": {
-            "capability-class": [
-              {
-                "capability-class": "basic-capability-description",
-                "capability": [
-                  {
-                    "capability-id": "streaming-telemetry",
-                    "extended-capability-description": "Streaming telemetry tier",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": true
-                    },
-                    "supporting-entitlements": {
-                      "supporting-entitlement": [
-                        {
-                          "entitlement-id": "vendor-c-telemetry-tier-standard"
-                        }
-                      ]
-                    },
-                    "capability-restrictions": {
-                      "capability-restriction": [
-                        {
-                          "restriction-id": "telemetry-streams",
-                          "description": "Maximum concurrent telemetry streams",
-                          "resource-name": "streams",
-                          "units": "streams",
-                          "max-value": 200,
-                          "current-value": 87
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "ietf-entitlement-inventory:entitlements": {
-      "entitlement": [
-        {
-          "entitlement-id": "vendor-a-sdwan-consumption",
-          "product-id": "SDWAN-CONSUMPTION-BILLING",
-          "sku": "L-SDWAN-CONSUMPTION",
-          "vendor": "Vendor-A",
-          "part-number": "SDWAN-CONSUMPTION-LIC",
-          "state": "active",
-          "renewal-profile": {
-            "start-date": "2025-01-01T00:00:00Z",
-            "activation-date": "2025-01-01T00:00:00Z"
-          },
-          "restrictions": {
-            "restriction": [
-              {
-                "restriction-id": "monthly-bandwidth-consumed",
-                "description": "Total bandwidth consumed this billing period",
-                "resource-name": "bandwidth",
-                "units": "GB",
-                "max-value": 10000,
-                "current-value": 7234
-              }
-            ]
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": [
-                  "Enterprise IT Dept"
-                ]
-              },
-              "users-names": {
-                "users": [
-                  "network-admin"
-                ]
-              }
-            },
-            "assets": {
-              "elements": {
-                "network-elements": [
-                  "vendor-a-router-hq-1"
-                ]
-              }
-            }
-          }
-        },
-        {
-          "entitlement-id": "vendor-b-datacenter-perpetual",
-          "product-id": "DC-EVPN-VXLAN-PERPETUAL",
-          "sku": "S-EVPN-PERM",
-          "vendor": "Vendor-B",
-          "part-number": "DC-EVPN-PERPETUAL-LIC",
-          "state": "active",
-          "renewal-profile": {
-            "activation-date": "2023-03-15T00:00:00Z"
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": [
-                  "Enterprise IT Dept"
-                ]
-              },
-              "users-names": {
-                "users": [
-                  "datacenter-ops"
-                ]
-              }
-            },
-            "assets": {
-              "elements": {
-                "network-elements": [
-                  "vendor-b-switch-dc-1"
-                ]
-              }
-            }
-          }
-        },
-        {
-          "entitlement-id": "vendor-b-support-subscription",
-          "product-id": "DC-SUPPORT-ANNUAL",
-          "sku": "S-SUPPORT-1Y",
-          "vendor": "Vendor-B",
-          "part-number": "DC-SUPPORT-SUB-1Y",
-          "state": "active",
-          "renewal-profile": {
-            "start-date": "2024-10-01T00:00:00Z",
-            "activation-date": "2024-10-01T00:00:00Z",
-            "expiration-date": "2025-10-01T00:00:00Z"
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": [
-                  "Enterprise IT Dept"
-                ]
-              },
-              "users-names": {
-                "users": [
-                  "datacenter-ops"
-                ]
-              }
-            },
-            "assets": {
-              "elements": {
-                "network-elements": [
-                  "vendor-b-switch-dc-1"
-                ]
-              }
-            }
-          }
-        },
-        {
-          "entitlement-id": "vendor-c-telemetry-tier-standard",
-          "product-id": "TELEMETRY-STD-50DEV-1Y",
-          "sku": "TELEM-STD-50-1Y",
-          "vendor": "Vendor-C",
-          "part-number": "TELEM-STD-TIER-1Y",
-          "state": "active",
-          "renewal-profile": {
-            "start-date": "2025-01-01T00:00:00Z",
-            "activation-date": "2025-01-01T00:00:00Z",
-            "expiration-date": "2026-01-01T00:00:00Z"
-          },
-          "restrictions": {
-            "restriction": [
-              {
-                "restriction-id": "subscribed-device-count",
-                "description": "Device count in subscribed tier",
-                "units": "devices",
-                "max-value": 50,
-                "current-value": 50
-              },
-              {
-                "restriction-id": "current-device-count",
-                "description": "Actual devices currently managed (may exceed tier for overage billing)",
-                "units": "devices",
-                "max-value": 150,
-                "current-value": 63
-              }
-            ]
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": [
-                  "Enterprise IT Dept"
-                ]
-              },
-              "users-names": {
-                "users": [
-                  "datacenter-ops",
-                  "noc-team"
-                ]
-              }
-            },
-            "assets": {
-              "elements": {
-                "network-elements": [
-                  "vendor-c-switch-dc-2"
-                ]
-              }
-            }
-          }
-        }
-      ]
-    }
-  }
-}
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
+   {
+     "ietf-network-inventory:network-inventory": {
+       "network-elements": {
+         "network-element": [
+           {
+             "ne-id": "vendor-a-router-hq-1",
+             "components": {
+               "component": [
+                 {
+                   "component-id": "chassis",
+                   "class": "iana-hardware:chassis"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:installed-entitlements": {
+               "entitlement": [
+                 {
+                   "entitlement-id": "vendor-a-sdwan-consumption"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:capabilities": {
+               "capability-class": [
+                 {
+                   "capability-class": "basic-capability-description",
+                   "capability": [
+                     {
+                       "capability-id": "sd-wan",
+                       "extended-capability-description": "SD-WAN with \
+                                             consumption-based billing",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": true
+                       },
+                       "supporting-entitlements": {
+                         "supporting-entitlement": [
+                           {
+                             "entitlement-id": "vendor-a-sdwan-\
+                                                            consumption"
+                           }
+                         ]
+                       },
+                       "capability-restrictions": {
+                         "capability-restriction": [
+                           {
+                             "restriction-id": "active-tunnels",
+                             "description": "Current active SD-WAN \
+                                                               tunnels",
+                             "resource-name": "tunnels",
+                             "units": "count",
+                             "max-value": 100,
+                             "current-value": 45
+                           }
+                         ]
+                       }
+                     }
+                   ]
+                 }
+               ]
+             }
+           },
+           {
+             "ne-id": "vendor-b-switch-dc-1",
+             "components": {
+               "component": [
+                 {
+                   "component-id": "main-unit",
+                   "class": "iana-hardware:chassis"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:installed-entitlements": {
+               "entitlement": [
+                 {
+                   "entitlement-id": "vendor-b-datacenter-perpetual"
+                 },
+                 {
+                   "entitlement-id": "vendor-b-support-subscription"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:capabilities": {
+               "capability-class": [
+                 {
+                   "capability-class": "basic-capability-description",
+                   "capability": [
+                     {
+                       "capability-id": "evpn-vxlan",
+                       "extended-capability-description": "EVPN-VXLAN \
+                                                               overlay",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": true
+                       },
+                       "supporting-entitlements": {
+                         "supporting-entitlement": [
+                           {
+                             "entitlement-id": "vendor-b-datacenter-\
+                                                              perpetual"
+                           },
+                           {
+                             "entitlement-id": "vendor-b-support-\
+                                                           subscription"
+                           }
+                         ]
+                       },
+                       "capability-restrictions": {
+                         "capability-restriction": [
+                           {
+                             "restriction-id": "vxlan-tunnels",
+                             "description": "Maximum VXLAN tunnel \
+                                                             endpoints",
+                             "resource-name": "vteps",
+                             "units": "endpoints",
+                             "max-value": 500,
+                             "current-value": 234
+                           }
+                         ]
+                       }
+                     }
+                   ]
+                 }
+               ]
+             }
+           },
+           {
+             "ne-id": "vendor-c-switch-dc-2",
+             "components": {
+               "component": [
+                 {
+                   "component-id": "chassis",
+                   "class": "iana-hardware:chassis"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:installed-entitlements": {
+               "entitlement": [
+                 {
+                   "entitlement-id": "vendor-c-telemetry-tier-standard"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:capabilities": {
+               "capability-class": [
+                 {
+                   "capability-class": "basic-capability-description",
+                   "capability": [
+                     {
+                       "capability-id": "streaming-telemetry",
+                       "extended-capability-description": "Streaming \
+                                                        telemetry tier",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": true
+                       },
+                       "supporting-entitlements": {
+                         "supporting-entitlement": [
+                           {
+                             "entitlement-id": "vendor-c-telemetry-tier\
+                                                              -standard"
+                           }
+                         ]
+                       },
+                       "capability-restrictions": {
+                         "capability-restriction": [
+                           {
+                             "restriction-id": "telemetry-streams",
+                             "description": "Maximum concurrent \
+                                                     telemetry streams",
+                             "resource-name": "streams",
+                             "units": "streams",
+                             "max-value": 200,
+                             "current-value": 87
+                           }
+                         ]
+                       }
+                     }
+                   ]
+                 }
+               ]
+             }
+           }
+         ]
+       },
+       "ietf-entitlement-inventory:entitlements": {
+         "entitlement": [
+           {
+             "entitlement-id": "vendor-a-sdwan-consumption",
+             "product-id": "SDWAN-CONSUMPTION-BILLING",
+             "sku": "L-SDWAN-CONSUMPTION",
+             "vendor": "Vendor-A",
+             "part-number": "SDWAN-CONSUMPTION-LIC",
+             "state": "active",
+             "renewal-profile": {
+               "start-date": "2025-01-01T00:00:00Z",
+               "activation-date": "2025-01-01T00:00:00Z"
+             },
+             "restrictions": {
+               "restriction": [
+                 {
+                   "restriction-id": "monthly-bandwidth-consumed",
+                   "description": "Total bandwidth consumed this \
+                                                        billing period",
+                   "resource-name": "bandwidth",
+                   "units": "GB",
+                   "max-value": 10000,
+                   "current-value": 7234
+                 }
+               ]
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": [
+                     "Enterprise IT Dept"
+                   ]
+                 },
+                 "users-names": {
+                   "users": [
+                     "network-admin"
+                   ]
+                 }
+               },
+               "assets": {
+                 "elements": {
+                   "network-elements": [
+                     "vendor-a-router-hq-1"
+                   ]
+                 }
+               }
+             }
+           },
+           {
+             "entitlement-id": "vendor-b-datacenter-perpetual",
+             "product-id": "DC-EVPN-VXLAN-PERPETUAL",
+             "sku": "S-EVPN-PERM",
+             "vendor": "Vendor-B",
+             "part-number": "DC-EVPN-PERPETUAL-LIC",
+             "state": "active",
+             "renewal-profile": {
+               "activation-date": "2023-03-15T00:00:00Z"
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": [
+                     "Enterprise IT Dept"
+                   ]
+                 },
+                 "users-names": {
+                   "users": [
+                     "datacenter-ops"
+                   ]
+                 }
+               },
+               "assets": {
+                 "elements": {
+                   "network-elements": [
+                     "vendor-b-switch-dc-1"
+                   ]
+                 }
+               }
+             }
+           },
+           {
+             "entitlement-id": "vendor-b-support-subscription",
+             "product-id": "DC-SUPPORT-ANNUAL",
+             "sku": "S-SUPPORT-1Y",
+             "vendor": "Vendor-B",
+             "part-number": "DC-SUPPORT-SUB-1Y",
+             "state": "active",
+             "renewal-profile": {
+               "start-date": "2024-10-01T00:00:00Z",
+               "activation-date": "2024-10-01T00:00:00Z",
+               "expiration-date": "2025-10-01T00:00:00Z"
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": [
+                     "Enterprise IT Dept"
+                   ]
+                 },
+                 "users-names": {
+                   "users": [
+                     "datacenter-ops"
+                   ]
+                 }
+               },
+               "assets": {
+                 "elements": {
+                   "network-elements": [
+                     "vendor-b-switch-dc-1"
+                   ]
+                 }
+               }
+             }
+           },
+           {
+             "entitlement-id": "vendor-c-telemetry-tier-standard",
+             "product-id": "TELEMETRY-STD-50DEV-1Y",
+             "sku": "TELEM-STD-50-1Y",
+             "vendor": "Vendor-C",
+             "part-number": "TELEM-STD-TIER-1Y",
+             "state": "active",
+             "renewal-profile": {
+               "start-date": "2025-01-01T00:00:00Z",
+               "activation-date": "2025-01-01T00:00:00Z",
+               "expiration-date": "2026-01-01T00:00:00Z"
+             },
+             "restrictions": {
+               "restriction": [
+                 {
+                   "restriction-id": "subscribed-device-count",
+                   "description": "Device count in subscribed tier",
+                   "units": "devices",
+                   "max-value": 50,
+                   "current-value": 50
+                 },
+                 {
+                   "restriction-id": "current-device-count",
+                   "description": "Actual devices currently managed (\
+                                  may exceed tier for overage billing)",
+                   "units": "devices",
+                   "max-value": 150,
+                   "current-value": 63
+                 }
+               ]
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": [
+                     "Enterprise IT Dept"
+                   ]
+                 },
+                 "users-names": {
+                   "users": [
+                     "datacenter-ops",
+                     "noc-team"
+                   ]
+                 }
+               },
+               "assets": {
+                 "elements": {
+                   "network-elements": [
+                     "vendor-c-switch-dc-2"
+                   ]
+                 }
+               }
+             }
+           }
+         ]
+       }
+     }
+   }
 
 4.8.  Component-Level Entitlements
 
@@ -3274,384 +3328,405 @@ module: ietf-entitlement-inventory
 
 4.8.2.  JSON Example
 
-{
-  "ietf-network-inventory:network-inventory": {
-    "ietf-entitlement-inventory:entitlements": {
-      "entitlement": [
-        {
-          "entitlement-id": "base-system-license",
-          "product-id": "ROUTER-BASE-2025",
-          "state": "active",
-          "renewal-profile": {
-            "activation-date": "2025-01-01T00:00:00Z",
-            "start-date": "2025-01-01T00:00:00Z",
-            "expiration-date": "2026-01-01T00:00:00Z"
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": [
-                  "corp-a"
-                ]
-              }
-            },
-            "assets": {
-              "elements": {
-                "network-elements": [
-                  "modular-router-dc1"
-                ]
-              }
-            }
-          }
-        },
-        {
-          "entitlement-id": "advanced-routing-license",
-          "product-id": "NET-ADV-ROUTE-100",
-          "state": "active",
-          "renewal-profile": {
-            "activation-date": "2025-01-15T00:00:00Z",
-            "start-date": "2025-01-15T00:00:00Z",
-            "expiration-date": "2026-01-15T00:00:00Z"
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": [
-                  "corp-a"
-                ]
-              }
-            },
-            "assets": {
-              "elements": {
-                "network-elements": [
-                  "modular-router-dc1"
-                ]
-              }
-            }
-          }
-        },
-        {
-          "entitlement-id": "port-license-100g-slot1",
-          "product-id": "PORT-LIC-100G-8PORT",
-          "state": "active",
-          "renewal-profile": {
-            "activation-date": "2025-02-01T00:00:00Z",
-            "start-date": "2025-02-01T00:00:00Z",
-            "expiration-date": "2026-02-01T00:00:00Z"
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": [
-                  "corp-a"
-                ]
-              },
-              "users-names": {
-                "users": [
-                  "admin"
-                ]
-              }
-            },
-            "assets": {
-              "components": {
-                "component": [
-                  {
-                    "network-element": "modular-router-dc1",
-                    "component-id": "linecard-slot-1"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        {
-          "entitlement-id": "port-license-100g-slot2",
-          "product-id": "PORT-LIC-100G-4PORT",
-          "state": "active",
-          "renewal-profile": {
-            "activation-date": "2025-02-15T00:00:00Z",
-            "start-date": "2025-02-15T00:00:00Z",
-            "expiration-date": "2026-02-15T00:00:00Z"
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": [
-                  "corp-a"
-                ]
-              },
-              "users-names": {
-                "users": [
-                  "admin"
-                ]
-              }
-            },
-            "assets": {
-              "components": {
-                "component": [
-                  {
-                    "network-element": "modular-router-dc1",
-                    "component-id": "linecard-slot-2"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        {
-          "entitlement-id": "crypto-accelerator-license",
-          "product-id": "SEC-CRYPTO-ACC",
-          "state": "active",
-          "renewal-profile": {
-            "activation-date": "2025-03-01T00:00:00Z",
-            "start-date": "2025-03-01T00:00:00Z",
-            "expiration-date": "2026-03-01T00:00:00Z"
-          },
-          "entitlement-attachment": {
-            "universal-access": false,
-            "holders": {
-              "organizations-names": {
-                "organizations": [
-                  "corp-a"
-                ]
-              },
-              "users-names": {
-                "users": [
-                  "security-admin"
-                ]
-              }
-            },
-            "assets": {
-              "components": {
-                "component": [
-                  {
-                    "network-element": "modular-router-dc1",
-                    "component-id": "security-module"
-                  }
-                ]
-              }
-            }
-          }
-        }
-      ]
-    },
-    "network-elements": {
-      "network-element": [
-        {
-          "ne-id": "modular-router-dc1",
-          "components": {
-            "component": [
-              {
-                "component-id": "chassis-main",
-                "class": "iana-hardware:chassis"
-              },
-              {
-                "component-id": "linecard-slot-1",
-                "class": "iana-hardware:module",
-                "ietf-entitlement-inventory:installed-entitlements": {
-                  "entitlement": [
-                    {
-                      "entitlement-id": "port-license-100g-slot1"
-                    }
-                  ]
-                },
-                "ietf-entitlement-inventory:capabilities": {
-                  "capability-class": [
-                    {
-                      "capability-class": "basic-capability-description",
-                      "capability": [
-                        {
-                          "capability-id": "high-speed-ports-1-8",
-                          "extended-capability-description": "Enable 100G ports 1-8 on linecard",
-                          "entitlement-state": {
-                            "allowed": true,
-                            "in-use": true
-                          },
-                          "supporting-entitlements": {
-                            "supporting-entitlement": [
-                              {
-                                "entitlement-id": "port-license-100g-slot1"
-                              }
-                            ]
-                          },
-                          "capability-restrictions": {
-                            "capability-restriction": [
-                              {
-                                "restriction-id": "port-count",
-                                "description": "Number of active ports",
-                                "resource-name": "ports",
-                                "units": "count",
-                                "max-value": 8,
-                                "current-value": 8
-                              }
-                            ]
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                }
-              },
-              {
-                "component-id": "linecard-slot-2",
-                "class": "iana-hardware:module",
-                "ietf-entitlement-inventory:installed-entitlements": {
-                  "entitlement": [
-                    {
-                      "entitlement-id": "port-license-100g-slot2"
-                    }
-                  ]
-                },
-                "ietf-entitlement-inventory:capabilities": {
-                  "capability-class": [
-                    {
-                      "capability-class": "basic-capability-description",
-                      "capability": [
-                        {
-                          "capability-id": "high-speed-ports-1-4",
-                          "extended-capability-description": "Enable 100G ports 1-4 on linecard",
-                          "entitlement-state": {
-                            "allowed": true,
-                            "in-use": true
-                          },
-                          "supporting-entitlements": {
-                            "supporting-entitlement": [
-                              {
-                                "entitlement-id": "port-license-100g-slot2"
-                              }
-                            ]
-                          },
-                          "capability-restrictions": {
-                            "capability-restriction": [
-                              {
-                                "restriction-id": "port-count",
-                                "description": "Number of active ports",
-                                "resource-name": "ports",
-                                "units": "count",
-                                "max-value": 4,
-                                "current-value": 4
-                              }
-                            ]
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                }
-              },
-              {
-                "component-id": "security-module",
-                "class": "iana-hardware:module",
-                "ietf-entitlement-inventory:installed-entitlements": {
-                  "entitlement": [
-                    {
-                      "entitlement-id": "crypto-accelerator-license"
-                    }
-                  ]
-                },
-                "ietf-entitlement-inventory:capabilities": {
-                  "capability-class": [
-                    {
-                      "capability-class": "basic-capability-description",
-                      "capability": [
-                        {
-                          "capability-id": "hardware-encryption",
-                          "extended-capability-description": "Hardware-accelerated encryption",
-                          "entitlement-state": {
-                            "allowed": true,
-                            "in-use": true
-                          },
-                          "supporting-entitlements": {
-                            "supporting-entitlement": [
-                              {
-                                "entitlement-id": "crypto-accelerator-license"
-                              }
-                            ]
-                          },
-                          "capability-restrictions": {
-                            "capability-restriction": [
-                              {
-                                "restriction-id": "crypto-throughput",
-                                "description": "Maximum encryption throughput",
-                                "resource-name": "throughput",
-                                "units": "Gbps",
-                                "max-value": 100,
-                                "current-value": 65
-                              }
-                            ]
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:installed-entitlements": {
-            "entitlement": [
-              {
-                "entitlement-id": "base-system-license"
-              },
-              {
-                "entitlement-id": "advanced-routing-license"
-              },
-              {
-                "entitlement-id": "port-license-100g-slot1"
-              },
-              {
-                "entitlement-id": "port-license-100g-slot2"
-              },
-              {
-                "entitlement-id": "crypto-accelerator-license"
-              }
-            ]
-          },
-          "ietf-entitlement-inventory:capabilities": {
-            "capability-class": [
-              {
-                "capability-class": "basic-capability-description",
-                "capability": [
-                  {
-                    "capability-id": "routing-protocols",
-                    "extended-capability-description": "Advanced routing protocols (BGP, OSPF, IS-IS)",
-                    "entitlement-state": {
-                      "allowed": true,
-                      "in-use": true
-                    },
-                    "supporting-entitlements": {
-                      "supporting-entitlement": [
-                        {
-                          "entitlement-id": "advanced-routing-license"
-                        }
-                      ]
-                    },
-                    "capability-restrictions": {
-                      "capability-restriction": [
-                        {
-                          "restriction-id": "max-routes",
-                          "description": "Maximum routing table entries",
-                          "resource-name": "routing-table",
-                          "units": "entries",
-                          "max-value": 1000000,
-                          "current-value": 450000
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ]
-    }
-  }
-}
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
+   {
+     "ietf-network-inventory:network-inventory": {
+       "ietf-entitlement-inventory:entitlements": {
+         "entitlement": [
+           {
+             "entitlement-id": "base-system-license",
+             "product-id": "ROUTER-BASE-2025",
+             "state": "active",
+             "renewal-profile": {
+               "activation-date": "2025-01-01T00:00:00Z",
+               "start-date": "2025-01-01T00:00:00Z",
+               "expiration-date": "2026-01-01T00:00:00Z"
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": [
+                     "corp-a"
+                   ]
+                 }
+               },
+               "assets": {
+                 "elements": {
+                   "network-elements": [
+                     "modular-router-dc1"
+                   ]
+                 }
+               }
+             }
+           },
+           {
+             "entitlement-id": "advanced-routing-license",
+             "product-id": "NET-ADV-ROUTE-100",
+             "state": "active",
+             "renewal-profile": {
+               "activation-date": "2025-01-15T00:00:00Z",
+               "start-date": "2025-01-15T00:00:00Z",
+               "expiration-date": "2026-01-15T00:00:00Z"
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": [
+                     "corp-a"
+                   ]
+                 }
+               },
+               "assets": {
+                 "elements": {
+                   "network-elements": [
+                     "modular-router-dc1"
+                   ]
+                 }
+               }
+             }
+           },
+           {
+             "entitlement-id": "port-license-100g-slot1",
+             "product-id": "PORT-LIC-100G-8PORT",
+             "state": "active",
+             "renewal-profile": {
+               "activation-date": "2025-02-01T00:00:00Z",
+               "start-date": "2025-02-01T00:00:00Z",
+               "expiration-date": "2026-02-01T00:00:00Z"
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": [
+                     "corp-a"
+                   ]
+                 },
+                 "users-names": {
+                   "users": [
+                     "admin"
+                   ]
+                 }
+               },
+               "assets": {
+                 "components": {
+                   "component": [
+                     {
+                       "network-element": "modular-router-dc1",
+                       "component-id": "linecard-slot-1"
+                     }
+                   ]
+                 }
+               }
+             }
+           },
+           {
+             "entitlement-id": "port-license-100g-slot2",
+             "product-id": "PORT-LIC-100G-4PORT",
+             "state": "active",
+             "renewal-profile": {
+               "activation-date": "2025-02-15T00:00:00Z",
+               "start-date": "2025-02-15T00:00:00Z",
+               "expiration-date": "2026-02-15T00:00:00Z"
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": [
+                     "corp-a"
+                   ]
+                 },
+                 "users-names": {
+                   "users": [
+                     "admin"
+                   ]
+                 }
+               },
+               "assets": {
+                 "components": {
+                   "component": [
+                     {
+                       "network-element": "modular-router-dc1",
+                       "component-id": "linecard-slot-2"
+                     }
+                   ]
+                 }
+               }
+             }
+           },
+           {
+             "entitlement-id": "crypto-accelerator-license",
+             "product-id": "SEC-CRYPTO-ACC",
+             "state": "active",
+             "renewal-profile": {
+               "activation-date": "2025-03-01T00:00:00Z",
+               "start-date": "2025-03-01T00:00:00Z",
+               "expiration-date": "2026-03-01T00:00:00Z"
+             },
+             "entitlement-attachment": {
+               "universal-access": false,
+               "holders": {
+                 "organizations-names": {
+                   "organizations": [
+                     "corp-a"
+                   ]
+                 },
+                 "users-names": {
+                   "users": [
+                     "security-admin"
+                   ]
+                 }
+               },
+               "assets": {
+                 "components": {
+                   "component": [
+                     {
+                       "network-element": "modular-router-dc1",
+                       "component-id": "security-module"
+                     }
+                   ]
+                 }
+               }
+             }
+           }
+         ]
+       },
+       "network-elements": {
+         "network-element": [
+           {
+             "ne-id": "modular-router-dc1",
+             "components": {
+               "component": [
+                 {
+                   "component-id": "chassis-main",
+                   "class": "iana-hardware:chassis"
+                 },
+                 {
+                   "component-id": "linecard-slot-1",
+                   "class": "iana-hardware:module",
+                   "ietf-entitlement-inventory:installed-entitlements"\
+                                                                     : {
+                     "entitlement": [
+                       {
+                         "entitlement-id": "port-license-100g-slot1"
+                       }
+                     ]
+                   },
+                   "ietf-entitlement-inventory:capabilities": {
+                     "capability-class": [
+                       {
+                         "capability-class": "basic-capability-\
+                                                           description",
+                         "capability": [
+                           {
+                             "capability-id": "high-speed-ports-1-8",
+                             "extended-capability-description": "\
+                                     Enable 100G ports 1-8 on linecard",
+                             "entitlement-state": {
+                               "allowed": true,
+                               "in-use": true
+                             },
+                             "supporting-entitlements": {
+                               "supporting-entitlement": [
+                                 {
+                                   "entitlement-id": "port-license-100g\
+                                                                 -slot1"
+                                 }
+                               ]
+                             },
+                             "capability-restrictions": {
+                               "capability-restriction": [
+                                 {
+                                   "restriction-id": "port-count",
+                                   "description": "Number of active \
+                                                                 ports",
+                                   "resource-name": "ports",
+                                   "units": "count",
+                                   "max-value": 8,
+                                   "current-value": 8
+                                 }
+                               ]
+                             }
+                           }
+                         ]
+                       }
+                     ]
+                   }
+                 },
+                 {
+                   "component-id": "linecard-slot-2",
+                   "class": "iana-hardware:module",
+                   "ietf-entitlement-inventory:installed-entitlements"\
+                                                                     : {
+                     "entitlement": [
+                       {
+                         "entitlement-id": "port-license-100g-slot2"
+                       }
+                     ]
+                   },
+                   "ietf-entitlement-inventory:capabilities": {
+                     "capability-class": [
+                       {
+                         "capability-class": "basic-capability-\
+                                                           description",
+                         "capability": [
+                           {
+                             "capability-id": "high-speed-ports-1-4",
+                             "extended-capability-description": "\
+                                     Enable 100G ports 1-4 on linecard",
+                             "entitlement-state": {
+                               "allowed": true,
+                               "in-use": true
+                             },
+                             "supporting-entitlements": {
+                               "supporting-entitlement": [
+                                 {
+                                   "entitlement-id": "port-license-100g\
+                                                                 -slot2"
+                                 }
+                               ]
+                             },
+                             "capability-restrictions": {
+                               "capability-restriction": [
+                                 {
+                                   "restriction-id": "port-count",
+                                   "description": "Number of active \
+                                                                 ports",
+                                   "resource-name": "ports",
+                                   "units": "count",
+                                   "max-value": 4,
+                                   "current-value": 4
+                                 }
+                               ]
+                             }
+                           }
+                         ]
+                       }
+                     ]
+                   }
+                 },
+                 {
+                   "component-id": "security-module",
+                   "class": "iana-hardware:module",
+                   "ietf-entitlement-inventory:installed-entitlements"\
+                                                                     : {
+                     "entitlement": [
+                       {
+                         "entitlement-id": "crypto-accelerator-license"
+                       }
+                     ]
+                   },
+                   "ietf-entitlement-inventory:capabilities": {
+                     "capability-class": [
+                       {
+                         "capability-class": "basic-capability-\
+                                                           description",
+                         "capability": [
+                           {
+                             "capability-id": "hardware-encryption",
+                             "extended-capability-description": "\
+                                       Hardware-accelerated encryption",
+                             "entitlement-state": {
+                               "allowed": true,
+                               "in-use": true
+                             },
+                             "supporting-entitlements": {
+                               "supporting-entitlement": [
+                                 {
+                                   "entitlement-id": "crypto-\
+                                                    accelerator-license"
+                                 }
+                               ]
+                             },
+                             "capability-restrictions": {
+                               "capability-restriction": [
+                                 {
+                                   "restriction-id": "crypto-throughput\
+                                                                      ",
+                                   "description": "Maximum encryption \
+                                                            throughput",
+                                   "resource-name": "throughput",
+                                   "units": "Gbps",
+                                   "max-value": 100,
+                                   "current-value": 65
+                                 }
+                               ]
+                             }
+                           }
+                         ]
+                       }
+                     ]
+                   }
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:installed-entitlements": {
+               "entitlement": [
+                 {
+                   "entitlement-id": "base-system-license"
+                 },
+                 {
+                   "entitlement-id": "advanced-routing-license"
+                 },
+                 {
+                   "entitlement-id": "port-license-100g-slot1"
+                 },
+                 {
+                   "entitlement-id": "port-license-100g-slot2"
+                 },
+                 {
+                   "entitlement-id": "crypto-accelerator-license"
+                 }
+               ]
+             },
+             "ietf-entitlement-inventory:capabilities": {
+               "capability-class": [
+                 {
+                   "capability-class": "basic-capability-description",
+                   "capability": [
+                     {
+                       "capability-id": "routing-protocols",
+                       "extended-capability-description": "Advanced \
+                                  routing protocols (BGP, OSPF, IS-IS)",
+                       "entitlement-state": {
+                         "allowed": true,
+                         "in-use": true
+                       },
+                       "supporting-entitlements": {
+                         "supporting-entitlement": [
+                           {
+                             "entitlement-id": "advanced-routing-\
+                                                                license"
+                           }
+                         ]
+                       },
+                       "capability-restrictions": {
+                         "capability-restriction": [
+                           {
+                             "restriction-id": "max-routes",
+                             "description": "Maximum routing table \
+                                                               entries",
+                             "resource-name": "routing-table",
+                             "units": "entries",
+                             "max-value": 1000000,
+                             "current-value": 450000
+                           }
+                         ]
+                       }
+                     }
+                   ]
+                 }
+               ]
+             }
+           }
+         ]
+       }
+     }
+   }
 
 4.9.  Capability Class Extension
 
@@ -3666,42 +3741,46 @@ module: ietf-entitlement-inventory
 
 4.9.2.  JSON Example
 
-{
-  "example-capability-framework:capabilities": {
-    "capability": [
-      {
-        "capability-id": "cap-routing-basic",
-        "description": "Basic routing functionality"
-      },
-      {
-        "capability-id": "cap-routing-advanced",
-        "description": "Advanced routing with BGP and OSPF"
-      }
-    ]
-  },
-  "ietf-network-inventory:network-inventory": {
-    "network-elements": {
-      "network-element": [
-        {
-          "ne-id": "device-1",
-          "ietf-entitlement-inventory:capabilities": {
-            "capability-class": [
-              {
-                "capability-class": "example-capability-extension:example-capability-class",
-                "capability": [
-                  {
-                    "capability-id": "routing",
-                    "example-capability-extension:capability-ref": "cap-routing-basic"
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ]
-    }
-  }
-}
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
+   {
+     "example-capability-framework:capabilities": {
+       "capability": [
+         {
+           "capability-id": "cap-routing-basic",
+           "description": "Basic routing functionality"
+         },
+         {
+           "capability-id": "cap-routing-advanced",
+           "description": "Advanced routing with BGP and OSPF"
+         }
+       ]
+     },
+     "ietf-network-inventory:network-inventory": {
+       "network-elements": {
+         "network-element": [
+           {
+             "ne-id": "device-1",
+             "ietf-entitlement-inventory:capabilities": {
+               "capability-class": [
+                 {
+                   "capability-class": "example-capability-extension:\
+                                              example-capability-class",
+                   "capability": [
+                     {
+                       "capability-id": "routing",
+                       "example-capability-extension:capability-ref": "\
+                                                      cap-routing-basic"
+                     }
+                   ]
+                 }
+               ]
+             }
+           }
+         ]
+       }
+     }
+   }
 
 5.  Operational Considerations
 
@@ -3751,57 +3830,72 @@ module: ietf-entitlement-inventory
 
 6.  IANA Considerations
 
-   This document registers one URI in the "IETF XML Registry" [RFC3688]
-   and one YANG module in the "YANG Module Names" registry [RFC6020].
-
-6.1.  URI Registration
-
-   IANA is requested to register the following URI in the "ns"
-   subregistry within the "IETF XML Registry" [RFC3688]:
+   IANA is requested to register the following URI in the "ns" registry
+   within the "IETF XML Registry" group [RFC3688]:
 
       URI:  urn:ietf:params:xml:ns:yang:ietf-entitlement-inventory
       Registrant Contact:  The IESG.
       XML:  N/A; the requested URI is an XML namespace.
 
-6.2.  YANG Module Name Registration
-
-   IANA is requested to register the following entry in the "YANG Module
-   Names" registry [RFC6020]:
+   IANA is requested to register the following YANG module in the "YANG
+   Module Names" registry [RFC6020] within the "YANG Parameters"
+   registry group.
 
     Name:         ietf-entitlement-inventory
+    Maintained by IANA?  N
     Namespace:    urn:ietf:params:xml:ns:yang:ietf-entitlement-inventory
     Prefix:       ei
-    Maintained by IANA:  N
     Reference:    RFC XXXX
 
 7.  Security Considerations
 
-7.1.  Entitlement Data Sensitivity
+   This section is modeled after the template described in Section 3.7
+   of [RFC9907].
 
-   Implementations MUST protect entitlement data with appropriate access
-   controls consistent with organizational security policies.
+   The "ietf-entitlement-inventory" YANG module defines a data model
+   that is designed to be accessed via YANG-based management protocols,
+   such as NETCONF [RFC6241] and RESTCONF [RFC8040].  These YANG-based
+   management protocols (1) have to use a secure transport layer (e.g.,
+   SSH [RFC4252], TLS [RFC8446], and QUIC [RFC9000]) and (2) have to use
+   mutual authentication.
 
-   The entitlement data exposed by this model includes commercially
-   sensitive information such as product identifiers, SKUs, part
-   numbers, vendor identifiers, and contract validity periods.
-   Operators SHOULD restrict read access to this data using NACM
-   (Network Access Control Management, [RFC8341]) to authorized
-   personnel only.  Unauthorized access to entitlement records could
-   expose procurement strategies, contract terms, or financial
-   obligations.
+   The Network Configuration Access Control Model (NACM) [RFC8341]
+   provides the means to restrict access for particular NETCONF or
+   RESTCONF users to a preconfigured subset of all available NETCONF or
+   RESTCONF protocol operations and content.
 
-7.2.  Entitlement Tampering
+   Some of the readable data nodes in this YANG module may be considered
+   sensitive or vulnerable in some network environments.  It is thus
+   important to control read access (e.g., via get, get-config, or
+   notification) to these data nodes.
 
-   Implementations SHOULD use cryptographic signatures or similar
-   mechanisms to verify entitlement integrity.  Network elements SHOULD
-   validate entitlements before activating capabilities.
+   Specifically, the following subtrees and data nodes have particular
+   sensitivities/vulnerabilities:
 
-   The capability inventory exposed by this model reveals which features
-   and functions are active on a network element.  This information
-   could assist an attacker in identifying exploitable capabilities or
-   understanding the operational profile of the network.  Operators
-   SHOULD apply NACM rules to restrict read access to capability data to
-   authorized management systems and personnel.
+   *  "/nwi:network-inventory/ei:entitlements"
+
+      This subtree reports a centralized entitlements catalog.  The
+      entitlement data includes commercially sensitive information such
+      as product identifiers, SKUs, part numbers, vendor identifiers,
+      and contract validity periods.  Unauthorized access to entitlement
+      records could expose procurement strategies, contract terms, or
+      financial obligations.
+
+   *  "ei:installed-entitlements"
+
+      This subtree reports which features and functions are active on a
+      network element or on a component.  This information could assist
+      an attacker in identifying exploitable capabilities or
+      understanding the operational profile of the network.
+
+   *  "ei:installed-capabilities"
+
+      TBD.
+
+   The YANG module described in this document augments the "ietf-
+   network-inventory" YANG module [BaseInventory] by adding data nodes.
+   The security considerations for the subtrees described in those RFCs
+   apply equally to the new data nodes that this module adds.
 
    This model is entirely read-only (all nodes are defined as config
    false).  Write access to the underlying entitlement state is managed
@@ -3810,22 +3904,10 @@ module: ietf-entitlement-inventory
    outside the scope of this document.  Implementations SHOULD ensure
    that those channels are protected in accordance with current security
    best practices, including mutual authentication and encryption.
-
-7.3.  Information Disclosure
-
-   Access to entitlement inventory data SHOULD be restricted to
-   authorized personnel.  Consider implementing role-based access
-   controls that limit visibility based on operational need.
-
-   The channel used to populate installed-entitlements data — whether
-   from a license server, an asset management system, or direct device
-   reporting — is outside the scope of this document.  However,
-   implementations SHOULD ensure that such channels operate within a
-   secured management plane, protected against eavesdropping and
-   unauthorized modification.  Failure to secure these channels could
-   allow an attacker to inject false entitlement state, causing
-   capabilities to appear allowed or restricted in ways that do not
-   reflect the actual organizational entitlements.
+   Failure to secure these channels could allow an attacker to inject
+   false entitlement state, causing capabilities to appear allowed or
+   restricted in ways that do not reflect the actual organizational
+   entitlements.
 
 8.  References
 
@@ -3835,10 +3917,6 @@ module: ietf-entitlement-inventory
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
-
-   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
-              DOI 10.17487/RFC3688, January 2004,
-              <https://www.rfc-editor.org/rfc/rfc3688>.
 
    [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
               the Network Configuration Protocol (NETCONF)", RFC 6020,
@@ -3863,6 +3941,37 @@ module: ietf-entitlement-inventory
               inventory-yang-18, 27 May 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-ivy-
               network-inventory-yang-18>.
+
+   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
+              DOI 10.17487/RFC3688, January 2004,
+              <https://www.rfc-editor.org/rfc/rfc3688>.
+
+   [RFC4252]  Ylonen, T. and C. Lonvick, Ed., "The Secure Shell (SSH)
+              Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,
+              January 2006, <https://www.rfc-editor.org/rfc/rfc4252>.
+
+   [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
+              and A. Bierman, Ed., "Network Configuration Protocol
+              (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
+              <https://www.rfc-editor.org/rfc/rfc6241>.
+
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/rfc/rfc8040>.
+
+   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/rfc/rfc8446>.
+
+   [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
+              Multiplexed and Secure Transport", RFC 9000,
+              DOI 10.17487/RFC9000, May 2021,
+              <https://www.rfc-editor.org/rfc/rfc9000>.
+
+   [RFC9907]  Bierman, A., Boucadair, M., Ed., and Q. Wu, "Guidelines
+              for Authors and Reviewers of Documents Containing YANG
+              Data Models", BCP 216, RFC 9907, DOI 10.17487/RFC9907,
+              March 2026, <https://www.rfc-editor.org/rfc/rfc9907>.
 
 Acknowledgments
 

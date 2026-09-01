@@ -1368,28 +1368,9 @@ svg {
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
-                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-uri-registration" class="internal xref">URI Registration</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
-                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-yang-module-name-registrati" class="internal xref">YANG Module Name Registration</a></p>
-</li>
-            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
-                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-entitlement-data-sensitivit" class="internal xref">Entitlement Data Sensitivity</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
-                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-entitlement-tampering" class="internal xref">Entitlement Tampering</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
-                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-information-disclosure" class="internal xref">Information Disclosure</a></p>
-</li>
-            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-references" class="internal xref">References</a></p>
@@ -1607,18 +1588,38 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-3.1.1-1"><a href="#fig-extBaseNetworkInventory" class="auto internal xref">Figure 2</a> depicts the initial step, highlighting the base network inventory and the areas to be extended: hardware, software, and entitlements. These extensions are necessary to properly model the relationships.<a href="#section-3.1.1-1" class="pilcrow">¶</a></p>
 <span id="name-base-network-inventory-enti"></span><div id="fig-extBaseNetworkInventory">
 <figure id="figure-2">
-            <div class="lang-{::nomarkdown}aasvg{:/} sourcecode" id="section-3.1.1-2.1">
-<pre>
-                    ┌─────────────────┐
-                    │Base Network     │
-                    │Inventory        │
-                    └─────────┬───────┘
-        ┌─────────────────────┼─────────────────────┐
-        ▼                     ▼                     ▼
-┌─────────────┐    ┌─────────────────┐    ┌─────────────┐
-│  Hardware   │    │    Software     │    │Entitlements │
-└─────────────┘    └─────────────────┘    └─────────────┘
-</pre>
+            <div id="section-3.1.1-2.1">
+              <div class="alignLeft art-svg artwork" id="section-3.1.1-2.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="176" width="464" viewBox="0 0 464 176" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                  <g class="text">
+                    <text x="240" y="36">┌─────────────────┐</text>
+                    <text x="184" y="52">│Base</text>
+                    <text x="240" y="52">Network</text>
+                    <text x="312" y="52">│</text>
+                    <text x="204" y="68">│Inventory</text>
+                    <text x="312" y="68">│</text>
+                    <text x="240" y="84">└─────────┬───────┘</text>
+                    <text x="248" y="100">┌─────────────────────┼─────────────────────┐</text>
+                    <text x="72" y="116">▼</text>
+                    <text x="248" y="116">▼</text>
+                    <text x="424" y="116">▼</text>
+                    <text x="64" y="132">┌─────────────┐</text>
+                    <text x="232" y="132">┌─────────────────┐</text>
+                    <text x="400" y="132">┌─────────────┐</text>
+                    <text x="8" y="148">│</text>
+                    <text x="60" y="148">Hardware</text>
+                    <text x="120" y="148">│</text>
+                    <text x="160" y="148">│</text>
+                    <text x="228" y="148">Software</text>
+                    <text x="304" y="148">│</text>
+                    <text x="392" y="148">│Entitlements</text>
+                    <text x="456" y="148">│</text>
+                    <text x="64" y="164">└─────────────┘</text>
+                    <text x="232" y="164">└─────────────────┘</text>
+                    <text x="400" y="164">└─────────────┘</text>
+                  </g>
+                </svg><a href="#section-3.1.1-2.1.1" class="pilcrow">¶</a>
+</div>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
 <a href="#name-base-network-inventory-enti" class="selfRef">Base Network Inventory Entitlement extension</a>
@@ -1627,20 +1628,45 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-3.1.1-3"><a href="#fig-ascii-art_baseInventory" class="auto internal xref">Figure 3</a> illustrates the initial relationship between network elements and entitlements, which is two-way: entitlements <span class="bcp14">SHOULD</span> be attached to NEs, and NEs <span class="bcp14">SHOULD</span> have entitlements installed.<a href="#section-3.1.1-3" class="pilcrow">¶</a></p>
 <span id="name-relationship-between-entitle"></span><div id="fig-ascii-art_baseInventory">
 <figure id="figure-3">
-            <div class="lang-{::nomarkdown}aasvg{:/} sourcecode" id="section-3.1.1-4.1">
-<pre>
-                 ┌─────────────────────────┐
-                 │Base Network Inventory   │
-                 └─────────┬───────────────┘
-     ┌─────────────────────┼─────────────────────┐
-     ▼                     ▼                     ▼
-┌────┴────────┐    ┌───────┴─────────┐    ┌──────┴──────┐
-│  Hardware   │    │    Software     │    │Entitlements │
-└──────┬──────┘    └───────┬─────────┘    └───┬──┬──────┘
-       │                   │                  │  │
-       │                   └───────&lt;──&gt;───────┘  │
-       └───────────────────&lt;──&gt;──────────────────┘
-</pre>
+            <div id="section-3.1.1-4.1">
+              <div class="alignLeft art-svg artwork" id="section-3.1.1-4.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="208" width="464" viewBox="0 0 464 208" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                  <g class="text">
+                    <text x="248" y="36">┌─────────────────────────┐</text>
+                    <text x="160" y="52">│Base</text>
+                    <text x="216" y="52">Network</text>
+                    <text x="288" y="52">Inventory</text>
+                    <text x="352" y="52">│</text>
+                    <text x="248" y="68">└─────────┬───────────────┘</text>
+                    <text x="224" y="84">┌─────────────────────┼─────────────────────┐</text>
+                    <text x="48" y="100">▼</text>
+                    <text x="224" y="100">▼</text>
+                    <text x="400" y="100">▼</text>
+                    <text x="64" y="116">┌────┴────────┐</text>
+                    <text x="232" y="116">┌───────┴─────────┐</text>
+                    <text x="400" y="116">┌──────┴──────┐</text>
+                    <text x="8" y="132">│</text>
+                    <text x="60" y="132">Hardware</text>
+                    <text x="120" y="132">│</text>
+                    <text x="160" y="132">│</text>
+                    <text x="228" y="132">Software</text>
+                    <text x="304" y="132">│</text>
+                    <text x="392" y="132">│Entitlements</text>
+                    <text x="456" y="132">│</text>
+                    <text x="64" y="148">└──────┬──────┘</text>
+                    <text x="232" y="148">└───────┬─────────┘</text>
+                    <text x="400" y="148">└───┬──┬──────┘</text>
+                    <text x="64" y="164">│</text>
+                    <text x="224" y="164">│</text>
+                    <text x="376" y="164">│</text>
+                    <text x="400" y="164">│</text>
+                    <text x="64" y="180">│</text>
+                    <text x="300" y="180">└───────&lt;──&gt;───────┘</text>
+                    <text x="400" y="180">│</text>
+                    <text x="232" y="196">└───────────────────&lt;──&gt;──────────────────┘</text>
+                  </g>
+                </svg><a href="#section-3.1.1-4.1.1" class="pilcrow">¶</a>
+</div>
 </div>
 <figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
 <a href="#name-relationship-between-entitle" class="selfRef">Relationship between entitlements and Base Inventory</a>
@@ -1649,22 +1675,51 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-3.1.1-5"><a href="#fig-capabilities_baseinventory" class="auto internal xref">Figure 4</a> depicts NE support capabilities by means of entitlements that authorize their use.<a href="#section-3.1.1-5" class="pilcrow">¶</a></p>
 <span id="name-capabilities-integration-wi"></span><div id="fig-capabilities_baseinventory">
 <figure id="figure-4">
-            <div class="lang-{::nomarkdown}aasvg{:/} sourcecode" id="section-3.1.1-6.1">
-<pre>
-                 ┌─────────────────────────┐
-                 │Base Network Inventory   │
-                 └──────────┬──────────────┘
-       ┌────────────────────┼────────────────────┐
-       ▼                    ▼                    ▼
-  ┌────┴───────┐    ┌───────┴───────┐     ┌──────┴─────┐
-  │  Hardware  │    │  Entitlements │     │   Software │
-  └────┬───────┘    └─────┬─────────┘     └─────┬──────┘
-       │                  │                     │
-       │                  │enables              │
-       │supports   ┌──────V─────────┐   supports│
-       └──────────&gt;│  Capabilities  │&lt;──────────┘
-                   └────────────────┘
-</pre>
+            <div id="section-3.1.1-6.1">
+              <div class="alignLeft art-svg artwork" id="section-3.1.1-6.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="256" width="456" viewBox="0 0 456 256" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                  <g class="text">
+                    <text x="232" y="36">┌─────────────────────────┐</text>
+                    <text x="144" y="52">│Base</text>
+                    <text x="200" y="52">Network</text>
+                    <text x="272" y="52">Inventory</text>
+                    <text x="336" y="52">│</text>
+                    <text x="232" y="68">└──────────┬──────────────┘</text>
+                    <text x="216" y="84">┌────────────────────┼────────────────────┐</text>
+                    <text x="48" y="100">▼</text>
+                    <text x="216" y="100">▼</text>
+                    <text x="384" y="100">▼</text>
+                    <text x="60" y="116">┌────┴───────┐</text>
+                    <text x="216" y="116">┌───────┴───────┐</text>
+                    <text x="380" y="116">┌──────┴─────┐</text>
+                    <text x="8" y="132">│</text>
+                    <text x="60" y="132">Hardware</text>
+                    <text x="112" y="132">│</text>
+                    <text x="152" y="132">│</text>
+                    <text x="220" y="132">Entitlements</text>
+                    <text x="280" y="132">│</text>
+                    <text x="328" y="132">│</text>
+                    <text x="388" y="132">Software</text>
+                    <text x="432" y="132">│</text>
+                    <text x="60" y="148">└────┬───────┘</text>
+                    <text x="216" y="148">└─────┬─────────┘</text>
+                    <text x="380" y="148">└─────┬──────┘</text>
+                    <text x="48" y="164">│</text>
+                    <text x="200" y="164">│</text>
+                    <text x="376" y="164">│</text>
+                    <text x="48" y="180">│</text>
+                    <text x="228" y="180">│enables</text>
+                    <text x="376" y="180">│</text>
+                    <text x="80" y="196">│supports</text>
+                    <text x="212" y="196">┌──────V─────────┐</text>
+                    <text x="344" y="196">supports│</text>
+                    <text x="96" y="212">└──────────&gt;│</text>
+                    <text x="212" y="212">Capabilities</text>
+                    <text x="328" y="212">│&lt;──────────┘</text>
+                    <text x="212" y="228">└────────────────┘</text>
+                  </g>
+                </svg><a href="#section-3.1.1-6.1.1" class="pilcrow">¶</a>
+</div>
 </div>
 <figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
 <a href="#name-capabilities-integration-wi" class="selfRef">Capabilities integration with the Base Inventory</a>
@@ -1673,28 +1728,61 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-3.1.1-7">Finally, NE support capabilities thanks to entitlements that entitle them of their use under certain constraints as shown in <a href="#fig-capabilities_restrictions" class="auto internal xref">Figure 5</a>.<a href="#section-3.1.1-7" class="pilcrow">¶</a></p>
 <span id="name-complete-model-with-restric"></span><div id="fig-capabilities_restrictions">
 <figure id="figure-5">
-            <div class="lang-{::nomarkdown}aasvg{:/} sourcecode" id="section-3.1.1-8.1">
-<pre>
-              ┌────────────────────────────┐
-              │   Base Network Inventory   │
-              └────────────┬───────────────┘
-                           │
-       ┌───────────────────┼─────────────────────┐
-       ▼                   ▼                     ▼
-┌──────┴─────┐     ┌───────┴───────┐      ┌──────┴─────┐
-│  Hardware  │     │  Entitlements │      │   Software │
-└──────┬─────┘     └───────┬───────┘      └──────┬─────┘
-       │                   │                     │
-       │                   │enables              │
-       │supports    ┌──────V─────────┐   supports│
-       └───────────&gt;│  Capabilities  │&lt;──────────┘
-                    └──────┬─────────┘
-                           │
-                           │constrained by
-                    ┌──────V─────────┐
-                    │  Restrictions  │
-                    └────────────────┘
-</pre>
+            <div id="section-3.1.1-8.1">
+              <div class="alignLeft art-svg artwork" id="section-3.1.1-8.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="336" width="568" viewBox="0 0 568 336" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                  <g class="text">
+                    <text x="236" y="36">┌────────────────────────────┐</text>
+                    <text x="120" y="52">│</text>
+                    <text x="164" y="52">Base</text>
+                    <text x="216" y="52">Network</text>
+                    <text x="288" y="52">Inventory</text>
+                    <text x="352" y="52">│</text>
+                    <text x="236" y="68">└────────────┬───────────────┘</text>
+                    <text x="224" y="84">│</text>
+                    <text x="232" y="100">┌───────────────────┼─────────────────────┐</text>
+                    <text x="64" y="116">▼</text>
+                    <text x="224" y="116">▼</text>
+                    <text x="400" y="116">▼</text>
+                    <text x="60" y="132">┌──────┴─────┐</text>
+                    <text x="224" y="132">┌───────┴───────┐</text>
+                    <text x="396" y="132">┌──────┴─────┐</text>
+                    <text x="8" y="148">│</text>
+                    <text x="60" y="148">Hardware</text>
+                    <text x="112" y="148">│</text>
+                    <text x="160" y="148">│</text>
+                    <text x="228" y="148">Entitlements</text>
+                    <text x="288" y="148">│</text>
+                    <text x="344" y="148">│</text>
+                    <text x="404" y="148">Software</text>
+                    <text x="448" y="148">│</text>
+                    <text x="60" y="164">└──────┬─────┘</text>
+                    <text x="224" y="164">└───────┬───────┘</text>
+                    <text x="396" y="164">└──────┬─────┘</text>
+                    <text x="64" y="180">│</text>
+                    <text x="224" y="180">│</text>
+                    <text x="400" y="180">│</text>
+                    <text x="64" y="196">│</text>
+                    <text x="252" y="196">│enables</text>
+                    <text x="400" y="196">│</text>
+                    <text x="96" y="212">│supports</text>
+                    <text x="236" y="212">┌──────V─────────┐</text>
+                    <text x="368" y="212">supports│</text>
+                    <text x="116" y="228">└───────────&gt;│</text>
+                    <text x="236" y="228">Capabilities</text>
+                    <text x="352" y="228">│&lt;──────────┘</text>
+                    <text x="236" y="244">└──────┬─────────┘</text>
+                    <text x="224" y="260">│</text>
+                    <text x="268" y="276">│constrained</text>
+                    <text x="332" y="276">by</text>
+                    <text x="236" y="292">┌──────V─────────┐</text>
+                    <text x="168" y="308">│</text>
+                    <text x="236" y="308">Restrictions</text>
+                    <text x="304" y="308">│</text>
+                    <text x="236" y="324">└────────────────┘</text>
+                  </g>
+                </svg><a href="#section-3.1.1-8.1.1" class="pilcrow">¶</a>
+</div>
 </div>
 <figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
 <a href="#name-complete-model-with-restric" class="selfRef">Complete model with restrictions</a>
@@ -1710,7 +1798,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-capabilities" class="section-name selfRef">Capabilities</a>
         </h3>
 <p id="section-3.2-1">Capabilities are modeled by augmenting "network-element" in the "ietf-network-inventory" module in <span>[<a href="#BaseInventory" class="cite xref">BaseInventory</a>]</span> according to the following tree:<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2-2">
+<div class="lang-yangtree sourcecode" id="section-3.2-2">
 <pre>
  +--ro capabilities!
     +--ro capability-class* [capability-class]
@@ -1723,7 +1811,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
           |  +--ro in-use?    boolean
           +--ro supporting-entitlements!
           |  +--ro supporting-entitlement* [entitlement-id]
-          |     +--ro entitlement-id    -&gt; ../../../../../../installed-entitlements/entitlement/entitlement-id
+          |     +--ro entitlement-id    leafref
           +--ro capability-restrictions!
              +--ro capability-restriction* [restriction-id]
                 +--ro restriction-id    string
@@ -1775,7 +1863,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 </li>
           </ul>
 <p id="section-3.2.1-6">The following example module defines capability concepts for a specific domain:<a href="#section-3.2.1-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2.1-7">
+<div class="lang-yang sourcecode" id="section-3.2.1-7">
 <pre>
 module example-capability-framework {
   yang-version 1.1;
@@ -1818,7 +1906,7 @@ module example-capability-framework {
 </pre><a href="#section-3.2.1-7" class="pilcrow">¶</a>
 </div>
 <p id="section-3.2.1-8">The following extension module extends the <code>capability-class</code> identity and augments the entitlement inventory to reference the capability definitions from the module above:<a href="#section-3.2.1-8" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2.1-9">
+<div class="breakable lang-yang sourcecode" id="section-3.2.1-9">
 <pre>
 module example-capability-extension {
   yang-version 1.1;
@@ -1885,7 +1973,7 @@ module example-capability-extension {
 <a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-entitlements" class="section-name selfRef">Entitlements</a>
         </h3>
 <p id="section-3.3-1">The entitlement modeling augments "network-inventory" in the ietf-network-inventory module in <span>[<a href="#BaseInventory" class="cite xref">BaseInventory</a>]</span> with a top-level entitlements container according to the following tree:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.3-2">
+<div class="lang-yangtree sourcecode" id="section-3.3-2">
 <pre>
  +--ro entitlements!
     +--ro entitlement* [entitlement-id]
@@ -1907,7 +1995,8 @@ module example-capability-extension {
        |     +--ro units?            string
        |     +--ro max-value?        uint32
        |     +--ro current-value?    uint32
-       +--ro parent-entitlement-uid?   -&gt; ../../entitlement/entitlement-id
+       +--ro parent-entitlement-uid?
+       |       -&gt; ../../entitlement/entitlement-id
        +--ro entitlement-attachment
           +--ro universal-access?   boolean
           +--ro holders
@@ -1917,11 +2006,11 @@ module example-capability-extension {
           |     +--ro users*   string
           +--ro assets
              +--ro elements
-             |  +--ro network-elements*   -&gt; /inv:network-inventory/network-elements/network-element/ne-id
+             |  +--ro network-elements*   leafref
              +--ro components
                 +--ro component* [network-element component-id]
-                   +--ro network-element    -&gt; /inv:network-inventory/network-elements/network-element/ne-id
-                   +--ro component-id       -&gt; /inv:network-inventory/network-elements/network-element[inv:ne-id=current()/../network-element]/components/component/component-id
+                   +--ro network-element    leafref
+                   +--ro component-id       leafref
 </pre><a href="#section-3.3-2" class="pilcrow">¶</a>
 </div>
 <p id="section-3.3-3"><a href="#fig-ModelRelationship" class="auto internal xref">Figure 6</a> depicts the relationship between the Entitlement Inventory model and other models. The Entitlement Inventory model enhances the model defined in the base network inventory model with entitlement-specific attributes and centralized entitlement management capabilities.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
@@ -1996,11 +2085,11 @@ module example-capability-extension {
 <a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-installed-entitlements" class="section-name selfRef">Installed Entitlements</a>
         </h3>
 <p id="section-3.5-1">Since capabilities are optional in network assets, the model also provides an augmentation to track entitlements that are installed directly on network assets. This augmentation of "network-element" and "component" in the "ietf-network-inventory" module provides local entitlement storage according to the following tree:<a href="#section-3.5-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.5-2">
+<div class="lang-yangtree sourcecode" id="section-3.5-2">
 <pre>
  +--ro installed-entitlements!
     +--ro entitlement* [entitlement-id]
-       +--ro entitlement-id    -&gt; /inv:network-inventory/ei:entitlements/entitlement/entitlement-id
+       +--ro entitlement-id    leafref
        +--ro in-use?           boolean
 </pre><a href="#section-3.5-2" class="pilcrow">¶</a>
 </div>
@@ -2078,7 +2167,7 @@ module example-capability-extension {
         <h3 id="name-model-definition">
 <a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-model-definition" class="section-name selfRef">Model Definition</a>
         </h3>
-<div class="alignLeft art-text artwork" id="section-3.7-1">
+<div class="breakable lang-yang sourcecode" id="section-3.7-1">
 <pre>
 module ietf-entitlement-inventory {
   yang-version 1.1;
@@ -2633,26 +2722,30 @@ module ietf-entitlement-inventory {
 }
 </pre><a href="#section-3.7-1" class="pilcrow">¶</a>
 </div>
+<p id="section-3.7-2">{sourcecode-markers="true" sourcecode-name="ietf-entitlement-inventory@2026-05-25.yang"}<a href="#section-3.7-2" class="pilcrow">¶</a></p>
 <div id="model-tree">
 <section id="section-3.7.1">
           <h4 id="name-model-tree">
 <a href="#section-3.7.1" class="section-number selfRef">3.7.1. </a><a href="#name-model-tree" class="section-name selfRef">Model tree</a>
           </h4>
-<div class="alignLeft art-text artwork" id="section-3.7.1-1">
+<div class="breakable lang-yangtree sourcecode" id="section-3.7.1-1">
 <pre>
 module: ietf-entitlement-inventory
 
-  augment /inv:network-inventory/inv:network-elements/inv:network-element:
+  augment /inv:network-inventory/inv:network-elements
+            /inv:network-element:
     +--ro installed-entitlements!
        +--ro entitlement* [entitlement-id]
-          +--ro entitlement-id    -&gt; /inv:network-inventory/ei:entitlements/entitlement/entitlement-id
+          +--ro entitlement-id    leafref
           +--ro in-use?           boolean
-  augment /inv:network-inventory/inv:network-elements/inv:network-element/inv:components/inv:component:
+  augment /inv:network-inventory/inv:network-elements
+            /inv:network-element/inv:components/inv:component:
     +--ro installed-entitlements!
        +--ro entitlement* [entitlement-id]
-          +--ro entitlement-id    -&gt; /inv:network-inventory/ei:entitlements/entitlement/entitlement-id
+          +--ro entitlement-id    leafref
           +--ro in-use?           boolean
-  augment /inv:network-inventory/inv:network-elements/inv:network-element:
+  augment /inv:network-inventory/inv:network-elements
+            /inv:network-element:
     +--ro capabilities!
        +--ro capability-class* [capability-class]
           +--ro capability-class    identityref
@@ -2664,7 +2757,7 @@ module: ietf-entitlement-inventory
              |  +--ro in-use?    boolean
              +--ro supporting-entitlements!
              |  +--ro supporting-entitlement* [entitlement-id]
-             |     +--ro entitlement-id    -&gt; ../../../../../../installed-entitlements/entitlement/entitlement-id
+             |     +--ro entitlement-id    leafref
              +--ro capability-restrictions!
                 +--ro capability-restriction* [restriction-id]
                    +--ro restriction-id    string
@@ -2673,7 +2766,8 @@ module: ietf-entitlement-inventory
                    +--ro units?            string
                    +--ro max-value?        uint32
                    +--ro current-value?    uint32
-  augment /inv:network-inventory/inv:network-elements/inv:network-element/inv:components/inv:component:
+  augment /inv:network-inventory/inv:network-elements
+            /inv:network-element/inv:components/inv:component:
     +--ro capabilities!
        +--ro capability-class* [capability-class]
           +--ro capability-class    identityref
@@ -2685,7 +2779,7 @@ module: ietf-entitlement-inventory
              |  +--ro in-use?    boolean
              +--ro supporting-entitlements!
              |  +--ro supporting-entitlement* [entitlement-id]
-             |     +--ro entitlement-id    -&gt; ../../../../../../installed-entitlements/entitlement/entitlement-id
+             |     +--ro entitlement-id    leafref
              +--ro capability-restrictions!
                 +--ro capability-restriction* [restriction-id]
                    +--ro restriction-id    string
@@ -2715,7 +2809,8 @@ module: ietf-entitlement-inventory
           |     +--ro units?            string
           |     +--ro max-value?        uint32
           |     +--ro current-value?    uint32
-          +--ro parent-entitlement-uid?   -&gt; ../../entitlement/entitlement-id
+          +--ro parent-entitlement-uid?
+          |       -&gt; ../../entitlement/entitlement-id
           +--ro entitlement-attachment
              +--ro universal-access?   boolean
              +--ro holders
@@ -2725,11 +2820,11 @@ module: ietf-entitlement-inventory
              |     +--ro users*   string
              +--ro assets
                 +--ro elements
-                |  +--ro network-elements*   -&gt; /inv:network-inventory/network-elements/network-element/ne-id
+                |  +--ro network-elements*   leafref
                 +--ro components
                    +--ro component* [network-element component-id]
-                      +--ro network-element    -&gt; /inv:network-inventory/network-elements/network-element/ne-id
-                      +--ro component-id       -&gt; /inv:network-inventory/network-elements/network-element[inv:ne-id=current()/../network-element]/components/component/component-id
+                      +--ro network-element    leafref
+                      +--ro component-id       leafref
 </pre><a href="#section-3.7.1-1" class="pilcrow">¶</a>
 </div>
 </section>
@@ -2880,8 +2975,10 @@ module: ietf-entitlement-inventory
           <h4 id="name-json-example">
 <a href="#section-4.2.3" class="section-number selfRef">4.2.3. </a><a href="#name-json-example" class="section-name selfRef">JSON Example</a>
           </h4>
-<div class="alignLeft art-text artwork" id="section-4.2.3-1">
+<div class="breakable lang-json sourcecode" id="section-4.2.3-1">
 <pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 {
   "ietf-network-inventory:network-inventory": {
     "network-elements": {
@@ -2910,7 +3007,8 @@ module: ietf-entitlement-inventory
                 "capability": [
                   {
                     "capability-id": "generic-routing-functions",
-                    "extended-capability-description": "Basic routing capabilities",
+                    "extended-capability-description": "Basic \
+                                               routing capabilities",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": true
@@ -3035,8 +3133,10 @@ module: ietf-entitlement-inventory
           <h4 id="name-json-example-2">
 <a href="#section-4.3.3" class="section-number selfRef">4.3.3. </a><a href="#name-json-example-2" class="section-name selfRef">JSON Example</a>
           </h4>
-<div class="alignLeft art-text artwork" id="section-4.3.3-1">
+<div class="breakable lang-json sourcecode" id="section-4.3.3-1">
 <pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 {
   "ietf-network-inventory:network-inventory": {
     "ietf-entitlement-inventory:entitlements": {
@@ -3120,7 +3220,8 @@ module: ietf-entitlement-inventory
               "capability": [
                 {
                   "capability-id": "stateful-firewall",
-                  "extended-capability-description": "Stateful firewall",
+                  "extended-capability-description": "Stateful \
+                                                           firewall",
                   "entitlement-state": {
                     "allowed": false,
                     "in-use": false
@@ -3136,7 +3237,8 @@ module: ietf-entitlement-inventory
                   "capability-restriction": [
                     {
                       "restriction-id": "firewall-sessions",
-                      "description": "Maximum concurrent firewall sessions",
+                      "description": "Maximum concurrent firewall \
+                                                           sessions",
                       "resource-name": "sessions",
                       "units": "connections",
                       "max-value": 50000,
@@ -3147,7 +3249,8 @@ module: ietf-entitlement-inventory
                 },
                 {
                   "capability-id": "ipsec-vpn",
-                  "extended-capability-description": "IPSec VPN tunnels",
+                  "extended-capability-description": "IPsec VPN \
+                                                            tunnels",
                   "entitlement-state": {
                     "allowed": false,
                     "in-use": false
@@ -3190,7 +3293,8 @@ module: ietf-entitlement-inventory
                   "capability-restriction": [
                     {
                       "restriction-id": "ospf-neighbors",
-                      "description": "Maximum OSPF neighbor adjacencies, just to give an example :)",
+                      "description": "Maximum OSPF neighbor \
+                            adjacencies, just to give an example :)",
                       "resource-name": "neighbors",
                       "units": "adjacencies",
                       "max-value": 50,
@@ -3239,8 +3343,10 @@ module: ietf-entitlement-inventory
           <h4 id="name-json-example-3">
 <a href="#section-4.4.3" class="section-number selfRef">4.4.3. </a><a href="#name-json-example-3" class="section-name selfRef">JSON Example</a>
           </h4>
-<div class="alignLeft art-text artwork" id="section-4.4.3-1">
+<div class="breakable lang-json sourcecode" id="section-4.4.3-1">
 <pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 {
   "ietf-network-inventory:network-inventory": {
     "network-elements": {
@@ -3294,7 +3400,8 @@ module: ietf-entitlement-inventory
                     "capability-restriction": [
                       {
                         "restriction-id": "concurrent-sessions",
-                      "description": "Maximum concurrent firewall sessions",
+                      "description": "Maximum concurrent firewall \
+                                                           sessions",
                       "resource-name": "sessions",
                       "units": "connections",
                         "max-value": 100000,
@@ -3305,7 +3412,8 @@ module: ietf-entitlement-inventory
                 },
                 {
                   "capability-id": "vpn",
-                  "extended-capability-description": "IPSec VPN tunnels",
+                  "extended-capability-description": "IPsec VPN \
+                                                            tunnels",
                   "entitlement-state": {
                     "allowed": true,
                     "in-use": true
@@ -3332,7 +3440,8 @@ module: ietf-entitlement-inventory
                 },
                 {
                   "capability-id": "bgp-advanced",
-                  "extended-capability-description": "Advanced BGP features including route reflector",
+                  "extended-capability-description": "Advanced BGP \
+                                 features including route reflector",
                   "entitlement-state": {
                     "allowed": true,
                     "in-use": true
@@ -3477,8 +3586,10 @@ module: ietf-entitlement-inventory
           <h4 id="name-json-example-4">
 <a href="#section-4.5.2" class="section-number selfRef">4.5.2. </a><a href="#name-json-example-4" class="section-name selfRef">JSON Example</a>
           </h4>
-<div class="alignLeft art-text artwork" id="section-4.5.2-1">
+<div class="breakable lang-json sourcecode" id="section-4.5.2-1">
 <pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 {
   "ietf-network-inventory:network-inventory": {
     "ietf-entitlement-inventory:entitlements": {
@@ -3568,7 +3679,8 @@ module: ietf-entitlement-inventory
                 "capability": [
                   {
                     "capability-id": "ospf-routing",
-                    "extended-capability-description": "OSPF dynamic routing protocol",
+                    "extended-capability-description": "OSPF \
+                                           dynamic routing protocol",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": true
@@ -3595,7 +3707,8 @@ module: ietf-entitlement-inventory
                   },
                   {
                     "capability-id": "static-routing",
-                    "extended-capability-description": "Static route configuration",
+                    "extended-capability-description": "Static \
+                                                route configuration",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": true
@@ -3654,7 +3767,8 @@ module: ietf-entitlement-inventory
                 "capability": [
                   {
                     "capability-id": "ospf-routing",
-                    "extended-capability-description": "OSPF dynamic routing protocol",
+                    "extended-capability-description": "OSPF \
+                                           dynamic routing protocol",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": true
@@ -3681,7 +3795,8 @@ module: ietf-entitlement-inventory
                   },
                   {
                     "capability-id": "static-routing",
-                    "extended-capability-description": "Static route configuration",
+                    "extended-capability-description": "Static \
+                                                route configuration",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": true
@@ -3708,7 +3823,8 @@ module: ietf-entitlement-inventory
                   },
                   {
                     "capability-id": "bgp-routing",
-                    "extended-capability-description": "BGP routing protocol with route policies",
+                    "extended-capability-description": "BGP routing \
+                                       protocol with route policies",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": true
@@ -3738,7 +3854,8 @@ module: ietf-entitlement-inventory
                   },
                   {
                     "capability-id": "mpls",
-                    "extended-capability-description": "MPLS label switching",
+                    "extended-capability-description": "MPLS label \
+                                                          switching",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": true
@@ -3757,7 +3874,8 @@ module: ietf-entitlement-inventory
                       "capability-restriction": [
                         {
                           "restriction-id": "mpls-lsps",
-                          "description": "Maximum MPLS label-switched paths",
+                          "description": "Maximum MPLS label-\
+                                                     switched paths",
                           "resource-name": "lsps",
                           "units": "paths",
                           "max-value": 200,
@@ -3768,7 +3886,8 @@ module: ietf-entitlement-inventory
                   },
                   {
                     "capability-id": "advanced-qos",
-                    "extended-capability-description": "Advanced QoS with traffic shaping",
+                    "extended-capability-description": "Advanced \
+                                           QoS with traffic shaping",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": false
@@ -3787,7 +3906,8 @@ module: ietf-entitlement-inventory
                       "capability-restriction": [
                         {
                           "restriction-id": "qos-classes",
-                          "description": "Maximum QoS traffic classes",
+                          "description": "Maximum QoS traffic \
+                                                            classes",
                           "resource-name": "qos-classes",
                           "units": "classes",
                           "max-value": 16,
@@ -3829,8 +3949,10 @@ module: ietf-entitlement-inventory
           <h4 id="name-json-example-5">
 <a href="#section-4.6.2" class="section-number selfRef">4.6.2. </a><a href="#name-json-example-5" class="section-name selfRef">JSON Example</a>
           </h4>
-<div class="alignLeft art-text artwork" id="section-4.6.2-1">
+<div class="breakable lang-json sourcecode" id="section-4.6.2-1">
 <pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 {
   "ietf-network-inventory:network-inventory": {
     "network-elements": {
@@ -3862,7 +3984,8 @@ module: ietf-entitlement-inventory
                 "capability": [
                   {
                     "capability-id": "enterprise-routing",
-                    "extended-capability-description": "Enterprise routing protocols",
+                    "extended-capability-description": "Enterprise \
+                                                  routing protocols",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": true
@@ -3889,7 +4012,8 @@ module: ietf-entitlement-inventory
                   },
                   {
                     "capability-id": "advanced-firewall",
-                    "extended-capability-description": "Enterprise firewall",
+                    "extended-capability-description": "Enterprise \
+                                                           firewall",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": true
@@ -3905,7 +4029,8 @@ module: ietf-entitlement-inventory
                       "capability-restriction": [
                         {
                           "restriction-id": "firewall-throughput",
-                          "description": "Maximum firewall throughput",
+                          "description": "Maximum firewall \
+                                                         throughput",
                           "resource-name": "throughput",
                           "units": "Gbps",
                           "max-value": 40,
@@ -3943,7 +4068,8 @@ module: ietf-entitlement-inventory
                 "capability": [
                   {
                     "capability-id": "enterprise-routing",
-                    "extended-capability-description": "Enterprise routing protocol",
+                    "extended-capability-description": "Enterprise \
+                                                   routing protocol",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": true
@@ -3997,7 +4123,8 @@ module: ietf-entitlement-inventory
                 "capability": [
                   {
                     "capability-id": "advanced-firewall",
-                    "extended-capability-description": "Enterprise firewall",
+                    "extended-capability-description": "Enterprise \
+                                                           firewall",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": true
@@ -4013,7 +4140,8 @@ module: ietf-entitlement-inventory
                       "capability-restriction": [
                         {
                           "restriction-id": "firewall-throughput",
-                          "description": "Maximum firewall throughput",
+                          "description": "Maximum firewall \
+                                                         throughput",
                           "resource-name": "throughput",
                           "units": "Gbps",
                           "max-value": 10,
@@ -4044,7 +4172,8 @@ module: ietf-entitlement-inventory
             "restriction": [
               {
                 "restriction-id": "license-consumption",
-                "description": "Enterprise router licenses consumed from pool",
+                "description": "Enterprise router licenses consumed \
+                                                          from pool",
                 "units": "licenses",
                 "max-value": 100,
                 "current-value": 87
@@ -4083,14 +4212,16 @@ module: ietf-entitlement-inventory
             "restriction": [
               {
                 "restriction-id": "license-consumption",
-                "description": "Security licenses consumed from pool (high utilization)",
+                "description": "Security licenses consumed from \
+                                            pool (high utilization)",
                 "units": "licenses",
                 "max-value": 25,
                 "current-value": 21
               },
               {
                 "restriction-id": "total-throughput",
-                "description": "Aggregate firewall throughput across all devices (real-time snapshot)",
+                "description": "Aggregate firewall throughput \
+                            across all devices (real-time snapshot)",
                 "resource-name": "throughput",
                 "units": "Gbps",
                 "max-value": 100,
@@ -4145,8 +4276,10 @@ module: ietf-entitlement-inventory
           <h4 id="name-json-example-6">
 <a href="#section-4.7.2" class="section-number selfRef">4.7.2. </a><a href="#name-json-example-6" class="section-name selfRef">JSON Example</a>
           </h4>
-<div class="alignLeft art-text artwork" id="section-4.7.2-1">
+<div class="breakable lang-json sourcecode" id="section-4.7.2-1">
 <pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 {
   "ietf-network-inventory:network-inventory": {
     "network-elements": {
@@ -4175,7 +4308,8 @@ module: ietf-entitlement-inventory
                 "capability": [
                   {
                     "capability-id": "sd-wan",
-                    "extended-capability-description": "SD-WAN with consumption-based billing",
+                    "extended-capability-description": "SD-WAN with \
+                                          consumption-based billing",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": true
@@ -4183,7 +4317,8 @@ module: ietf-entitlement-inventory
                     "supporting-entitlements": {
                       "supporting-entitlement": [
                         {
-                          "entitlement-id": "vendor-a-sdwan-consumption"
+                          "entitlement-id": "vendor-a-sdwan-\
+                                                         consumption"
                         }
                       ]
                     },
@@ -4191,7 +4326,8 @@ module: ietf-entitlement-inventory
                       "capability-restriction": [
                         {
                           "restriction-id": "active-tunnels",
-                          "description": "Current active SD-WAN tunnels",
+                          "description": "Current active SD-WAN \
+                                                            tunnels",
                           "resource-name": "tunnels",
                           "units": "count",
                           "max-value": 100,
@@ -4232,7 +4368,8 @@ module: ietf-entitlement-inventory
                 "capability": [
                   {
                     "capability-id": "evpn-vxlan",
-                    "extended-capability-description": "EVPN-VXLAN overlay",
+                    "extended-capability-description": "EVPN-VXLAN \
+                                                            overlay",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": true
@@ -4240,10 +4377,12 @@ module: ietf-entitlement-inventory
                     "supporting-entitlements": {
                       "supporting-entitlement": [
                         {
-                          "entitlement-id": "vendor-b-datacenter-perpetual"
+                          "entitlement-id": "vendor-b-datacenter-\
+                                                           perpetual"
                         },
                         {
-                          "entitlement-id": "vendor-b-support-subscription"
+                          "entitlement-id": "vendor-b-support-\
+                                                        subscription"
                         }
                       ]
                     },
@@ -4251,7 +4390,8 @@ module: ietf-entitlement-inventory
                       "capability-restriction": [
                         {
                           "restriction-id": "vxlan-tunnels",
-                          "description": "Maximum VXLAN tunnel endpoints",
+                          "description": "Maximum VXLAN tunnel \
+                                                          endpoints",
                           "resource-name": "vteps",
                           "units": "endpoints",
                           "max-value": 500,
@@ -4289,7 +4429,8 @@ module: ietf-entitlement-inventory
                 "capability": [
                   {
                     "capability-id": "streaming-telemetry",
-                    "extended-capability-description": "Streaming telemetry tier",
+                    "extended-capability-description": "Streaming \
+                                                     telemetry tier",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": true
@@ -4297,7 +4438,8 @@ module: ietf-entitlement-inventory
                     "supporting-entitlements": {
                       "supporting-entitlement": [
                         {
-                          "entitlement-id": "vendor-c-telemetry-tier-standard"
+                          "entitlement-id": "vendor-c-telemetry-tier\
+                                                           -standard"
                         }
                       ]
                     },
@@ -4305,7 +4447,8 @@ module: ietf-entitlement-inventory
                       "capability-restriction": [
                         {
                           "restriction-id": "telemetry-streams",
-                          "description": "Maximum concurrent telemetry streams",
+                          "description": "Maximum concurrent \
+                                                  telemetry streams",
                           "resource-name": "streams",
                           "units": "streams",
                           "max-value": 200,
@@ -4338,7 +4481,8 @@ module: ietf-entitlement-inventory
             "restriction": [
               {
                 "restriction-id": "monthly-bandwidth-consumed",
-                "description": "Total bandwidth consumed this billing period",
+                "description": "Total bandwidth consumed this \
+                                                     billing period",
                 "resource-name": "bandwidth",
                 "units": "GB",
                 "max-value": 10000,
@@ -4460,7 +4604,8 @@ module: ietf-entitlement-inventory
               },
               {
                 "restriction-id": "current-device-count",
-                "description": "Actual devices currently managed (may exceed tier for overage billing)",
+                "description": "Actual devices currently managed (\
+                               may exceed tier for overage billing)",
                 "units": "devices",
                 "max-value": 150,
                 "current-value": 63
@@ -4519,8 +4664,10 @@ module: ietf-entitlement-inventory
           <h4 id="name-json-example-7">
 <a href="#section-4.8.2" class="section-number selfRef">4.8.2. </a><a href="#name-json-example-7" class="section-name selfRef">JSON Example</a>
           </h4>
-<div class="alignLeft art-text artwork" id="section-4.8.2-1">
+<div class="breakable lang-json sourcecode" id="section-4.8.2-1">
 <pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 {
   "ietf-network-inventory:network-inventory": {
     "ietf-entitlement-inventory:entitlements": {
@@ -4699,7 +4846,8 @@ module: ietf-entitlement-inventory
               {
                 "component-id": "linecard-slot-1",
                 "class": "iana-hardware:module",
-                "ietf-entitlement-inventory:installed-entitlements": {
+                "ietf-entitlement-inventory:installed-entitlements"\
+                                                                  : {
                   "entitlement": [
                     {
                       "entitlement-id": "port-license-100g-slot1"
@@ -4709,11 +4857,13 @@ module: ietf-entitlement-inventory
                 "ietf-entitlement-inventory:capabilities": {
                   "capability-class": [
                     {
-                      "capability-class": "basic-capability-description",
+                      "capability-class": "basic-capability-\
+                                                        description",
                       "capability": [
                         {
                           "capability-id": "high-speed-ports-1-8",
-                          "extended-capability-description": "Enable 100G ports 1-8 on linecard",
+                          "extended-capability-description": "\
+                                  Enable 100G ports 1-8 on linecard",
                           "entitlement-state": {
                             "allowed": true,
                             "in-use": true
@@ -4721,7 +4871,8 @@ module: ietf-entitlement-inventory
                           "supporting-entitlements": {
                             "supporting-entitlement": [
                               {
-                                "entitlement-id": "port-license-100g-slot1"
+                                "entitlement-id": "port-license-100g\
+                                                              -slot1"
                               }
                             ]
                           },
@@ -4729,7 +4880,8 @@ module: ietf-entitlement-inventory
                             "capability-restriction": [
                               {
                                 "restriction-id": "port-count",
-                                "description": "Number of active ports",
+                                "description": "Number of active \
+                                                              ports",
                                 "resource-name": "ports",
                                 "units": "count",
                                 "max-value": 8,
@@ -4746,7 +4898,8 @@ module: ietf-entitlement-inventory
               {
                 "component-id": "linecard-slot-2",
                 "class": "iana-hardware:module",
-                "ietf-entitlement-inventory:installed-entitlements": {
+                "ietf-entitlement-inventory:installed-entitlements"\
+                                                                  : {
                   "entitlement": [
                     {
                       "entitlement-id": "port-license-100g-slot2"
@@ -4756,11 +4909,13 @@ module: ietf-entitlement-inventory
                 "ietf-entitlement-inventory:capabilities": {
                   "capability-class": [
                     {
-                      "capability-class": "basic-capability-description",
+                      "capability-class": "basic-capability-\
+                                                        description",
                       "capability": [
                         {
                           "capability-id": "high-speed-ports-1-4",
-                          "extended-capability-description": "Enable 100G ports 1-4 on linecard",
+                          "extended-capability-description": "\
+                                  Enable 100G ports 1-4 on linecard",
                           "entitlement-state": {
                             "allowed": true,
                             "in-use": true
@@ -4768,7 +4923,8 @@ module: ietf-entitlement-inventory
                           "supporting-entitlements": {
                             "supporting-entitlement": [
                               {
-                                "entitlement-id": "port-license-100g-slot2"
+                                "entitlement-id": "port-license-100g\
+                                                              -slot2"
                               }
                             ]
                           },
@@ -4776,7 +4932,8 @@ module: ietf-entitlement-inventory
                             "capability-restriction": [
                               {
                                 "restriction-id": "port-count",
-                                "description": "Number of active ports",
+                                "description": "Number of active \
+                                                              ports",
                                 "resource-name": "ports",
                                 "units": "count",
                                 "max-value": 4,
@@ -4793,7 +4950,8 @@ module: ietf-entitlement-inventory
               {
                 "component-id": "security-module",
                 "class": "iana-hardware:module",
-                "ietf-entitlement-inventory:installed-entitlements": {
+                "ietf-entitlement-inventory:installed-entitlements"\
+                                                                  : {
                   "entitlement": [
                     {
                       "entitlement-id": "crypto-accelerator-license"
@@ -4803,11 +4961,13 @@ module: ietf-entitlement-inventory
                 "ietf-entitlement-inventory:capabilities": {
                   "capability-class": [
                     {
-                      "capability-class": "basic-capability-description",
+                      "capability-class": "basic-capability-\
+                                                        description",
                       "capability": [
                         {
                           "capability-id": "hardware-encryption",
-                          "extended-capability-description": "Hardware-accelerated encryption",
+                          "extended-capability-description": "\
+                                    Hardware-accelerated encryption",
                           "entitlement-state": {
                             "allowed": true,
                             "in-use": true
@@ -4815,15 +4975,18 @@ module: ietf-entitlement-inventory
                           "supporting-entitlements": {
                             "supporting-entitlement": [
                               {
-                                "entitlement-id": "crypto-accelerator-license"
+                                "entitlement-id": "crypto-\
+                                                 accelerator-license"
                               }
                             ]
                           },
                           "capability-restrictions": {
                             "capability-restriction": [
                               {
-                                "restriction-id": "crypto-throughput",
-                                "description": "Maximum encryption throughput",
+                                "restriction-id": "crypto-throughput\
+                                                                   ",
+                                "description": "Maximum encryption \
+                                                         throughput",
                                 "resource-name": "throughput",
                                 "units": "Gbps",
                                 "max-value": 100,
@@ -4865,7 +5028,8 @@ module: ietf-entitlement-inventory
                 "capability": [
                   {
                     "capability-id": "routing-protocols",
-                    "extended-capability-description": "Advanced routing protocols (BGP, OSPF, IS-IS)",
+                    "extended-capability-description": "Advanced \
+                               routing protocols (BGP, OSPF, IS-IS)",
                     "entitlement-state": {
                       "allowed": true,
                       "in-use": true
@@ -4873,7 +5037,8 @@ module: ietf-entitlement-inventory
                     "supporting-entitlements": {
                       "supporting-entitlement": [
                         {
-                          "entitlement-id": "advanced-routing-license"
+                          "entitlement-id": "advanced-routing-\
+                                                             license"
                         }
                       ]
                     },
@@ -4881,7 +5046,8 @@ module: ietf-entitlement-inventory
                       "capability-restriction": [
                         {
                           "restriction-id": "max-routes",
-                          "description": "Maximum routing table entries",
+                          "description": "Maximum routing table \
+                                                            entries",
                           "resource-name": "routing-table",
                           "units": "entries",
                           "max-value": 1000000,
@@ -4923,8 +5089,10 @@ module: ietf-entitlement-inventory
           <h4 id="name-json-example-8">
 <a href="#section-4.9.2" class="section-number selfRef">4.9.2. </a><a href="#name-json-example-8" class="section-name selfRef">JSON Example</a>
           </h4>
-<div class="alignLeft art-text artwork" id="section-4.9.2-1">
+<div class="lang-json sourcecode" id="section-4.9.2-1">
 <pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 {
   "example-capability-framework:capabilities": {
     "capability": [
@@ -4946,11 +5114,13 @@ module: ietf-entitlement-inventory
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "example-capability-extension:example-capability-class",
+                "capability-class": "example-capability-extension:\
+                                           example-capability-class",
                 "capability": [
                   {
                     "capability-id": "routing",
-                    "example-capability-extension:capability-ref": "cap-routing-basic"
+                    "example-capability-extension:capability-ref": "\
+                                                   cap-routing-basic"
                   }
                 ]
               }
@@ -5037,38 +5207,23 @@ While the model prevents direct self-reference, cycles at greater depth (e.g., A
       <h2 id="name-iana-considerations">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-6-1">This document registers one URI in the "IETF XML Registry" <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span> and one YANG module in the "YANG Module Names" registry <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<div id="uri-registration">
-<section id="section-6.1">
-        <h3 id="name-uri-registration">
-<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-uri-registration" class="section-name selfRef">URI Registration</a>
-        </h3>
-<p id="section-6.1-1">IANA is requested to register the following URI in the "ns" subregistry within the "IETF XML Registry" <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.1-2">
+<p id="section-6-1">IANA is requested to register the following URI in the "ns" registry within the "IETF XML Registry" group <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>:<a href="#section-6-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6-2">
 <pre>
    URI:  urn:ietf:params:xml:ns:yang:ietf-entitlement-inventory
    Registrant Contact:  The IESG.
    XML:  N/A; the requested URI is an XML namespace.
-</pre><a href="#section-6.1-2" class="pilcrow">¶</a>
+</pre><a href="#section-6-2" class="pilcrow">¶</a>
 </div>
-</section>
-</div>
-<div id="yang-module-name-registration">
-<section id="section-6.2">
-        <h3 id="name-yang-module-name-registrati">
-<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-yang-module-name-registrati" class="section-name selfRef">YANG Module Name Registration</a>
-        </h3>
-<p id="section-6.2-1">IANA is requested to register the following entry in the "YANG Module Names" registry <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>:<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.2-2">
+<p id="section-6-3">IANA is requested to register the following YANG module in the "YANG Module Names" registry <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span> within the "YANG Parameters" registry group.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6-4">
 <pre>
    Name:         ietf-entitlement-inventory
+   Maintained by IANA?  N
    Namespace:    urn:ietf:params:xml:ns:yang:ietf-entitlement-inventory
    Prefix:       ei
-   Maintained by IANA:  N
    Reference:    RFC XXXX
-</pre><a href="#section-6.2-2" class="pilcrow">¶</a>
-</div>
-</section>
+</pre><a href="#section-6-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -5077,34 +5232,55 @@ While the model prevents direct self-reference, cycles at greater depth (e.g., A
       <h2 id="name-security-considerations">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<div id="entitlement-data-sensitivity">
-<section id="section-7.1">
-        <h3 id="name-entitlement-data-sensitivit">
-<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-entitlement-data-sensitivit" class="section-name selfRef">Entitlement Data Sensitivity</a>
-        </h3>
-<p id="section-7.1-1">Implementations <span class="bcp14">MUST</span> protect entitlement data with appropriate access controls consistent with organizational security policies.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">The entitlement data exposed by this model includes commercially sensitive information such as product identifiers, SKUs, part numbers, vendor identifiers, and contract validity periods. Operators <span class="bcp14">SHOULD</span> restrict read access to this data using NACM (Network Access Control Management, <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span>) to authorized personnel only. Unauthorized access to entitlement records could expose procurement strategies, contract terms, or financial obligations.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="entitlement-tampering">
-<section id="section-7.2">
-        <h3 id="name-entitlement-tampering">
-<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-entitlement-tampering" class="section-name selfRef">Entitlement Tampering</a>
-        </h3>
-<p id="section-7.2-1">Implementations <span class="bcp14">SHOULD</span> use cryptographic signatures or similar mechanisms to verify entitlement integrity. Network elements <span class="bcp14">SHOULD</span> validate entitlements before activating capabilities.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
-<p id="section-7.2-2">The capability inventory exposed by this model reveals which features and functions are active on a network element. This information could assist an attacker in identifying exploitable capabilities or understanding the operational profile of the network. Operators <span class="bcp14">SHOULD</span> apply NACM rules to restrict read access to capability data to authorized management systems and personnel.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
-<p id="section-7.2-3">This model is entirely read-only (all nodes are defined as <code>config false</code>). Write access to the underlying entitlement state is managed by external systems such as license servers or asset management platforms, whose communication channels with network elements are outside the scope of this document. Implementations <span class="bcp14">SHOULD</span> ensure that those channels are protected in accordance with current security best practices, including mutual authentication and encryption.<a href="#section-7.2-3" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="information-disclosure">
-<section id="section-7.3">
-        <h3 id="name-information-disclosure">
-<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-information-disclosure" class="section-name selfRef">Information Disclosure</a>
-        </h3>
-<p id="section-7.3-1">Access to entitlement inventory data <span class="bcp14">SHOULD</span> be restricted to authorized personnel. Consider implementing role-based access controls that limit visibility based on operational need.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
-<p id="section-7.3-2">The channel used to populate <code>installed-entitlements</code> data — whether from a license server, an asset management system, or direct device reporting — is outside the scope of this document. However, implementations <span class="bcp14">SHOULD</span> ensure that such channels operate within a secured management plane, protected against eavesdropping and unauthorized modification. Failure to secure these channels could allow an attacker to inject false entitlement state, causing capabilities to appear allowed or restricted in ways that do not reflect the actual organizational entitlements.<a href="#section-7.3-2" class="pilcrow">¶</a></p>
-</section>
-</div>
+<p id="section-7-1">This section is modeled after the template described in <span><a href="https://rfc-editor.org/rfc/rfc9907#section-3.7" class="relref">Section 3.7</a> of [<a href="#RFC9907" class="cite xref">RFC9907</a>]</span>.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">The "ietf-entitlement-inventory" YANG module defines a data model that is
+designed to be accessed via YANG-based management protocols, such as
+NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>. These YANG-based management
+protocols (1) have to use a secure transport layer (e.g., SSH <span>[<a href="#RFC4252" class="cite xref">RFC4252</a>]</span>, TLS <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>,
+and QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>) and (2) have to use mutual authentication.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-3">The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span>
+provides the means to restrict access for particular NETCONF or
+RESTCONF users to a preconfigured subset of all available NETCONF or
+RESTCONF protocol operations and content.<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-4">Some of the readable data nodes in this YANG module may be considered
+sensitive or vulnerable in some network environments.  It is thus
+important to control read access (e.g., via get, get-config, or
+notification) to these data nodes.<a href="#section-7-4" class="pilcrow">¶</a></p>
+<p id="section-7-5">Specifically, the following subtrees and data nodes have particular sensitivities/vulnerabilities:<a href="#section-7-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7-6.1">
+          <p id="section-7-6.1.1">"/nwi:network-inventory/ei:entitlements"<a href="#section-7-6.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-7-7.1">
+          <p id="section-7-7.1.1">This subtree reports a centralized entitlements catalog. The entitlement data includes commercially sensitive information such as product identifiers, SKUs, part numbers, vendor identifiers, and contract validity periods. Unauthorized access to entitlement records could expose procurement strategies, contract terms, or financial obligations.<a href="#section-7-7.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<ul class="normal">
+<li class="normal" id="section-7-8.1">
+          <p id="section-7-8.1.1">"ei:installed-entitlements"<a href="#section-7-8.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-7-9.1">
+          <p id="section-7-9.1.1">This subtree reports which features and functions are active on a network element or on a component. This information could assist an attacker in identifying exploitable capabilities or understanding the operational profile of the network.<a href="#section-7-9.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<ul class="normal">
+<li class="normal" id="section-7-10.1">
+          <p id="section-7-10.1.1">"ei:installed-capabilities"<a href="#section-7-10.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-7-11.1">
+          <p id="section-7-11.1.1">TBD.<a href="#section-7-11.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-7-12">The YANG module described in this document augments the "ietf-network-inventory" YANG module <span>[<a href="#BaseInventory" class="cite xref">BaseInventory</a>]</span> by adding data nodes. The security considerations for the subtrees described in those RFCs apply equally to the new data nodes that this module adds.<a href="#section-7-12" class="pilcrow">¶</a></p>
+<p id="section-7-13">This model is entirely read-only (all nodes are defined as <code>config false</code>).
+Write access to the underlying entitlement state is managed by external systems such as license servers or asset management platforms, whose communication channels with network elements are outside the scope of this document. Implementations <span class="bcp14">SHOULD</span> ensure that those channels are protected in accordance with current security best practices, including mutual authentication and encryption.
+Failure to secure these channels could allow an attacker to inject false entitlement state, causing capabilities to appear allowed or restricted in ways that do not reflect the actual organizational entitlements.<a href="#section-7-13" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-combined-references">
@@ -5121,10 +5297,6 @@ While the model prevents direct self-reference, cycles at greater depth (e.g., A
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC3688">[RFC3688]</dt>
-        <dd>
-<span class="refAuthor">Mealling, M.</span>, <span class="refTitle">"The IETF XML Registry"</span>, <span class="seriesInfo">BCP 81</span>, <span class="seriesInfo">RFC 3688</span>, <span class="seriesInfo">DOI 10.17487/RFC3688</span>, <time datetime="2004-01" class="refDate">January 2004</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3688">https://www.rfc-editor.org/rfc/rfc3688</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6020">[RFC6020]</dt>
         <dd>
@@ -5148,8 +5320,36 @@ While the model prevents direct self-reference, cycles at greater depth (e.g., A
         </h3>
 <dl class="references">
 <dt id="BaseInventory">[BaseInventory]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Yu, C.</span>, <span class="refAuthor">Belotti, S.</span>, <span class="refAuthor">Bouquier, J.</span>, <span class="refAuthor">Peruzzini, F.</span>, and <span class="refAuthor">P. Bedard</span>, <span class="refTitle">"A Base YANG Data Model for Network Inventory"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ivy-network-inventory-yang-18</span>, <time datetime="2026-05-27" class="refDate">27 May 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-ivy-network-inventory-yang-18">https://datatracker.ietf.org/doc/html/draft-ietf-ivy-network-inventory-yang-18</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3688">[RFC3688]</dt>
+        <dd>
+<span class="refAuthor">Mealling, M.</span>, <span class="refTitle">"The IETF XML Registry"</span>, <span class="seriesInfo">BCP 81</span>, <span class="seriesInfo">RFC 3688</span>, <span class="seriesInfo">DOI 10.17487/RFC3688</span>, <time datetime="2004-01" class="refDate">January 2004</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3688">https://www.rfc-editor.org/rfc/rfc3688</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4252">[RFC4252]</dt>
+        <dd>
+<span class="refAuthor">Ylonen, T.</span> and <span class="refAuthor">C. Lonvick, Ed.</span>, <span class="refTitle">"The Secure Shell (SSH) Authentication Protocol"</span>, <span class="seriesInfo">RFC 4252</span>, <span class="seriesInfo">DOI 10.17487/RFC4252</span>, <time datetime="2006-01" class="refDate">January 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4252">https://www.rfc-editor.org/rfc/rfc4252</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6241">[RFC6241]</dt>
+        <dd>
+<span class="refAuthor">Enns, R., Ed.</span>, <span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refAuthor">Schoenwaelder, J., Ed.</span>, and <span class="refAuthor">A. Bierman, Ed.</span>, <span class="refTitle">"Network Configuration Protocol (NETCONF)"</span>, <span class="seriesInfo">RFC 6241</span>, <span class="seriesInfo">DOI 10.17487/RFC6241</span>, <time datetime="2011-06" class="refDate">June 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6241">https://www.rfc-editor.org/rfc/rfc6241</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8040">[RFC8040]</dt>
+        <dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Bjorklund, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"RESTCONF Protocol"</span>, <span class="seriesInfo">RFC 8040</span>, <span class="seriesInfo">DOI 10.17487/RFC8040</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8040">https://www.rfc-editor.org/rfc/rfc8040</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8446">[RFC8446]</dt>
+        <dd>
+<span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 8446</span>, <span class="seriesInfo">DOI 10.17487/RFC8446</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8446">https://www.rfc-editor.org/rfc/rfc8446</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9000">[RFC9000]</dt>
+        <dd>
+<span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9000">https://www.rfc-editor.org/rfc/rfc9000</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9907">[RFC9907]</dt>
+      <dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M., Ed.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="seriesInfo">BCP 216</span>, <span class="seriesInfo">RFC 9907</span>, <span class="seriesInfo">DOI 10.17487/RFC9907</span>, <time datetime="2026-03" class="refDate">March 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9907">https://www.rfc-editor.org/rfc/rfc9907</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
