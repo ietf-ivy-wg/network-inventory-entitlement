@@ -21,7 +21,7 @@ venue:
   mail: "inventory-yang@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/inventory-yang/"
 
-  github: "dr2lopez/ivy-capability-entitlement"
+  github: "https://github.com/ietf-ivy-wg/network-inventory-entitlement.git"
   latest: "https://dr2lopez.github.io/ivy-capability-entitlement/draft-ietf-ivy-entitlement-inventory.html"
 author:
   - name: Marisol Palmero
