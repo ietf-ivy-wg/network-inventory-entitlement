@@ -108,7 +108,7 @@
                 },
                 {
                   "capability-id": "ipsec-vpn",
-                  "extended-capability-description": "IPSec VPN tunnels",
+                  "extended-capability-description": "IPsec VPN tunnels",
                   "entitlement-state": {
                     "allowed": false,
                     "in-use": false

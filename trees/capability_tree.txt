@@ -9,7 +9,7 @@
           |  +--ro in-use?    boolean
           +--ro supporting-entitlements!
           |  +--ro supporting-entitlement* [entitlement-id]
-          |     +--ro entitlement-id    -> ../../../../../../installed-entitlements/entitlement/entitlement-id
+          |     +--ro entitlement-id    leafref
           +--ro capability-restrictions!
              +--ro capability-restriction* [restriction-id]
                 +--ro restriction-id    string

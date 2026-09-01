@@ -1,16 +1,19 @@
 module: ietf-entitlement-inventory
 
-  augment /inv:network-inventory/inv:network-elements/inv:network-element:
+  augment /inv:network-inventory/inv:network-elements
+            /inv:network-element:
     +--ro installed-entitlements!
        +--ro entitlement* [entitlement-id]
-          +--ro entitlement-id    -> /inv:network-inventory/ei:entitlements/entitlement/entitlement-id
+          +--ro entitlement-id    leafref
           +--ro in-use?           boolean
-  augment /inv:network-inventory/inv:network-elements/inv:network-element/inv:components/inv:component:
+  augment /inv:network-inventory/inv:network-elements
+            /inv:network-element/inv:components/inv:component:
     +--ro installed-entitlements!
        +--ro entitlement* [entitlement-id]
-          +--ro entitlement-id    -> /inv:network-inventory/ei:entitlements/entitlement/entitlement-id
+          +--ro entitlement-id    leafref
           +--ro in-use?           boolean
-  augment /inv:network-inventory/inv:network-elements/inv:network-element:
+  augment /inv:network-inventory/inv:network-elements
+            /inv:network-element:
     +--ro capabilities!
        +--ro capability-class* [capability-class]
           +--ro capability-class    identityref
@@ -22,7 +25,7 @@ module: ietf-entitlement-inventory
              |  +--ro in-use?    boolean
              +--ro supporting-entitlements!
              |  +--ro supporting-entitlement* [entitlement-id]
-             |     +--ro entitlement-id    -> ../../../../../../installed-entitlements/entitlement/entitlement-id
+             |     +--ro entitlement-id    leafref
              +--ro capability-restrictions!
                 +--ro capability-restriction* [restriction-id]
                    +--ro restriction-id    string
@@ -31,7 +34,8 @@ module: ietf-entitlement-inventory
                    +--ro units?            string
                    +--ro max-value?        uint32
                    +--ro current-value?    uint32
-  augment /inv:network-inventory/inv:network-elements/inv:network-element/inv:components/inv:component:
+  augment /inv:network-inventory/inv:network-elements
+            /inv:network-element/inv:components/inv:component:
     +--ro capabilities!
        +--ro capability-class* [capability-class]
           +--ro capability-class    identityref
@@ -43,7 +47,7 @@ module: ietf-entitlement-inventory
              |  +--ro in-use?    boolean
              +--ro supporting-entitlements!
              |  +--ro supporting-entitlement* [entitlement-id]
-             |     +--ro entitlement-id    -> ../../../../../../installed-entitlements/entitlement/entitlement-id
+             |     +--ro entitlement-id    leafref
              +--ro capability-restrictions!
                 +--ro capability-restriction* [restriction-id]
                    +--ro restriction-id    string
@@ -73,7 +77,8 @@ module: ietf-entitlement-inventory
           |     +--ro units?            string
           |     +--ro max-value?        uint32
           |     +--ro current-value?    uint32
-          +--ro parent-entitlement-uid?   -> ../../entitlement/entitlement-id
+          +--ro parent-entitlement-uid?
+          |       -> ../../entitlement/entitlement-id
           +--ro entitlement-attachment
              +--ro universal-access?   boolean
              +--ro holders
@@ -83,8 +88,8 @@ module: ietf-entitlement-inventory
              |     +--ro users*   string
              +--ro assets
                 +--ro elements
-                |  +--ro network-elements*   -> /inv:network-inventory/network-elements/network-element/ne-id
+                |  +--ro network-elements*   leafref
                 +--ro components
                    +--ro component* [network-element component-id]
-                      +--ro network-element    -> /inv:network-inventory/network-elements/network-element/ne-id
-                      +--ro component-id       -> /inv:network-inventory/network-elements/network-element[inv:ne-id=current()/../network-element]/components/component/component-id
+                      +--ro network-element    leafref
+                      +--ro component-id       leafref

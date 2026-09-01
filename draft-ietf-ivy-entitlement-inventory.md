@@ -38,7 +38,6 @@ author:
     email: "italo.busi@huawei.com"
 
 normative:
- RFC8341:
 
 informative:
  BaseInventory: I-D.ietf-ivy-network-inventory-yang
@@ -148,33 +147,33 @@ To represent the complex relationships between network elements, capabilities, a
 
 {{fig-extBaseNetworkInventory}} depicts the initial step, highlighting the base network inventory and the areas to be extended: hardware, software, and entitlements. These extensions are necessary to properly model the relationships.
 
-~~~{::nomarkdown}aasvg{:/}
+~~~~ aasvg
 {::include art/extensionBaseNetworkInventory.txt}
-~~~
+~~~~
 {: #fig-extBaseNetworkInventory title="Base Network Inventory Entitlement extension" }
 
 
 {{fig-ascii-art_baseInventory}} illustrates the initial relationship between network elements and entitlements, which is two-way: entitlements SHOULD be attached to NEs, and NEs SHOULD have entitlements installed.
 
-~~~{::nomarkdown}aasvg{:/}
+~~~~ aasvg
 {::include art/ascii-art_baseInventory.txt}
-~~~
+~~~~
 {: #fig-ascii-art_baseInventory title="Relationship between entitlements and Base Inventory" }
 
 
 {{fig-capabilities_baseinventory}} depicts NE support capabilities by means of entitlements that authorize their use.
 
-~~~{::nomarkdown}aasvg{:/}
+~~~~ aasvg
 {::include art/capabilities_baseinventory.txt}
-~~~
+~~~~
 {: #fig-capabilities_baseinventory title="Capabilities integration with the Base Inventory" }
 
 
 Finally, NE support capabilities thanks to entitlements that entitle them of their use under certain constraints as shown in {{fig-capabilities_restrictions}}.
 
-~~~{::nomarkdown}aasvg{:/}
+~~~~ aasvg
 {::include art/capabilities_restrictions.txt}
-~~~
+~~~~
 {: #fig-capabilities_restrictions title="Complete model with restrictions" }
 
 
@@ -182,9 +181,9 @@ Finally, NE support capabilities thanks to entitlements that entitle them of the
 
 Capabilities are modeled by augmenting "network-element" in the "ietf-network-inventory" module in {{BaseInventory}} according to the following tree:
 
-~~~
-{::include trees/capability_tree.txt}
-~~~
+~~~~ yangtree
+{::include-fold trees/capability_tree.txt}
+~~~~
 
 For any given network asset, the capabilities list MAY include all potential capabilities advertised by the vendor, and MUST include those for which the network operator holds a valid entitlement—whether active or not.
 
@@ -217,15 +216,15 @@ This pattern ensures that:
 
 The following example module defines capability concepts for a specific domain:
 
-~~~
+~~~~ yang
 {::include yang/examples/example-capability-framework.yang}
-~~~
+~~~~
 
 The following extension module extends the `capability-class` identity and augments the entitlement inventory to reference the capability definitions from the module above:
 
-~~~
+~~~~ yang
 {::include yang/examples/example-capability-extension.yang}
-~~~
+~~~~
 
 This pattern allows capability definitions to evolve independently while maintaining a clean integration with the entitlement inventory through the capability-class identity mechanism.
 
@@ -233,9 +232,9 @@ This pattern allows capability definitions to evolve independently while maintai
 
 The entitlement modeling augments "network-inventory" in the ietf-network-inventory module in {{BaseInventory}} with a top-level entitlements container according to the following tree:
 
-~~~
-{::include trees/entitlements_tree.txt}
-~~~
+~~~~ yangtree
+{::include-fold trees/entitlements_tree.txt}
+~~~~
 
 {{fig-ModelRelationship}} depicts the relationship between the Entitlement Inventory model and other models. The Entitlement Inventory model enhances the model defined in the base network inventory model with entitlement-specific attributes and centralized entitlement management capabilities.
 
@@ -297,9 +296,9 @@ The current model does not provide information on whether an entitlement can be 
 
 Since capabilities are optional in network assets, the model also provides an augmentation to track entitlements that are installed directly on network assets. This augmentation of "network-element" and "component" in the "ietf-network-inventory" module provides local entitlement storage according to the following tree:
 
-~~~
-{::include trees/installed_entitlments_tree.txt}
-~~~
+~~~~ yangtree
+{::include-fold trees/installed_entitlments_tree.txt}
+~~~~
 
 The installed entitlements represent references to entitlements that are currently active and entitling the network asset. The "entitlement-id" field provides a direct reference to the centralized entitlement at the network-inventory level.
 
@@ -351,16 +350,17 @@ At this level, the system additionally answers: What constraints apply to entitl
 Implementations SHOULD document which levels they support and any deviations from this progression.
 
 ## Model Definition
-~~~
+
+~~~~ yang
 {::include yang/ietf-entitlement-inventory.yang}
-~~~
+~~~~
+{sourcecode-markers="true" sourcecode-name="ietf-entitlement-inventory@2026-05-25.yang"}
 
 ### Model tree
 
-~~~
-{::include yang/trees/ietf-entitlement-inventory.tree}
-~~~
-
+~~~~ yangtree
+{::include-fold yang/trees/ietf-entitlement-inventory.tree}
+~~~~
 
 # Implementation Examples and Validation Scenarios
 
@@ -418,9 +418,9 @@ This example answers the fundamental questions:
 
 ### JSON Example
 
-~~~
-{::include yang/examples/valid-example1-basic-structure.json}
-~~~
+~~~~ json
+{::include-fold yang/examples/valid-example1-basic-structure.json}
+~~~~
 
 ## Expired License Handling
 
@@ -446,9 +446,9 @@ Implementation considerations should consider:
 
 ### JSON Example
 
-~~~
-{::include yang/examples/valid-example2-expired-license.json}
-~~~
+~~~~ json
+{::include-fold yang/examples/valid-example2-expired-license.json}
+~~~~
 
 ## Utilization Tracking with Restrictions
 
@@ -459,9 +459,9 @@ This example shows comprehensive utilization tracking across multiple capabiliti
 
 ### JSON Example
 
-~~~
-{::include yang/examples/valid-example3-utilization-tracking.json}
-~~~
+~~~~ json
+{::include-fold yang/examples/valid-example3-utilization-tracking.json}
+~~~~
 
 ## Hierarchical Entitlements
 
@@ -470,9 +470,9 @@ This example demonstrates the parent-entitlement-uid mechanism for modeling enti
 
 ### JSON Example
 
-~~~
-{::include yang/examples/valid-example4-hierarchical-entitlements.json}
-~~~
+~~~~ json
+{::include-fold yang/examples/valid-example4-hierarchical-entitlements.json}
+~~~~
 
 ## License Pooling
 
@@ -481,9 +481,9 @@ This example shows how shared entitlements can be installed across multiple netw
 
 ### JSON Example
 
-~~~
-{::include yang/examples/valid-example5-license-pooling.json}
-~~~
+~~~~ json
+{::include-fold yang/examples/valid-example5-license-pooling.json}
+~~~~
 
 ## Multi-Vendor Environment
 
@@ -492,9 +492,9 @@ This example illustrates entitlement management in a heterogeneous network with 
 
 ### JSON Example
 
-~~~
-{::include yang/examples/valid-example6-multi-vendor.json}
-~~~
+~~~~ json
+{::include-fold yang/examples/valid-example6-multi-vendor.json}
+~~~~
 
 ## Component-Level Entitlements
 
@@ -504,9 +504,9 @@ This example demonstrates entitlement tracking at the component level within a m
 
 ### JSON Example
 
-~~~
-{::include yang/examples/valid-example7-modular-components.json}
-~~~
+~~~~ json
+{::include-fold yang/examples/valid-example7-modular-components.json}
+~~~~
 
 ## Capability Class Extension
 
@@ -515,9 +515,9 @@ This example demonstrates extending the capability-class identity to reference e
 
 ### JSON Example
 
-~~~
-{::include yang/examples/valid-example8-capability-extension.json}
-~~~
+~~~~ json
+{::include-fold yang/examples/valid-example8-capability-extension.json}
+~~~~
 
 # Operational Considerations
 
@@ -550,11 +550,7 @@ When migrating from vendor-specific entitlement systems, implementers should con
 
 # IANA Considerations
 
-This document registers one URI in the "IETF XML Registry" {{!RFC3688}} and one YANG module in the "YANG Module Names" registry {{!RFC6020}}.
-
-## URI Registration
-
-IANA is requested to register the following URI in the "ns" subregistry within the "IETF XML Registry" {{!RFC3688}}:
+IANA is requested to register the following URI in the "ns" registry within the "IETF XML Registry" group {{?RFC3688}}:
 
 ~~~~
    URI:  urn:ietf:params:xml:ns:yang:ietf-entitlement-inventory
@@ -562,40 +558,56 @@ IANA is requested to register the following URI in the "ns" subregistry within t
    XML:  N/A; the requested URI is an XML namespace.
 ~~~~
 
-## YANG Module Name Registration
-
-IANA is requested to register the following entry in the "YANG Module Names" registry {{!RFC6020}}:
+IANA is requested to register the following YANG module in the "YANG Module Names" registry {{!RFC6020}} within the "YANG Parameters" registry group.
 
 ~~~~
    Name:         ietf-entitlement-inventory
+   Maintained by IANA?  N
    Namespace:    urn:ietf:params:xml:ns:yang:ietf-entitlement-inventory
    Prefix:       ei
-   Maintained by IANA:  N
    Reference:    RFC XXXX
 ~~~~
 
-
 # Security Considerations
 
-## Entitlement Data Sensitivity
+This section is modeled after the template described in {{Section 3.7
+of ?RFC9907}}.
 
-Implementations MUST protect entitlement data with appropriate access controls consistent with organizational security policies.
+The "ietf-entitlement-inventory" YANG module defines a data model that is
+designed to be accessed via YANG-based management protocols, such as
+NETCONF {{?RFC6241}} and RESTCONF {{?RFC8040}}. These YANG-based management
+protocols (1) have to use a secure transport layer (e.g., SSH {{?RFC4252}}, TLS {{?RFC8446}},
+and QUIC {{?RFC9000}}) and (2) have to use mutual authentication.
 
-The entitlement data exposed by this model includes commercially sensitive information such as product identifiers, SKUs, part numbers, vendor identifiers, and contract validity periods. Operators SHOULD restrict read access to this data using NACM (Network Access Control Management, {{RFC8341}}) to authorized personnel only. Unauthorized access to entitlement records could expose procurement strategies, contract terms, or financial obligations.
+The Network Configuration Access Control Model (NACM) {{!RFC8341}}
+provides the means to restrict access for particular NETCONF or
+RESTCONF users to a preconfigured subset of all available NETCONF or
+RESTCONF protocol operations and content.
 
-## Entitlement Tampering
+Some of the readable data nodes in this YANG module may be considered
+sensitive or vulnerable in some network environments.  It is thus
+important to control read access (e.g., via get, get-config, or
+notification) to these data nodes.
 
-Implementations SHOULD use cryptographic signatures or similar mechanisms to verify entitlement integrity. Network elements SHOULD validate entitlements before activating capabilities.
+Specifically, the following subtrees and data nodes have particular sensitivities/vulnerabilities:
 
-The capability inventory exposed by this model reveals which features and functions are active on a network element. This information could assist an attacker in identifying exploitable capabilities or understanding the operational profile of the network. Operators SHOULD apply NACM rules to restrict read access to capability data to authorized management systems and personnel.
+- "/nwi:network-inventory/ei:entitlements"
 
-This model is entirely read-only (all nodes are defined as `config false`). Write access to the underlying entitlement state is managed by external systems such as license servers or asset management platforms, whose communication channels with network elements are outside the scope of this document. Implementations SHOULD ensure that those channels are protected in accordance with current security best practices, including mutual authentication and encryption.
+> This subtree reports a centralized entitlements catalog. The entitlement data includes commercially sensitive information such as product identifiers, SKUs, part numbers, vendor identifiers, and contract validity periods. Unauthorized access to entitlement records could expose procurement strategies, contract terms, or financial obligations.
 
-## Information Disclosure
+- "ei:installed-entitlements"
 
-Access to entitlement inventory data SHOULD be restricted to authorized personnel. Consider implementing role-based access controls that limit visibility based on operational need.
+> This subtree reports which features and functions are active on a network element or on a component. This information could assist an attacker in identifying exploitable capabilities or understanding the operational profile of the network.
 
-The channel used to populate `installed-entitlements` data — whether from a license server, an asset management system, or direct device reporting — is outside the scope of this document. However, implementations SHOULD ensure that such channels operate within a secured management plane, protected against eavesdropping and unauthorized modification. Failure to secure these channels could allow an attacker to inject false entitlement state, causing capabilities to appear allowed or restricted in ways that do not reflect the actual organizational entitlements.
+- "ei:installed-capabilities"
+
+> TBD.
+
+The YANG module described in this document augments the "ietf-network-inventory" YANG module {{BaseInventory}} by adding data nodes. The security considerations for the subtrees described in those RFCs apply equally to the new data nodes that this module adds.
+
+This model is entirely read-only (all nodes are defined as `config false`).
+Write access to the underlying entitlement state is managed by external systems such as license servers or asset management platforms, whose communication channels with network elements are outside the scope of this document. Implementations SHOULD ensure that those channels are protected in accordance with current security best practices, including mutual authentication and encryption.
+Failure to secure these channels could allow an attacker to inject false entitlement state, causing capabilities to appear allowed or restricted in ways that do not reflect the actual organizational entitlements.
 
 --- back
 

@@ -1,4 +1,4 @@
  +--ro installed-entitlements!
     +--ro entitlement* [entitlement-id]
-       +--ro entitlement-id    -> /inv:network-inventory/ei:entitlements/entitlement/entitlement-id
+       +--ro entitlement-id    leafref
        +--ro in-use?           boolean
