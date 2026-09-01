@@ -5,12 +5,12 @@
 Network Inventory YANG WG                                     M. Palmero
 Internet-Draft                                               Independent
 Intended status: Standards Track                              C. Cardona
-Expires: 27 December 2026                                            NTT
+Expires: 5 March 2027                                                NTT
                                                                 D. Lopez
                                                               Telefonica
                                                                  I. Busi
                                                                   Huawei
-                                                            25 June 2026
+                                                        1 September 2026
 
 
                 A YANG Module for Entitlement Inventory
@@ -48,7 +48,8 @@ About This Document
    yang/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/dr2lopez/ivy-capability-entitlement.
+   https://github.com/https://github.com/ietf-ivy-wg/network-inventory-
+   entitlement.git.
 
 Status of This Memo
 
@@ -65,7 +66,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 December 2026.
+   This Internet-Draft will expire on 5 March 2027.
 
 Copyright Notice
 
