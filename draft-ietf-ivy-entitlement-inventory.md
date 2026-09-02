@@ -21,8 +21,8 @@ venue:
   mail: "inventory-yang@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/inventory-yang/"
 
-  github: "https://github.com/ietf-ivy-wg/network-inventory-entitlement.git"
-  latest: "https://dr2lopez.github.io/ivy-capability-entitlement/draft-ietf-ivy-entitlement-inventory.html"
+  github: "ietf-ivy-wg/network-inventory-entitlement"
+  latest: "https://ietf-ivy-wg.github.io/network-inventory-entitlement/draft-ietf-ivy-entitlement-inventory.html"
 author:
   - name: Marisol Palmero
     organization: Independent
@@ -354,7 +354,7 @@ Implementations SHOULD document which levels they support and any deviations fro
 ~~~~ yang
 {::include yang/ietf-entitlement-inventory.yang}
 ~~~~
-{sourcecode-markers="true" sourcecode-name="ietf-entitlement-inventory@2026-05-25.yang"}
+{: sourcecode-markers="true" sourcecode-name="ietf-entitlement-inventory@2026-05-25.yang"}
 
 ### Model tree
 
@@ -597,11 +597,11 @@ Specifically, the following subtrees and data nodes have particular sensitivitie
 
 - "ei:installed-entitlements"
 
-> This subtree reports which features and functions are active on a network element or on a component. This information could assist an attacker in identifying exploitable capabilities or understanding the operational profile of the network.
+> This subtree reports which entitlements are installed on a network element or component and whether they are in use. This information could assist an attacker in identifying exploitable capabilities or understanding the operational profile of the network.
 
-- "ei:installed-capabilities"
+- "ei:capabilities"
 
-> TBD.
+> This subtree reports the functions and features supported by a network element or component and, when available, whether they are allowed or in use based on installed entitlements. This information could assist an attacker in understanding the operational capabilities of the asset and identifying potential attack surfaces.
 
 The YANG module described in this document augments the "ietf-network-inventory" YANG module {{BaseInventory}} by adding data nodes. The security considerations for the subtrees described in those RFCs apply equally to the new data nodes that this module adds.
 
