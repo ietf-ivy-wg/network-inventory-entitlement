@@ -38,9 +38,9 @@ author:
     email: "italo.busi@huawei.com"
 
 normative:
+ BaseInventory: I-D.ietf-ivy-network-inventory-yang
 
 informative:
- BaseInventory: I-D.ietf-ivy-network-inventory-yang
 
 --- abstract
 
@@ -179,7 +179,7 @@ Finally, NE support capabilities thanks to entitlements that entitle them of the
 
 ## Capabilities
 
-Capabilities are modeled by augmenting "network-element" in the "ietf-network-inventory" module in {{BaseInventory}} according to the following tree:
+Capabilities are modeled by augmenting "network-element" in the "ietf-network-inventory" module in {{BaseInventory}} according to the following tree {{?RFC8340}}:
 
 ~~~~ yangtree
 {::include-fold trees/capability_tree.txt}
@@ -351,10 +351,12 @@ Implementations SHOULD document which levels they support and any deviations fro
 
 ## Model Definition
 
+The `ietf-entitlement-inventory` module is defined using YANG 1.1 {{!RFC7950}} and imports common types from `ietf-yang-types` {{!RFC9911}} and network inventory definitions from {{BaseInventory}}.
+
 ~~~~ yang
 {::include yang/ietf-entitlement-inventory.yang}
 ~~~~
-{: sourcecode-markers="true" sourcecode-name="ietf-entitlement-inventory@2026-05-25.yang"}
+{: sourcecode-markers="true" sourcecode-name="ietf-entitlement-inventory@2026-09-02.yang"}
 
 ### Model tree
 
@@ -364,7 +366,9 @@ Implementations SHOULD document which levels they support and any deviations fro
 
 # Implementation Examples and Validation Scenarios
 
-This section provides a progressive, from basic to advanced, series of validated JSON examples demonstrating practical implementation patterns for the entitlement inventory model. The examples are organized from simple to more complex, enabling implementers to:
+This section provides a progressive, from basic to advanced, series of validated JSON examples demonstrating practical implementation patterns for the entitlement inventory model. The JSON examples in this section use the JSON encoding of YANG data defined in {{?RFC7951}}.
+
+The examples are organized from simple to more complex, enabling implementers to:
 
 1. Understand core concepts through minimal working examples.
 2. Explore operational scenarios.
