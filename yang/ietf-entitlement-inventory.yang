@@ -437,7 +437,7 @@ module ietf-entitlement-inventory {
             uses restriction-fields;
           }
         }
-        leaf parent-entitlement-uid {
+        leaf parent-entitlement-id {
           type leafref {
             path "../../entitlement/entitlement-id";
           }

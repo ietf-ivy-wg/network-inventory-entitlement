@@ -33,7 +33,7 @@
         {
           "entitlement-id": "silver-routing-upgrade",
           "product-id": "ROUTER-SILVER-UPGRADE",
-          "parent-entitlement-uid": "bronze-routing-base",
+          "parent-entitlement-id": "bronze-routing-base",
           "state": "active",
           "renewal-profile": {
             "start-date": "2025-06-01T00:00:00Z",

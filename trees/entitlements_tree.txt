@@ -19,7 +19,7 @@
           |     +--ro units?            string
           |     +--ro max-value?        uint32
           |     +--ro current-value?    uint32
-          +--ro parent-entitlement-uid?
+          +--ro parent-entitlement-id?
           |       -> ../../entitlement/entitlement-id
           +--ro entitlement-attachment
              +--ro universal-access?   boolean

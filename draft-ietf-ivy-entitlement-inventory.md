@@ -268,7 +268,7 @@ In the YANG model, both network elements and components are supported by providi
 
 Entitlements and network assets are linked in the model in multiple ways. Entitlements at the network-inventory level should be attached to network assets through their attachment mechanism, representing organizational entitlements. Network assets have their own installed-entitlements that may be derived from the centralized entitlements or assigned directly. The capabilities of network assets reference these installed entitlements through their supporting-entitlements lists. The former addresses the case of a centralized license server or inventory system, while the latter represents entitlements that are actively entitling the asset's capabilities. An installed entitlement that is not referenced by any capability means that it is active on the asset but not currently in use.
 
-Entitlements are managed both centrally at the network-inventory level and at the asset level through installed-entitlements. Network assets reference their installed entitlements through their capabilities' supporting-entitlements lists. For instance, a license server or inventory system should list an entitlement at the top level, which then gets installed on specific network assets where the capabilities reference the active entitlement. Each installed entitlement references its centralized entitlement directly via the entitlement-id leafref. For hierarchical or pooled entitlements (e.g., a base license with add-on upgrades), the "parent-entitlement-uid" field in the centralized entitlement catalog links child entitlements to their parent. Proper identification of entitlements is imperative to ensure consistency across systems, enabling monitoring systems to recognize when multiple locations reference related entitlements.
+Entitlements are managed both centrally at the network-inventory level and at the asset level through installed-entitlements. Network assets reference their installed entitlements through their capabilities' supporting-entitlements lists. For instance, a license server or inventory system should list an entitlement at the top level, which then gets installed on specific network assets where the capabilities reference the active entitlement. Each installed entitlement references its centralized entitlement directly via the entitlement-id leafref. For hierarchical or pooled entitlements (e.g., a base license with add-on upgrades), the "parent-entitlement-id" field in the centralized entitlement catalog links child entitlements to their parent. Proper identification of entitlements is imperative to ensure consistency across systems, enabling monitoring systems to recognize when multiple locations reference related entitlements.
 
 ### Reverse Mapping from Entitlements to Capabilities
 
@@ -466,7 +466,7 @@ This example shows comprehensive utilization tracking across multiple capabiliti
 ## Hierarchical Entitlements
 
 ### Scenario
-This example demonstrates the parent-entitlement-uid mechanism for modeling entitlement hierarchies. A base "bronze" entitlement provides foundational capabilities, while a "silver" upgrade entitlement (referencing the bronze as parent) adds advanced features. This pattern supports tiered licensing models.
+This example demonstrates the parent-entitlement-id mechanism for modeling entitlement hierarchies. A base "bronze" entitlement provides foundational capabilities, while a "silver" upgrade entitlement (referencing the bronze as parent) adds advanced features. This pattern supports tiered licensing models.
 
 ### JSON Example
 
@@ -529,7 +529,7 @@ When entitlements are managed both centrally and locally, implementations SHOULD
 * Locally installed entitlements
 * Actual capability usage
 
-Implementations maintaining hierarchical entitlements via the `parent-entitlement-uid` field SHOULD validate the entitlement hierarchy for circular references before committing changes.
+Implementations maintaining hierarchical entitlements via the `parent-entitlement-id` field SHOULD validate the entitlement hierarchy for circular references before committing changes.
 While the model prevents direct self-reference, cycles at greater depth (e.g., A references B as parent while B references A) cannot be detected by YANG constraints alone and must be handled at the management system level.
 
 ## Entitlement Expiration Handling
