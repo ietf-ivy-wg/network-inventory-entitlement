@@ -151,7 +151,7 @@
                   "capability-restriction": [
                     {
                       "restriction-id": "ospf-neighbors",
-                      "description": "Maximum OSPF neighbor adjacencies, just to give an example :)",
+                      "description": "Maximum OSPF neighbor adjacencies",
                       "resource-name": "neighbors",
                       "units": "adjacencies",
                       "max-value": 50,

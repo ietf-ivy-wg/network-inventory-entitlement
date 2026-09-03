@@ -117,10 +117,6 @@ Future augmentations may explore capability discovery or telemetry-driven models
 
 {::boilerplate bcp14-tagged}
 
-* ToBeUpdated(TBU) Open Issue for the IVY WG, to include:
-
-<<Update Glossary under  Network Inventory draft, {{BaseInventory}}. We need at least formal definitions of "capability" and "entitlement".>>
-
 - Capability: A discrete function, feature, or resource that a network element is technically capable of performing when properly entitled. Examples include MPLS routing, specific bandwidth throughput, or advanced QoS features.
 - Entitlement: A vendor-issued authorization (typically a license) that grants permission to activate and use one or more capabilities on specific network elements, potentially subject to constraints such as time limits, usage quotas, or scope restrictions.
 - Installed Entitlement: An entitlement that has been locally activated on a network element and is available for use by that element's capabilities.
@@ -282,11 +278,11 @@ To support this, implementers may use the "product-id" or "capability-class" met
 
 ## Entitlement Attachment
 
-The "entitlement" container holds a container called "entitlement-attachment" which relates how the entitlement is operationally linked to holders or network assets. Note that there is a difference between an entitlement being attached to a network asset and an entitlement being installed on the asset. In the former, the license was explicitly associated with one or more assets. Some licenses actually can be open but have a limited number of installations. Other licenses should be openly constrained to a geographic location. We are not dealing with these complex cases now, but the container can be expanded for this in the future.
+The "entitlement" container holds a container called "entitlement-attachment" which relates how the entitlement is operationally linked to holders or network assets. Note that there is a difference between an entitlement being attached to a network asset and an entitlement being installed on the asset. In the former, the license was explicitly associated with one or more assets. Some licenses actually can be open but have a limited number of installations. Other licenses should be specifically constrained to a geographic location. We are not dealing with these complex cases now, but the container can be expanded for this in the future.
 
 The model accommodates listing entitlements acquired by the organization but not yet applied or utilized by any actor/asset at the network-inventory level. For these pending entitlements, they can be managed centrally without requiring individual network assets to be aware of their existence.
 
-Some entitlements are inherently associated with a holder, such as organization or a user. For example, a software license may be directly attached to a user. Also, the use of a network device may come with a basic license provided solely to an organization. Some entitlements could be assigned to a more abstract description of holders, such as people under a jurisdiction or a geographical area. The model contains basic information about this, but it can be extended in the future to be more descriptive.
+Some entitlements are inherently associated with a holder, such as an organization or a user. For example, a software license may be directly attached to a user. Also, the use of a network device may come with a basic license provided solely to an organization. Some entitlements could be assigned to a more abstract description of holders, such as people under a jurisdiction or in a geographical area. The model contains basic information about this, but it can be extended in the future to be more descriptive.
 
 While attachment is optional, the model should be capable of expressing attachment in various scenarios. The model can be expanded to list to which network assets an entitlement is aimed for, when this link is more vague, such as a site license (e.g., network assets located in a specific site), or more open licenses (e.g., free software for all users subscribed to a streaming platform).
 
@@ -304,7 +300,7 @@ The installed entitlements represent references to entitlements that are current
 
 This structure allows network assets to track which entitlements are actively granting them rights, while maintaining the ability to trace relationships to organization-wide entitlement policies.
 
-When entitlements are installed at the component level (e.g., line cards), implementations MAY also list them at the parent network-element level to provide a consolidated view of all entitlements active on the device. Management systems should recognize when an entitlement-id appears at both levels and treat them as the same license instance to avoid double-counting. This point requires further exploration in future instances of this document.
+When entitlements are installed at the component level (e.g., line cards), implementations MAY also list them at the parent network-element level to provide a consolidated view of all entitlements active on the device. Management systems should recognize when an entitlement-id appears at both levels and treat them as the same license instance to avoid double-counting.
 
 ## Implementation Considerations
 
@@ -334,7 +330,7 @@ At this level, the system additionally answers: What can each asset do?
 
 Advanced implementations populate the `supporting-entitlements` container within each capability. This links capabilities to the installed entitlements that enable them, along with the `entitlement-state` container indicating whether each capability is allowed and in use.
 
-When a capability lists multiple supporting entitlements, the `entitlement-state/allowed` field MUST reflect the combined effect of all required entitlements. If any required entitlement is missing, expired, or revoked, `allowed` should be false. The `in-use` field indicates whether the capability is currently operational.
+When a capability lists multiple supporting entitlements, the `entitlement-state/allowed` field MUST reflect the combined effect of all required entitlements. If any required entitlement is missing, expired, or revoked, the `allowed` leaf SHOULD be false. The `in-use` field indicates whether the capability is currently operational.
 
 At this level, the system additionally answers: Which entitlements enable which capabilities? What is allowed and what is in use?
 
@@ -538,7 +534,7 @@ While the model prevents direct self-reference, cycles at greater depth (e.g., A
 
 ## Entitlement Expiration Handling
 
-Network elements SHOULD generate notifications when installed entitlements are approaching expiration. The notification timing and handling is implementation-specific but SHOULD provide sufficient lead time for renewal.
+Network elements SHOULD generate notifications when installed entitlements are approaching expiration. The notification timing and handling are implementation-specific but SHOULD provide sufficient lead time for renewal.
 
 ## Performance Considerations
 

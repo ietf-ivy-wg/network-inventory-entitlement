@@ -5,7 +5,7 @@
        +--ro sku?                      string
        +--ro vendor?                   string
        +--ro part-number?              string
-       +--ro state?                    entitlement-state-t
+       +--ro state?                    entitlement-state
        +--ro renewal-profile
        |  +--ro activation-date?   yang:date-and-time
        |  +--ro start-date?        yang:date-and-time

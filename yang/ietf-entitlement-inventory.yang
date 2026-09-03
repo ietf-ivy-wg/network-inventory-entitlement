@@ -75,7 +75,7 @@ module ietf-entitlement-inventory {
       "Basic capability class for general capability descriptions.";
   }
 
-  typedef entitlement-state-t {
+  typedef entitlement-state {
     type enumeration {
       enum active {
         description
@@ -167,7 +167,7 @@ module ietf-entitlement-inventory {
           description
             "Informs whether the entitlement is actively used,
              besides being installed. If existing, and if the
-             capabilities list exist and the information system
+             capabilities list entry exists and the information system
              supports setting their entitlement-state, this
              information MUST be consistent with it. Meaning, this
              should be in-use if any capability it supports is
@@ -249,9 +249,9 @@ module ietf-entitlement-inventory {
               "The presence of this container indicates the system
                can report the entitlement(s) supporting
                the use of this capability by the asset to its
-               current allowed state. this container
+               current allowed state. This container
                should not exist if the system cannot report this.
-               An empty list of supporting-entitlement means
+               An empty list of supporting-entitlements means
                the capability requires no special
                entitlement to be provided.";
             description
@@ -374,7 +374,7 @@ module ietf-entitlement-inventory {
         leaf sku {
           type string;
           description
-            "Stock Keeping Unit - vendor's catalog/ordering number
+            "Stock Keeping Unit (SKU) - vendor's catalog/ordering number
              for this entitlement. Used for procurement and asset
              management integration.";
         }
@@ -391,7 +391,7 @@ module ietf-entitlement-inventory {
              distribution channels.";
         }
         leaf state {
-          type entitlement-state-t;
+          type entitlement-state;
           description
             "Current state of the entitlement.";
         }
