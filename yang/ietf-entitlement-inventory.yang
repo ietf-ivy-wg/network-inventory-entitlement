@@ -69,7 +69,7 @@ module ietf-entitlement-inventory {
       "Base identity for capability classes.";
   }
 
-  identity basic-capability-description {
+  identity basic-capability {
     base capability-class;
     description
       "Basic capability class for general capability descriptions.";

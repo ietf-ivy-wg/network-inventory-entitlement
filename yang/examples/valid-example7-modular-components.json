@@ -186,7 +186,7 @@
                 "ietf-entitlement-inventory:capabilities": {
                   "capability-class": [
                     {
-                      "capability-class": "basic-capability-description",
+                      "capability-class": "basic-capability",
                       "capability": [
                         {
                           "capability-id": "high-speed-ports-1-8",
@@ -233,7 +233,7 @@
                 "ietf-entitlement-inventory:capabilities": {
                   "capability-class": [
                     {
-                      "capability-class": "basic-capability-description",
+                      "capability-class": "basic-capability",
                       "capability": [
                         {
                           "capability-id": "high-speed-ports-1-4",
@@ -280,7 +280,7 @@
                 "ietf-entitlement-inventory:capabilities": {
                   "capability-class": [
                     {
-                      "capability-class": "basic-capability-description",
+                      "capability-class": "basic-capability",
                       "capability": [
                         {
                           "capability-id": "hardware-encryption",
@@ -338,7 +338,7 @@
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "routing-protocols",

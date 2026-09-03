@@ -185,7 +185,7 @@ For any given network asset, the capabilities list MAY include all potential cap
 
 This document does not define a complete theory of capabilities or their internal relationships; such work may be addressed elsewhere. Instead, the model provides a flexible framework through the use of identity-based capability classes:
 
-- **Basic capability class**: The module defines `basic-capability-description` as a simple capability  class using only identifiers and descriptions. This supports implementations that present capabilities as straightforward lists.
+- **Basic capability class**: The module defines `basic-capability` as a simple capability  class using only identifiers and descriptions. This supports implementations that present capabilities as straightforward lists.
 
 - **Extended capability classes**: For structured capability definitions, implementations derive new identities from `capability-class`. These reference external YANG modules where capabilities have formal structure and semantics. See {{ext-capability}} for extension examples.
 
