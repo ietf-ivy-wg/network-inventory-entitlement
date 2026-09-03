@@ -1,36 +1,37 @@
- +--ro entitlements!
-    +--ro entitlement* [entitlement-id]
-       +--ro entitlement-id            string
-       +--ro product-id?               string
-       +--ro sku?                      string
-       +--ro vendor?                   string
-       +--ro part-number?              string
-       +--ro state?                    entitlement-state
-       +--ro renewal-profile
-       |  +--ro activation-date?   yang:date-and-time
-       |  +--ro start-date?        yang:date-and-time
-       |  +--ro expiration-date?   yang:date-and-time
-       +--ro restrictions!
-       |  +--ro restriction* [restriction-id]
-       |     +--ro restriction-id    string
-       |     +--ro description?      string
-       |     +--ro resource-name?    string
-       |     +--ro units?            string
-       |     +--ro max-value?        uint32
-       |     +--ro current-value?    uint32
-       +--ro parent-entitlement-uid?
-       |       -> ../../entitlement/entitlement-id
-       +--ro entitlement-attachment
-          +--ro universal-access?   boolean
-          +--ro holders
-          |  +--ro organizations-names
-          |  |  +--ro organizations*   string
-          |  +--ro users-names
-          |     +--ro users*   string
-          +--ro assets
-             +--ro elements
-             |  +--ro network-elements*   leafref
-             +--ro components
-                +--ro component* [network-element component-id]
-                   +--ro network-element    leafref
-                   +--ro component-id       leafref
+  augment /inv:network-inventory:
+    +--ro entitlements!
+       +--ro entitlement* [entitlement-id]
+          +--ro entitlement-id            string
+          +--ro product-id?               string
+          +--ro sku?                      string
+          +--ro vendor?                   string
+          +--ro part-number?              string
+          +--ro state?                    entitlement-state
+          +--ro renewal-profile
+          |  +--ro activation-date?   yang:date-and-time
+          |  +--ro start-date?        yang:date-and-time
+          |  +--ro expiration-date?   yang:date-and-time
+          +--ro restrictions!
+          |  +--ro restriction* [restriction-id]
+          |     +--ro restriction-id    string
+          |     +--ro description?      string
+          |     +--ro resource-name?    string
+          |     +--ro units?            string
+          |     +--ro max-value?        uint32
+          |     +--ro current-value?    uint32
+          +--ro parent-entitlement-uid?
+          |       -> ../../entitlement/entitlement-id
+          +--ro entitlement-attachment
+             +--ro universal-access?   boolean
+             +--ro holders
+             |  +--ro organizations-names
+             |  |  +--ro organizations*   string
+             |  +--ro users-names
+             |     +--ro users*   string
+             +--ro assets
+                +--ro elements
+                |  +--ro network-elements*   leafref
+                +--ro components
+                   +--ro component* [network-element component-id]
+                      +--ro network-element    leafref
+                      +--ro component-id       leafref
