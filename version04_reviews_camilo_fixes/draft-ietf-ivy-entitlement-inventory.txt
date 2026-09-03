@@ -216,7 +216,7 @@ Table of Contents
    entitlement on the device or component, or it may represent a logical
    assignment in a centralized system.  Some entitlements may be
    assigned to multiple network assets up to a defined limit; such
-   constraints can be modelled as global restrictions under the
+   constraints can be modeled as global restrictions under the
    entitlement.
 
    The model supports entitlement tracking and capability management.
@@ -690,7 +690,7 @@ Table of Contents
              |     +--ro units?            string
              |     +--ro max-value?        uint32
              |     +--ro current-value?    uint32
-             +--ro parent-entitlement-uid?
+             +--ro parent-entitlement-id?
              |       -> ../../entitlement/entitlement-id
              +--ro entitlement-attachment
                 +--ro universal-access?   boolean
@@ -805,7 +805,7 @@ Table of Contents
    entitlement references its centralized entitlement directly via the
    entitlement-id leafref.  For hierarchical or pooled entitlements
    (e.g., a base license with add-on upgrades), the "parent-entitlement-
-   uid" field in the centralized entitlement catalog links child
+   id" field in the centralized entitlement catalog links child
    entitlements to their parent.  Proper identification of entitlements
    is imperative to ensure consistency across systems, enabling
    monitoring systems to recognize when multiple locations reference
@@ -1421,7 +1421,7 @@ Table of Contents
                uses restriction-fields;
              }
            }
-           leaf parent-entitlement-uid {
+           leaf parent-entitlement-id {
              type leafref {
                path "../../entitlement/entitlement-id";
              }
@@ -1616,7 +1616,7 @@ Table of Contents
              |     +--ro units?            string
              |     +--ro max-value?        uint32
              |     +--ro current-value?    uint32
-             +--ro parent-entitlement-uid?
+             +--ro parent-entitlement-id?
              |       -> ../../entitlement/entitlement-id
              +--ro entitlement-attachment
                 +--ro universal-access?   boolean
@@ -2282,7 +2282,7 @@ Table of Contents
 
 4.5.1.  Scenario
 
-   This example demonstrates the parent-entitlement-uid mechanism for
+   This example demonstrates the parent-entitlement-id mechanism for
    modeling entitlement hierarchies.  A base "bronze" entitlement
    provides foundational capabilities, while a "silver" upgrade
    entitlement (referencing the bronze as parent) adds advanced
@@ -2327,7 +2327,7 @@ Table of Contents
            {
              "entitlement-id": "silver-routing-upgrade",
              "product-id": "ROUTER-SILVER-UPGRADE",
-             "parent-entitlement-uid": "bronze-routing-base",
+             "parent-entitlement-id": "bronze-routing-base",
              "state": "active",
              "renewal-profile": {
                "start-date": "2025-06-01T00:00:00Z",
@@ -3801,7 +3801,7 @@ Table of Contents
    *  Actual capability usage
 
    Implementations maintaining hierarchical entitlements via the parent-
-   entitlement-uid field SHOULD validate the entitlement hierarchy for
+   entitlement-id field SHOULD validate the entitlement hierarchy for
    circular references before committing changes.  While the model
    prevents direct self-reference, cycles at greater depth (e.g., A
    references B as parent while B references A) cannot be detected by

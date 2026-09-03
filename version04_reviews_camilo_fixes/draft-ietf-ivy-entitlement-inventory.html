@@ -1441,7 +1441,7 @@ entitled to do? What restrictions apply?<a href="#section-1-4" class="pilcrow">�
             <p id="section-1.1-2.6.1">What are the restrictions that each network element has due to the entitlements it holds locally?<a href="#section-1.1-2.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-1.1-3">In this document, the term "installed entitlements" refers to entitlements that have been assigned to a particular network asset. The act of installation may involve directly provisioning the entitlement on the device or component, or it may represent a logical assignment in a centralized system. Some entitlements may be assigned to multiple network assets up to a defined limit; such constraints can be modelled as global restrictions under the entitlement.<a href="#section-1.1-3" class="pilcrow">¶</a></p>
+<p id="section-1.1-3">In this document, the term "installed entitlements" refers to entitlements that have been assigned to a particular network asset. The act of installation may involve directly provisioning the entitlement on the device or component, or it may represent a logical assignment in a centralized system. Some entitlements may be assigned to multiple network assets up to a defined limit; such constraints can be modeled as global restrictions under the entitlement.<a href="#section-1.1-3" class="pilcrow">¶</a></p>
 <p id="section-1.1-4">The model supports entitlement tracking and capability management. It is intentionally designed to be extensible through YANG augmentation. Organizations requiring vendor-specific entitlement features should augment this base model rather than modifying it directly.<a href="#section-1.1-4" class="pilcrow">¶</a></p>
 <p id="section-1.1-5">This model focuses on operational inventory of entitlements and capabilities. The following are explicitly out of scope:<a href="#section-1.1-5" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1992,7 +1992,7 @@ module example-capability-extension {
           |     +--ro units?            string
           |     +--ro max-value?        uint32
           |     +--ro current-value?    uint32
-          +--ro parent-entitlement-uid?
+          +--ro parent-entitlement-id?
           |       -&gt; ../../entitlement/entitlement-id
           +--ro entitlement-attachment
              +--ro universal-access?   boolean
@@ -2052,7 +2052,7 @@ module example-capability-extension {
         </ul>
 <p id="section-3.3-10">In the YANG model, both network elements and components are supported by providing augmentations to each.<a href="#section-3.3-10" class="pilcrow">¶</a></p>
 <p id="section-3.3-11">Entitlements and network assets are linked in the model in multiple ways. Entitlements at the network-inventory level should be attached to network assets through their attachment mechanism, representing organizational entitlements. Network assets have their own installed-entitlements that may be derived from the centralized entitlements or assigned directly. The capabilities of network assets reference these installed entitlements through their supporting-entitlements lists. The former addresses the case of a centralized license server or inventory system, while the latter represents entitlements that are actively entitling the asset's capabilities. An installed entitlement that is not referenced by any capability means that it is active on the asset but not currently in use.<a href="#section-3.3-11" class="pilcrow">¶</a></p>
-<p id="section-3.3-12">Entitlements are managed both centrally at the network-inventory level and at the asset level through installed-entitlements. Network assets reference their installed entitlements through their capabilities' supporting-entitlements lists. For instance, a license server or inventory system should list an entitlement at the top level, which then gets installed on specific network assets where the capabilities reference the active entitlement. Each installed entitlement references its centralized entitlement directly via the entitlement-id leafref. For hierarchical or pooled entitlements (e.g., a base license with add-on upgrades), the "parent-entitlement-uid" field in the centralized entitlement catalog links child entitlements to their parent. Proper identification of entitlements is imperative to ensure consistency across systems, enabling monitoring systems to recognize when multiple locations reference related entitlements.<a href="#section-3.3-12" class="pilcrow">¶</a></p>
+<p id="section-3.3-12">Entitlements are managed both centrally at the network-inventory level and at the asset level through installed-entitlements. Network assets reference their installed entitlements through their capabilities' supporting-entitlements lists. For instance, a license server or inventory system should list an entitlement at the top level, which then gets installed on specific network assets where the capabilities reference the active entitlement. Each installed entitlement references its centralized entitlement directly via the entitlement-id leafref. For hierarchical or pooled entitlements (e.g., a base license with add-on upgrades), the "parent-entitlement-id" field in the centralized entitlement catalog links child entitlements to their parent. Proper identification of entitlements is imperative to ensure consistency across systems, enabling monitoring systems to recognize when multiple locations reference related entitlements.<a href="#section-3.3-12" class="pilcrow">¶</a></p>
 <div id="reverse-mapping-from-entitlements-to-capabilities">
 <section id="section-3.3.1">
           <h4 id="name-reverse-mapping-from-entitl">
@@ -2609,7 +2609,7 @@ module ietf-entitlement-inventory {
             uses restriction-fields;
           }
         }
-        leaf parent-entitlement-uid {
+        leaf parent-entitlement-id {
           type leafref {
             path "../../entitlement/entitlement-id";
           }
@@ -2810,7 +2810,7 @@ module: ietf-entitlement-inventory
           |     +--ro units?            string
           |     +--ro max-value?        uint32
           |     +--ro current-value?    uint32
-          +--ro parent-entitlement-uid?
+          +--ro parent-entitlement-id?
           |       -&gt; ../../entitlement/entitlement-id
           +--ro entitlement-attachment
              +--ro universal-access?   boolean
@@ -3580,7 +3580,7 @@ module: ietf-entitlement-inventory
           <h4 id="name-scenario-4">
 <a href="#section-4.5.1" class="section-number selfRef">4.5.1. </a><a href="#name-scenario-4" class="section-name selfRef">Scenario</a>
           </h4>
-<p id="section-4.5.1-1">This example demonstrates the parent-entitlement-uid mechanism for modeling entitlement hierarchies. A base "bronze" entitlement provides foundational capabilities, while a "silver" upgrade entitlement (referencing the bronze as parent) adds advanced features. This pattern supports tiered licensing models.<a href="#section-4.5.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.5.1-1">This example demonstrates the parent-entitlement-id mechanism for modeling entitlement hierarchies. A base "bronze" entitlement provides foundational capabilities, while a "silver" upgrade entitlement (referencing the bronze as parent) adds advanced features. This pattern supports tiered licensing models.<a href="#section-4.5.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="json-example-3">
@@ -3627,7 +3627,7 @@ module: ietf-entitlement-inventory
         {
           "entitlement-id": "silver-routing-upgrade",
           "product-id": "ROUTER-SILVER-UPGRADE",
-          "parent-entitlement-uid": "bronze-routing-base",
+          "parent-entitlement-id": "bronze-routing-base",
           "state": "active",
           "renewal-profile": {
             "start-date": "2025-06-01T00:00:00Z",
@@ -5163,7 +5163,7 @@ module: ietf-entitlement-inventory
             <p id="section-5.1-2.3.1">Actual capability usage<a href="#section-5.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.1-3">Implementations maintaining hierarchical entitlements via the <code>parent-entitlement-uid</code> field <span class="bcp14">SHOULD</span> validate the entitlement hierarchy for circular references before committing changes.
+<p id="section-5.1-3">Implementations maintaining hierarchical entitlements via the <code>parent-entitlement-id</code> field <span class="bcp14">SHOULD</span> validate the entitlement hierarchy for circular references before committing changes.
 While the model prevents direct self-reference, cycles at greater depth (e.g., A references B as parent while B references A) cannot be detected by YANG constraints alone and must be handled at the management system level.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
