@@ -78,7 +78,7 @@ The entitlement model provides an inventory of entitlements. This includes the e
 * Does the entitlement impose any kind of global restrictions? What are they?
 * What are the restrictions that each network element has due to the entitlements it holds locally?
 
-In this document, the term "installed entitlements" refers to entitlements that have been assigned to a particular network asset. The act of installation may involve directly provisioning the entitlement on the device or component, or it may represent a logical assignment in a centralized system. Some entitlements may be assigned to multiple network assets up to a defined limit; such constraints can be modelled as global restrictions under the entitlement.
+In this document, the term "installed entitlements" refers to entitlements that have been assigned to a particular network asset. The act of installation may involve directly provisioning the entitlement on the device or component, or it may represent a logical assignment in a centralized system. Some entitlements may be assigned to multiple network assets up to a defined limit; such constraints can be modeled as global restrictions under the entitlement.
 
 The model supports entitlement tracking and capability management. It is intentionally designed to be extensible through YANG augmentation. Organizations requiring vendor-specific entitlement features should augment this base model rather than modifying it directly.
 
