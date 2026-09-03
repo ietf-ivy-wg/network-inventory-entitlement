@@ -595,11 +595,11 @@ Specifically, the following subtrees and data nodes have particular sensitivitie
 
 > This subtree reports a centralized entitlements catalog. The entitlement data includes commercially sensitive information such as product identifiers, SKUs, part numbers, vendor identifiers, and contract validity periods. Unauthorized access to entitlement records could expose procurement strategies, contract terms, or financial obligations.
 
-- "ei:installed-entitlements"
+- "/nwi:network-inventory/nwi:network-elements/nwi:network-element/ei:installed-entitlements" and "/nwi:network-inventory/nwi:network-elements/nwi:network-element/nwi:components/nwi:component/ei:installed-entitlements"
 
 > This subtree reports which entitlements are installed on a network element or component and whether they are in use. This information could assist an attacker in identifying exploitable capabilities or understanding the operational profile of the network.
 
-- "ei:capabilities"
+- "/nwi:network-inventory/nwi:network-elements/nwi:network-element/ei:capabilities" and "/nwi:network-inventory/nwi:network-elements/nwi:network-element/nwi:components/nwi:component/ei:capabilities"
 
 > This subtree reports the functions and features supported by a network element or component and, when available, whether they are allowed or in use based on installed entitlements. This information could assist an attacker in understanding the operational capabilities of the asset and identifying potential attack surfaces.
 
