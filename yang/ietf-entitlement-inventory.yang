@@ -122,12 +122,12 @@ module ietf-entitlement-inventory {
          'connections', 'tunnels').";
     }
     leaf max-value {
-      type uint32;
+      type uint64;
       description
         "Maximum permitted value for this restriction.";
     }
     leaf current-value {
-      type uint32;
+      type uint64;
       description
         "Current usage or consumption of this restricted
          resource at query time.";

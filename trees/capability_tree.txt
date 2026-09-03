@@ -18,5 +18,5 @@
                    +--ro description?      string
                    +--ro resource-name?    string
                    +--ro units?            string
-                   +--ro max-value?        uint32
-                   +--ro current-value?    uint32
+                   +--ro max-value?        uint64
+                   +--ro current-value?    uint64

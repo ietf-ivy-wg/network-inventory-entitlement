@@ -534,7 +534,7 @@ While the model prevents direct self-reference, cycles at greater depth (e.g., A
 
 ## Entitlement Expiration Handling
 
-Network elements SHOULD generate notifications when installed entitlements are approaching expiration. The notification timing and handling are implementation-specific but SHOULD provide sufficient lead time for renewal.
+This model does not define mechanisms for notifying management applications when entitlements are approaching expiration. This model, however, exposes the information needed by management applications to detect approaching expiration dates and implement their own notification mechanisms.
 
 ## Performance Considerations
 
