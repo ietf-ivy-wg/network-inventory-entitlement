@@ -372,12 +372,14 @@ The examples are organized from simple to more complex, enabling implementers to
 4. Validate their own implementations against canonical examples.
 
 Each example:
+
 - Addresses specific operational questions
 - Builds upon concepts introduced in previous examples
 - Includes contextual explanation of design choices
 - Provides JSON that validates against the ietf-entitlement-inventory YANG module.
 
 In order to use the examples:
+
 - Start with Basic Structure Example to understand fundamental relationships
 - Progress through examples based on your deployment scenario
 - Refer to the YANG module trees introduced in the draft, for complete model structure
@@ -398,6 +400,7 @@ The following table summarizes the examples provided in this section and the pri
 | 8 | Capability Class Extension | Expert | Extensibility, external references | How to integrate custom capability models? |
 
 **Legend:**
+
 -  Simple: Foundational concepts, minimal complexity
 -  Moderate: Multi-component scenarios, intermediate concepts
 -  Advanced: Complex deployments, advanced patterns
@@ -411,6 +414,7 @@ A network operator has purchased a single routing license for a router. The lice
 
 ### Operational Context
 This example answers the fundamental questions:
+
 - What entitlements does the organization own?
 - Which device is this entitlement installed on?
 - What capability does this entitlement enable?
@@ -439,7 +443,8 @@ Based on the state comparison: Active vs Expired, there is an operational impact
 | **Device operation** | Continues with reduced functionality | Plan renewal before 2025-06-30 |
 | **Compliance risk** | Potential breach if security required | Immediate action if security is mandatory |
 
-Implementation considerations should consider:
+Implementation considerations:
+
 - Do not delete the entitlement record (preserve for audit)
 - Do not immediately remove installed-entitlement (keep for renewal)
 - Do not affect unrelated entitlements on the same device
