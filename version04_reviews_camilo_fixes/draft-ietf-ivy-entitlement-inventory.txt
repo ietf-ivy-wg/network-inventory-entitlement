@@ -1645,15 +1645,26 @@ Table of Contents
 
    4.  Validate their own implementations against canonical examples.
 
-   Each example: - Addresses specific operational questions - Builds
-   upon concepts introduced in previous examples - Includes contextual
-   explanation of design choices - Provides JSON that validates against
-   the ietf-entitlement-inventory YANG module.
+   Each example:
 
-   In order to use the examples: - Start with Basic Structure Example to
-   understand fundamental relationships - Progress through examples
-   based on your deployment scenario - Refer to the YANG module trees
-   introduced in the draft, for complete model structure
+   *  Addresses specific operational questions
+
+   *  Builds upon concepts introduced in previous examples
+
+   *  Includes contextual explanation of design choices
+
+   *  Provides JSON that validates against the ietf-entitlement-
+      inventory YANG module.
+
+   In order to use the examples:
+
+   *  Start with Basic Structure Example to understand fundamental
+      relationships
+
+   *  Progress through examples based on your deployment scenario
+
+   *  Refer to the YANG module trees introduced in the draft, for
+      complete model structure
 
 4.1.  Overview of Examples
 
@@ -1711,10 +1722,15 @@ Table of Contents
 
                                   Table 1
 
-   *Legend:* - Simple: Foundational concepts, minimal complexity -
-   Moderate: Multi-component scenarios, intermediate concepts -
-   Advanced: Complex deployments, advanced patterns - Expert:
-   Extensibility and customization
+   *Legend:*
+
+   *  Simple: Foundational concepts, minimal complexity
+
+   *  Moderate: Multi-component scenarios, intermediate concepts
+
+   *  Advanced: Complex deployments, advanced patterns
+
+   *  Expert: Extensibility and customization
 
 4.2.  Basic Structure
 
@@ -1727,11 +1743,16 @@ Table of Contents
 
 4.2.2.  Operational Context
 
-   This example answers the fundamental questions: - What entitlements
-   does the organization own? - Which device is this entitlement
-   installed on? - What capability does this entitlement enable? - Is
-   the capability currently allowed and in-use?  This is based on the
-   entitlement-state field.
+   This example answers the fundamental questions:
+
+   *  What entitlements does the organization own?
+
+   *  Which device is this entitlement installed on?
+
+   *  What capability does this entitlement enable?
+
+   *  Is the capability currently allowed and in-use?  This is based on
+      the entitlement-state field.
 
 4.2.3.  JSON Example
 
@@ -1853,10 +1874,13 @@ Table of Contents
 
                                   Table 2
 
-   Implementation considerations should consider: - Do not delete the
-   entitlement record (preserve for audit) - Do not immediately remove
-   installed-entitlement (keep for renewal) - Do not affect unrelated
-   entitlements on the same device
+   Implementation considerations:
+
+   *  Do not delete the entitlement record (preserve for audit)
+
+   *  Do not immediately remove installed-entitlement (keep for renewal)
+
+   *  Do not affect unrelated entitlements on the same device
 
 4.3.3.  JSON Example
 
