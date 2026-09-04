@@ -45,8 +45,8 @@
                           "description": "Current active SD-WAN tunnels",
                           "resource-name": "tunnels",
                           "units": "count",
-                          "max-value": 100,
-                          "current-value": 45
+                          "max-value": "100",
+                          "current-value": "45"
                         }
                       ]
                     }
@@ -105,8 +105,8 @@
                           "description": "Maximum VXLAN tunnel endpoints",
                           "resource-name": "vteps",
                           "units": "endpoints",
-                          "max-value": 500,
-                          "current-value": 234
+                          "max-value": "500",
+                          "current-value": "234"
                         }
                       ]
                     }
@@ -159,8 +159,8 @@
                           "description": "Maximum concurrent telemetry streams",
                           "resource-name": "streams",
                           "units": "streams",
-                          "max-value": 200,
-                          "current-value": 87
+                          "max-value": "200",
+                          "current-value": "87"
                         }
                       ]
                     }
@@ -192,24 +192,20 @@
                 "description": "Total bandwidth consumed this billing period",
                 "resource-name": "bandwidth",
                 "units": "GB",
-                "max-value": 10000,
-                "current-value": 7234
+                "max-value": "10000",
+                "current-value": "7234"
               }
             ]
           },
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Enterprise IT Dept"
-                ]
-              },
-              "users-names": {
-                "users": [
+                ],
+              "user": [
                   "network-admin"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -233,16 +229,12 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Enterprise IT Dept"
-                ]
-              },
-              "users-names": {
-                "users": [
+                ],
+              "user": [
                   "datacenter-ops"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -268,16 +260,12 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Enterprise IT Dept"
-                ]
-              },
-              "users-names": {
-                "users": [
+                ],
+              "user": [
                   "datacenter-ops"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -306,32 +294,28 @@
                 "restriction-id": "subscribed-device-count",
                 "description": "Device count in subscribed tier",
                 "units": "devices",
-                "max-value": 50,
-                "current-value": 50
+                "max-value": "50",
+                "current-value": "50"
               },
               {
                 "restriction-id": "current-device-count",
                 "description": "Actual devices currently managed (may exceed tier for overage billing)",
                 "units": "devices",
-                "max-value": 150,
-                "current-value": 63
+                "max-value": "150",
+                "current-value": "63"
               }
             ]
           },
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Enterprise IT Dept"
-                ]
-              },
-              "users-names": {
-                "users": [
+                ],
+              "user": [
                   "datacenter-ops",
                   "noc-team"
                 ]
-              }
             },
             "assets": {
               "elements": {

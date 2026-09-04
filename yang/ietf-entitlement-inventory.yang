@@ -457,38 +457,36 @@ module ietf-entitlement-inventory {
              for cycles before committing changes.";
         }
         container entitlement-attachment {
+          must "not(universal-access = 'true') or
+                (not(holders) and not(assets))" {
+            error-message
+              "Holders and assets cannot be specified when
+               universal-access is true.";
+          }
           description
             "Defines how the entitlement is attached to holders and
              assets.";
           leaf universal-access {
             type boolean;
             description
-              "True if entitlement has universal access.";
+              "If true, the entitlement is not restricted to
+               any specific holder or asset.
+               Holders or assets MUST NOT be specified when
+               this leaf is true.";
           }
           container holders {
             description
-              "Holders of this entitlement.
-               This is for information purposes only, it
-               does not apply any restrictions on who can
-               use or not the asset where assigned
-               to the entitlement.";
-            container organizations-names {
+              "Holders to which this entitlement
+               is attached.";
+            leaf-list organization {
+              type string;
               description
-                "Organization holders.";
-              leaf-list organizations {
-                type string;
-                description
-                  "List of organization names.";
-              }
+                "Organization holding this entitlement.";
             }
-            container users-names {
+            leaf-list user {
+              type string;
               description
-                "User holders.";
-              leaf-list users {
-                type string;
-                description
-                  "List of user names.";
-              }
+                "User holding this entitlement.";
             }
           }
           container assets {

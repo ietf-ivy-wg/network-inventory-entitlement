@@ -54,8 +54,8 @@
                       "description": "Maximum concurrent firewall sessions",
                       "resource-name": "sessions",
                       "units": "connections",
-                        "max-value": 100000,
-                        "current-value": 45000
+                        "max-value": "100000",
+                        "current-value": "45000"
                       }
                     ]
                   }
@@ -81,8 +81,8 @@
                       "description": "Maximum VPN tunnels",
                       "resource-name": "tunnels",
                       "units": "count",
-                        "max-value": 500,
-                        "current-value": 120
+                        "max-value": "500",
+                        "current-value": "120"
                       }
                     ]
                   }
@@ -108,8 +108,8 @@
                       "description": "Maximum BGP peer sessions",
                       "resource-name": "peers",
                       "units": "sessions",
-                        "max-value": 200,
-                        "current-value": 75
+                        "max-value": "200",
+                        "current-value": "75"
                       }
                     ]
                   }
@@ -135,9 +135,7 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": ["Enterprise Corp"]
-              }
+              "organization": ["Enterprise Corp"]
             },
             "assets": {
               "elements": {
@@ -158,9 +156,7 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": ["Enterprise Corp"]
-              }
+              "organization": ["Enterprise Corp"]
             },
             "assets": {
               "elements": {
@@ -181,12 +177,8 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": ["Enterprise Corp"]
-              },
-              "users-names": {
-                "users": ["telecom-admin"]
-              }
+              "organization": ["Enterprise Corp"],
+              "user": ["telecom-admin"]
             },
             "assets": {
               "elements": {
@@ -200,8 +192,8 @@
                 "restriction-id": "voice-channels",
                 "description": "Maximum concurrent voice channels",
                 "units": "channels",
-                "max-value": 100,
-                "current-value": 0
+                "max-value": "100",
+                "current-value": "0"
               }
             ]
           }

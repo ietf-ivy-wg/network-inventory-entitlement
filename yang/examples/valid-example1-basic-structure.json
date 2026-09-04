@@ -59,9 +59,7 @@
               "entitlement-attachment": {
                 "universal-access": false,
                 "holders": {
-                  "organizations-names": {
-                    "organizations": ["org-1"]
-                  }
+                  "organization": ["org-1"]
                 },
                 "assets": {
                 "elements": {

@@ -24,10 +24,8 @@
           +--ro entitlement-attachment
              +--ro universal-access?   boolean
              +--ro holders
-             |  +--ro organizations-names
-             |  |  +--ro organizations*   string
-             |  +--ro users-names
-             |     +--ro users*   string
+             |  +--ro organization*   string
+             |  +--ro user*           string
              +--ro assets
                 +--ro elements
                 |  +--ro network-elements*   leafref
