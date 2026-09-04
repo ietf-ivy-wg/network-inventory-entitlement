@@ -25,7 +25,7 @@
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "enterprise-routing",
@@ -48,8 +48,8 @@
                           "description": "Maximum BGP peers",
                           "resource-name": "bgp-sessions",
                           "units": "peers",
-                          "max-value": 500,
-                          "current-value": 245
+                          "max-value": "500",
+                          "current-value": "245"
                         }
                       ]
                     }
@@ -75,8 +75,8 @@
                           "description": "Maximum firewall throughput",
                           "resource-name": "throughput",
                           "units": "Gbps",
-                          "max-value": 40,
-                          "current-value": 28
+                          "max-value": "40",
+                          "current-value": "28"
                         }
                       ]
                     }
@@ -106,7 +106,7 @@
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "enterprise-routing",
@@ -129,8 +129,8 @@
                           "description": "Maximum BGP peers",
                           "resource-name": "bgp-sessions",
                           "units": "peers",
-                          "max-value": 500,
-                          "current-value": 178
+                          "max-value": "500",
+                          "current-value": "178"
                         }
                       ]
                     }
@@ -160,7 +160,7 @@
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "advanced-firewall",
@@ -183,8 +183,8 @@
                           "description": "Maximum firewall throughput",
                           "resource-name": "throughput",
                           "units": "Gbps",
-                          "max-value": 10,
-                          "current-value": 7
+                          "max-value": "10",
+                          "current-value": "7"
                         }
                       ]
                     }
@@ -213,19 +213,17 @@
                 "restriction-id": "license-consumption",
                 "description": "Enterprise router licenses consumed from pool",
                 "units": "licenses",
-                "max-value": 100,
-                "current-value": 87
+                "max-value": "100",
+                "current-value": "87"
               }
             ]
           },
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Company-A"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -252,27 +250,25 @@
                 "restriction-id": "license-consumption",
                 "description": "Security licenses consumed from pool (high utilization)",
                 "units": "licenses",
-                "max-value": 25,
-                "current-value": 21
+                "max-value": "25",
+                "current-value": "21"
               },
               {
                 "restriction-id": "total-throughput",
                 "description": "Aggregate firewall throughput across all devices (real-time snapshot)",
                 "resource-name": "throughput",
                 "units": "Gbps",
-                "max-value": 100,
-                "current-value": 50
+                "max-value": "100",
+                "current-value": "50"
               }
             ]
           },
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Company-A"
                 ]
-              }
             },
             "assets": {
               "elements": {

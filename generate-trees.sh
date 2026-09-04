@@ -56,11 +56,14 @@ awk '
   /^  augment / {in_ne=0}
 
   # Start printing at capabilities within that augment
-  in_ne && /^    \+--ro capabilities!/ {p=1}
+  in_ne && /^    \+--ro capabilities!/ {
+    print "  augment /inv:network-inventory/inv:network-elements"
+    print "            /inv:network-element:"
+    p=1
+  }
 
   # Print until we leave the augment (handled above)
   in_ne && p {
-    sub(/^   /,"")     # your old sed s/^   //
     print
   }
 ' > "$TREES_DIR/capability_tree.txt"
@@ -75,10 +78,12 @@ awk '
   /^  augment / {in_inv=0}
 
   # Start printing at entitlements within that augment
-  in_inv && /^    \+--ro entitlements!/ {p=1}
+  in_inv && /^    \+--ro entitlements!/ {
+    print "  augment /inv:network-inventory:"
+    p=1
+  }
 
   in_inv && p {
-    sub(/^   /,"")
     print
   }
 ' > "$TREES_DIR/entitlements_tree.txt"
@@ -92,13 +97,17 @@ awk '
   /^  augment / {in_ne=0}
 
   # start at installed-entitlements
-  in_ne && /^    \+--ro installed-entitlements!/ {p=1; first=1}
+  in_ne && /^    \+--ro installed-entitlements!/ {
+    print "  augment /inv:network-inventory/inv:network-elements"
+    print "            /inv:network-element:"
+    p=1
+    first=1
+  }
 
   # once started, stop when we reach the next sibling at the same level
   in_ne && p && !first && /^    \+--ro / {exit}
 
   in_ne && p {
-    sub(/^   /,"")
     print
     first=0
   }

@@ -21,8 +21,8 @@ venue:
   mail: "inventory-yang@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/inventory-yang/"
 
-  github: "https://github.com/ietf-ivy-wg/network-inventory-entitlement.git"
-  latest: "https://dr2lopez.github.io/ivy-capability-entitlement/draft-ietf-ivy-entitlement-inventory.html"
+  github: "ietf-ivy-wg/network-inventory-entitlement"
+  latest: "https://ietf-ivy-wg.github.io/network-inventory-entitlement/draft-ietf-ivy-entitlement-inventory.html"
 author:
   - name: Marisol Palmero
     organization: Independent
@@ -38,13 +38,13 @@ author:
     email: "italo.busi@huawei.com"
 
 normative:
+ BaseInventory: I-D.ietf-ivy-network-inventory-yang
 
 informative:
- BaseInventory: I-D.ietf-ivy-network-inventory-yang
 
 --- abstract
 
-This document defines a YANG data model for managing software-based entitlements (licenses, authorization tokens, pay-as-you-go service credentials…) within a network inventory. The model represents the relationship between organizational entitlements, network element capabilities, and the constraints that entitlements impose on capability usage.
+This document defines a YANG data model for managing software-based entitlements (licenses, authorization tokens, pay-as-you-go service credentials, etc) within a network inventory. The model represents the relationship between organizational entitlements, network element capabilities, and the constraints that entitlements impose on capability usage.
 
 This data model enables operators to determine what capabilities their network elements possess, which capabilities are currently entitled for use, and what restrictions apply. The model supports both centralized entitlement management and device-local entitlement tracking for physical and virtual network elements.
 
@@ -52,7 +52,7 @@ This data model enables operators to determine what capabilities their network e
 
 # Introduction
 
-Network elements provide capabilities‚ i.e., functions related to their role in the network, such as MPLS routing, advanced QoS, or bandwidth throughput, which operators use to build services. Many capabilities require an evidence item for the right to use them, issued by the network element vendor, for their activation. These evidence items are called entitlements, and can take different forms, such as software licenses, access tokens or credentials for as-a-service consumption.
+Network elements provide capabilities, i.e., functions related to their role in the network, such as MPLS routing, advanced QoS, or bandwidth throughput, which operators use to build services. Many capabilities require an evidence item for the right to use them, issued by the network element vendor, for their activation. These evidence items are called entitlements, and can take different forms, such as software licenses, access tokens or credentials for as-a-service consumption.
 
 This document defines a YANG data model for tracking entitlements and their relationship to capabilities. The model supports three operational use cases:
 
@@ -78,7 +78,7 @@ The entitlement model provides an inventory of entitlements. This includes the e
 * Does the entitlement impose any kind of global restrictions? What are they?
 * What are the restrictions that each network element has due to the entitlements it holds locally?
 
-In this document, the term "installed entitlements" refers to entitlements that have been assigned to a particular network asset. The act of installation may involve directly provisioning the entitlement on the device or component, or it may represent a logical assignment in a centralized system. Some entitlements may be assigned to multiple network assets up to a defined limit; such constraints can be modelled as global restrictions under the entitlement.
+In this document, the term "installed entitlements" refers to entitlements that have been assigned to a particular network asset. The act of installation may involve directly provisioning the entitlement on the device or component, or it may represent a logical assignment in a centralized system. Some entitlements may be assigned to multiple network assets up to a defined limit; such constraints can be modeled as global restrictions under the entitlement.
 
 The model supports entitlement tracking and capability management. It is intentionally designed to be extensible through YANG augmentation. Organizations requiring vendor-specific entitlement features should augment this base model rather than modifying it directly.
 
@@ -88,7 +88,7 @@ This model focuses on operational inventory of entitlements and capabilities. Th
 * Entitlement migration policies between devices (vendor-specific)
 * Per-user access control mechanisms (covered by separate access control standards)
 
-This model focuses on the ability to use capabilities, not on access control mechanisms. For example, if a router cannot enable MPLS due to entitlement restrictions, it means the organization lacks the rights to use that capability—even if access to the device itself is available. This distinction is separate from, for instance, the ability of a specific user to configure MPLS due to access control limitations.
+This model focuses on the ability to use capabilities, not on access control mechanisms. For example, if a router cannot enable MPLS due to entitlement restrictions, it means the organization lacks the rights to use that capability, even if access to the device itself is available. This distinction is separate from, for instance, the ability of a specific user to configure MPLS due to access control limitations.
 
 ## Entitlement Deployment Models
 
@@ -116,10 +116,6 @@ Future augmentations may explore capability discovery or telemetry-driven models
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
-
-* ToBeUpdated(TBU) Open Issue for the IVY WG, to include:
-
-<<Update Glossary under  Network Inventory draft, {{BaseInventory}}. We need at least formal definitions of "capability" and "entitlement".>>
 
 - Capability: A discrete function, feature, or resource that a network element is technically capable of performing when properly entitled. Examples include MPLS routing, specific bandwidth throughput, or advanced QoS features.
 - Entitlement: A vendor-issued authorization (typically a license) that grants permission to activate and use one or more capabilities on specific network elements, potentially subject to constraints such as time limits, usage quotas, or scope restrictions.
@@ -179,17 +175,17 @@ Finally, NE support capabilities thanks to entitlements that entitle them of the
 
 ## Capabilities
 
-Capabilities are modeled by augmenting "network-element" in the "ietf-network-inventory" module in {{BaseInventory}} according to the following tree:
+Capabilities are modeled by augmenting "network-element" in the "ietf-network-inventory" module in {{BaseInventory}} according to the following tree {{?RFC8340}}:
 
 ~~~~ yangtree
 {::include-fold trees/capability_tree.txt}
 ~~~~
 
-For any given network asset, the capabilities list MAY include all potential capabilities advertised by the vendor, and MUST include those for which the network operator holds a valid entitlement—whether active or not.
+For any given network asset, the capabilities list MAY include all potential capabilities advertised by the vendor, and MUST include those for which the network operator holds a valid entitlement, whether they are active or not.
 
 This document does not define a complete theory of capabilities or their internal relationships; such work may be addressed elsewhere. Instead, the model provides a flexible framework through the use of identity-based capability classes:
 
-- **Basic capability class**: The module defines `basic-capability-description` as a simple capability  class using only identifiers and descriptions. This supports implementations that present capabilities as straightforward lists.
+- **Basic capability class**: The module defines `basic-capability` as a simple capability  class using only identifiers and descriptions. This supports implementations that present capabilities as straightforward lists.
 
 - **Extended capability classes**: For structured capability definitions, implementations derive new identities from `capability-class`. These reference external YANG modules where capabilities have formal structure and semantics. See {{ext-capability}} for extension examples.
 
@@ -260,9 +256,9 @@ Entitlements MUST be listed at the top level, directly under the `network-invent
 
 Entitlements may be listed without explicitly identifying the assets (network elements or components) they apply to. Entitlements are linked to network assets in multiple ways: (1) When entitlements are created for specific assets (i.e., they should only be installed on those), then those assets are specified under the entitlement's attachment section. (2) When an entitlement is installed on a network asset, it appears in the asset's installed-entitlements list. (3) When an installed entitlement enables capabilities, the asset's capabilities will reference the installed entitlement via the supporting-entitlements list.
 
-The base network inventory model includes both network elements and components within them. A network element is an abstraction that typically represents a complete device such as a router or switch. For single-chassis devices, entitlements are typically associated with the network element itself rather than with individual chassis components. However, certain deployment scenarios involve multi-chassis systems, such as stacked switches or optical network elements—where multiple physical units operate as a single logical network element. In these cases, each component may have its own commercial identity (such as a serial number) while the collection behaves as one network element.
+The base network inventory model includes both network elements and components within them. A network element is an abstraction that typically represents a complete device such as a router or switch. For single-chassis devices, entitlements are typically associated with the network element itself rather than with individual chassis components. However, certain deployment scenarios involve multi-chassis systems, such as stacked switches or optical network elements, where multiple physical units operate as a single logical network element. In these cases, each component may have its own commercial identity (such as a serial number) while the collection behaves as one network element.
 
-Entitlements are typically assigned based on commercial identifiers, often targeting serial numbers. The model supports linking entitlements to both network elements and individual components. However, component-level entitlement tracking is RECOMMENDED only when necessary—specifically when each component has its own set of capability limitations that must be managed independently. Examples include:
+Entitlements are typically assigned based on commercial identifiers, often targeting serial numbers. The model supports linking entitlements to both network elements and individual components. However, component-level entitlement tracking is RECOMMENDED only when necessary, specifically when each component has its own set of capability limitations that must be managed independently. Examples include:
 
 - Individual switches in a stack, where each unit has separate entitlements;
 - Individual chassis in a multi-chassis network element, such as optical equipment; or
@@ -272,7 +268,7 @@ In the YANG model, both network elements and components are supported by providi
 
 Entitlements and network assets are linked in the model in multiple ways. Entitlements at the network-inventory level should be attached to network assets through their attachment mechanism, representing organizational entitlements. Network assets have their own installed-entitlements that may be derived from the centralized entitlements or assigned directly. The capabilities of network assets reference these installed entitlements through their supporting-entitlements lists. The former addresses the case of a centralized license server or inventory system, while the latter represents entitlements that are actively entitling the asset's capabilities. An installed entitlement that is not referenced by any capability means that it is active on the asset but not currently in use.
 
-Entitlements are managed both centrally at the network-inventory level and at the asset level through installed-entitlements. Network assets reference their installed entitlements through their capabilities' supporting-entitlements lists. For instance, a license server or inventory system should list an entitlement at the top level, which then gets installed on specific network assets where the capabilities reference the active entitlement. Each installed entitlement references its centralized entitlement directly via the entitlement-id leafref. For hierarchical or pooled entitlements (e.g., a base license with add-on upgrades), the "parent-entitlement-uid" field in the centralized entitlement catalog links child entitlements to their parent. Proper identification of entitlements is imperative to ensure consistency across systems, enabling monitoring systems to recognize when multiple locations reference related entitlements.
+Entitlements are managed both centrally at the network-inventory level and at the asset level through installed-entitlements. Network assets reference their installed entitlements through their capabilities' supporting-entitlements lists. For instance, a license server or inventory system should list an entitlement at the top level, which then gets installed on specific network assets where the capabilities reference the active entitlement. Each installed entitlement references its centralized entitlement directly via the entitlement-id leafref. For hierarchical or pooled entitlements (e.g., a base license with add-on upgrades), the "parent-entitlement-id" field in the centralized entitlement catalog links child entitlements to their parent. Proper identification of entitlements is imperative to ensure consistency across systems, enabling monitoring systems to recognize when multiple locations reference related entitlements.
 
 ### Reverse Mapping from Entitlements to Capabilities
 
@@ -282,11 +278,11 @@ To support this, implementers may use the "product-id" or "capability-class" met
 
 ## Entitlement Attachment
 
-The "entitlement" container holds a container called "entitlement-attachment" which relates how the entitlement is operationally linked to holders or network assets. Note that there is a difference between an entitlement being attached to a network asset and an entitlement being installed on the asset. In the former, the license was explicitly associated with one or more assets. Some licenses actually can be open but have a limited number of installations. Other licenses should be openly constrained to a geographic location. We are not dealing with these complex cases now, but the container can be expanded for this in the future.
+The "entitlement" container holds a container called "entitlement-attachment" which relates how the entitlement is operationally linked to holders or network assets. Note that there is a difference between an entitlement being attached to a network asset and an entitlement being installed on the asset. In the former, the license was explicitly associated with one or more assets. Some licenses actually can be open but have a limited number of installations. Other licenses should be specifically constrained to a geographic location. We are not dealing with these complex cases now, but the container can be expanded for this in the future.
 
 The model accommodates listing entitlements acquired by the organization but not yet applied or utilized by any actor/asset at the network-inventory level. For these pending entitlements, they can be managed centrally without requiring individual network assets to be aware of their existence.
 
-Some entitlements are inherently associated with a holder, such as organization or a user. For example, a software license may be directly attached to a user. Also, the use of a network device may come with a basic license provided solely to an organization. Some entitlements could be assigned to a more abstract description of holders, such as people under a jurisdiction or a geographical area. The model contains basic information about this, but it can be extended in the future to be more descriptive.
+Some entitlements are inherently associated with a holder, such as an organization or a user. For example, a software license may be directly attached to a user. Also, the use of a network device may come with a basic license provided solely to an organization. Some entitlements could be assigned to a more abstract description of holders, such as people under a jurisdiction or in a geographical area. The model contains basic information about this, but it can be extended in the future to be more descriptive.
 
 While attachment is optional, the model should be capable of expressing attachment in various scenarios. The model can be expanded to list to which network assets an entitlement is aimed for, when this link is more vague, such as a site license (e.g., network assets located in a specific site), or more open licenses (e.g., free software for all users subscribed to a streaming platform).
 
@@ -304,7 +300,7 @@ The installed entitlements represent references to entitlements that are current
 
 This structure allows network assets to track which entitlements are actively granting them rights, while maintaining the ability to trace relationships to organization-wide entitlement policies.
 
-When entitlements are installed at the component level (e.g., line cards), implementations MAY also list them at the parent network-element level to provide a consolidated view of all entitlements active on the device. Management systems should recognize when an entitlement-id appears at both levels and treat them as the same license instance to avoid double-counting. This point requires further exploration in future instances of this document.
+When entitlements are installed at the component level (e.g., line cards), implementations MAY also list them at the parent network-element level to provide a consolidated view of all entitlements active on the device. Management systems should recognize when an entitlement-id appears at both levels and treat them as the same license instance to avoid double-counting.
 
 ## Implementation Considerations
 
@@ -334,7 +330,7 @@ At this level, the system additionally answers: What can each asset do?
 
 Advanced implementations populate the `supporting-entitlements` container within each capability. This links capabilities to the installed entitlements that enable them, along with the `entitlement-state` container indicating whether each capability is allowed and in use.
 
-When a capability lists multiple supporting entitlements, the `entitlement-state/allowed` field MUST reflect the combined effect of all required entitlements. If any required entitlement is missing, expired, or revoked, `allowed` should be false. The `in-use` field indicates whether the capability is currently operational.
+When a capability lists multiple supporting entitlements, the `entitlement-state/allowed` field MUST reflect the combined effect of all required entitlements. If any required entitlement is missing, expired, or revoked, the `allowed` leaf SHOULD be false. The `in-use` field indicates whether the capability is currently operational.
 
 At this level, the system additionally answers: Which entitlements enable which capabilities? What is allowed and what is in use?
 
@@ -351,10 +347,12 @@ Implementations SHOULD document which levels they support and any deviations fro
 
 ## Model Definition
 
+The `ietf-entitlement-inventory` module is defined using YANG 1.1 {{!RFC7950}} and imports common types from `ietf-yang-types` {{!RFC9911}} and network inventory definitions from {{BaseInventory}}.
+
 ~~~~ yang
 {::include yang/ietf-entitlement-inventory.yang}
 ~~~~
-{sourcecode-markers="true" sourcecode-name="ietf-entitlement-inventory@2026-05-25.yang"}
+{: sourcecode-markers="true" sourcecode-name="ietf-entitlement-inventory@2026-09-02.yang"}
 
 ### Model tree
 
@@ -364,7 +362,9 @@ Implementations SHOULD document which levels they support and any deviations fro
 
 # Implementation Examples and Validation Scenarios
 
-This section provides a progressive, from basic to advanced, series of validated JSON examples demonstrating practical implementation patterns for the entitlement inventory model. The examples are organized from simple to more complex, enabling implementers to:
+This section provides a progressive, from basic to advanced, series of validated JSON examples demonstrating practical implementation patterns for the entitlement inventory model. The JSON examples in this section use the JSON encoding of YANG data defined in {{?RFC7951}}.
+
+The examples are organized from simple to more complex, enabling implementers to:
 
 1. Understand core concepts through minimal working examples.
 2. Explore operational scenarios.
@@ -372,12 +372,14 @@ This section provides a progressive, from basic to advanced, series of validated
 4. Validate their own implementations against canonical examples.
 
 Each example:
+
 - Addresses specific operational questions
 - Builds upon concepts introduced in previous examples
 - Includes contextual explanation of design choices
 - Provides JSON that validates against the ietf-entitlement-inventory YANG module.
 
 In order to use the examples:
+
 - Start with Basic Structure Example to understand fundamental relationships
 - Progress through examples based on your deployment scenario
 - Refer to the YANG module trees introduced in the draft, for complete model structure
@@ -398,6 +400,7 @@ The following table summarizes the examples provided in this section and the pri
 | 8 | Capability Class Extension | Expert | Extensibility, external references | How to integrate custom capability models? |
 
 **Legend:**
+
 -  Simple: Foundational concepts, minimal complexity
 -  Moderate: Multi-component scenarios, intermediate concepts
 -  Advanced: Complex deployments, advanced patterns
@@ -411,6 +414,7 @@ A network operator has purchased a single routing license for a router. The lice
 
 ### Operational Context
 This example answers the fundamental questions:
+
 - What entitlements does the organization own?
 - Which device is this entitlement installed on?
 - What capability does this entitlement enable?
@@ -439,7 +443,8 @@ Based on the state comparison: Active vs Expired, there is an operational impact
 | **Device operation** | Continues with reduced functionality | Plan renewal before 2025-06-30 |
 | **Compliance risk** | Potential breach if security required | Immediate action if security is mandatory |
 
-Implementation considerations should consider:
+Implementation considerations:
+
 - Do not delete the entitlement record (preserve for audit)
 - Do not immediately remove installed-entitlement (keep for renewal)
 - Do not affect unrelated entitlements on the same device
@@ -466,7 +471,7 @@ This example shows comprehensive utilization tracking across multiple capabiliti
 ## Hierarchical Entitlements
 
 ### Scenario
-This example demonstrates the parent-entitlement-uid mechanism for modeling entitlement hierarchies. A base "bronze" entitlement provides foundational capabilities, while a "silver" upgrade entitlement (referencing the bronze as parent) adds advanced features. This pattern supports tiered licensing models.
+This example demonstrates the parent-entitlement-id mechanism for modeling entitlement hierarchies. A base "bronze" entitlement provides foundational capabilities, while a "silver" upgrade entitlement (referencing the bronze as parent) adds advanced features. This pattern supports tiered licensing models.
 
 ### JSON Example
 
@@ -529,12 +534,12 @@ When entitlements are managed both centrally and locally, implementations SHOULD
 * Locally installed entitlements
 * Actual capability usage
 
-Implementations maintaining hierarchical entitlements via the `parent-entitlement-uid` field SHOULD validate the entitlement hierarchy for circular references before committing changes.
+Implementations maintaining hierarchical entitlements via the `parent-entitlement-id` field SHOULD validate the entitlement hierarchy for circular references before committing changes.
 While the model prevents direct self-reference, cycles at greater depth (e.g., A references B as parent while B references A) cannot be detected by YANG constraints alone and must be handled at the management system level.
 
 ## Entitlement Expiration Handling
 
-Network elements SHOULD generate notifications when installed entitlements are approaching expiration. The notification timing and handling is implementation-specific but SHOULD provide sufficient lead time for renewal.
+This model does not define mechanisms for notifying management applications when entitlements are approaching expiration. This model, however, exposes the information needed by management applications to detect approaching expiration dates and implement their own notification mechanisms.
 
 ## Performance Considerations
 
@@ -595,13 +600,13 @@ Specifically, the following subtrees and data nodes have particular sensitivitie
 
 > This subtree reports a centralized entitlements catalog. The entitlement data includes commercially sensitive information such as product identifiers, SKUs, part numbers, vendor identifiers, and contract validity periods. Unauthorized access to entitlement records could expose procurement strategies, contract terms, or financial obligations.
 
-- "ei:installed-entitlements"
+- "/nwi:network-inventory/nwi:network-elements/nwi:network-element/ei:installed-entitlements" and "/nwi:network-inventory/nwi:network-elements/nwi:network-element/nwi:components/nwi:component/ei:installed-entitlements"
 
-> This subtree reports which features and functions are active on a network element or on a component. This information could assist an attacker in identifying exploitable capabilities or understanding the operational profile of the network.
+> This subtree reports which entitlements are installed on a network element or component and whether they are in use. This information could assist an attacker in identifying exploitable capabilities or understanding the operational profile of the network.
 
-- "ei:installed-capabilities"
+- "/nwi:network-inventory/nwi:network-elements/nwi:network-element/ei:capabilities" and "/nwi:network-inventory/nwi:network-elements/nwi:network-element/nwi:components/nwi:component/ei:capabilities"
 
-> TBD.
+> This subtree reports the functions and features supported by a network element or component and, when available, whether they are allowed or in use based on installed entitlements. This information could assist an attacker in understanding the operational capabilities of the asset and identifying potential attack surfaces.
 
 The YANG module described in this document augments the "ietf-network-inventory" YANG module {{BaseInventory}} by adding data nodes. The security considerations for the subtrees described in those RFCs apply equally to the new data nodes that this module adds.
 
