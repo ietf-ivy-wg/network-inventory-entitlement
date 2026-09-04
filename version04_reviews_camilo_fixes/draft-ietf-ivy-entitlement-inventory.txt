@@ -5,12 +5,12 @@
 Network Inventory YANG WG                                     M. Palmero
 Internet-Draft                                               Independent
 Intended status: Standards Track                              C. Cardona
-Expires: 7 March 2027                                                NTT
+Expires: 8 March 2027                                                NTT
                                                                 D. Lopez
                                                               Telefonica
                                                                  I. Busi
                                                                   Huawei
-                                                        3 September 2026
+                                                        4 September 2026
 
 
                 A YANG Module for Entitlement Inventory
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 March 2027.
+   This Internet-Draft will expire on 8 March 2027.
 
 Copyright Notice
 
@@ -481,8 +481,8 @@ Table of Contents
                       +--ro description?      string
                       +--ro resource-name?    string
                       +--ro units?            string
-                      +--ro max-value?        uint32
-                      +--ro current-value?    uint32
+                      +--ro max-value?        uint64
+                      +--ro current-value?    uint64
 
    For any given network asset, the capabilities list MAY include all
    potential capabilities advertised by the vendor, and MUST include
@@ -494,10 +494,10 @@ Table of Contents
    Instead, the model provides a flexible framework through the use of
    identity-based capability classes:
 
-   *  *Basic capability class*: The module defines basic-capability-
-      description as a simple capability class using only identifiers
-      and descriptions.  This supports implementations that present
-      capabilities as straightforward lists.
+   *  *Basic capability class*: The module defines basic-capability as a
+      simple capability class using only identifiers and descriptions.
+      This supports implementations that present capabilities as
+      straightforward lists.
 
    *  *Extended capability classes*: For structured capability
       definitions, implementations derive new identities from
@@ -688,17 +688,15 @@ Table of Contents
              |     +--ro description?      string
              |     +--ro resource-name?    string
              |     +--ro units?            string
-             |     +--ro max-value?        uint32
-             |     +--ro current-value?    uint32
+             |     +--ro max-value?        uint64
+             |     +--ro current-value?    uint64
              +--ro parent-entitlement-id?
              |       -> ../../entitlement/entitlement-id
              +--ro entitlement-attachment
                 +--ro universal-access?   boolean
                 +--ro holders
-                |  +--ro organizations-names
-                |  |  +--ro organizations*   string
-                |  +--ro users-names
-                |     +--ro users*   string
+                |  +--ro organization*   string
+                |  +--ro user*           string
                 +--ro assets
                    +--ro elements
                    |  +--ro network-elements*   leafref
@@ -1053,7 +1051,7 @@ Table of Contents
          "Base identity for capability classes.";
      }
 
-     identity basic-capability-description {
+     identity basic-capability {
        base capability-class;
        description
          "Basic capability class for general capability descriptions.";
@@ -1106,12 +1104,12 @@ Table of Contents
             'connections', 'tunnels').";
        }
        leaf max-value {
-         type uint32;
+         type uint64;
          description
            "Maximum permitted value for this restriction.";
        }
        leaf current-value {
-         type uint32;
+         type uint64;
          description
            "Current usage or consumption of this restricted
             resource at query time.";
@@ -1441,38 +1439,36 @@ Table of Contents
                 for cycles before committing changes.";
            }
            container entitlement-attachment {
+             must "not(universal-access = 'true') or
+                   (not(holders) and not(assets))" {
+               error-message
+                 "Holders and assets cannot be specified when
+                  universal-access is true.";
+             }
              description
                "Defines how the entitlement is attached to holders and
                 assets.";
              leaf universal-access {
                type boolean;
                description
-                 "True if entitlement has universal access.";
+                 "If true, the entitlement is not restricted to
+                  any specific holder or asset.
+                  Holders or assets MUST NOT be specified when
+                  this leaf is true.";
              }
              container holders {
                description
-                 "Holders of this entitlement.
-                  This is for information purposes only, it
-                  does not apply any restrictions on who can
-                  use or not the asset where assigned
-                  to the entitlement.";
-               container organizations-names {
+                 "Holders to which this entitlement
+                  is attached.";
+               leaf-list organization {
+                 type string;
                  description
-                   "Organization holders.";
-                 leaf-list organizations {
-                   type string;
-                   description
-                     "List of organization names.";
-                 }
+                   "Organization holding this entitlement.";
                }
-               container users-names {
+               leaf-list user {
+                 type string;
                  description
-                   "User holders.";
-                 leaf-list users {
-                   type string;
-                   description
-                     "List of user names.";
-                 }
+                   "User holding this entitlement.";
                }
              }
              container assets {
@@ -1571,8 +1567,8 @@ Table of Contents
                       +--ro description?      string
                       +--ro resource-name?    string
                       +--ro units?            string
-                      +--ro max-value?        uint32
-                      +--ro current-value?    uint32
+                      +--ro max-value?        uint64
+                      +--ro current-value?    uint64
      augment /inv:network-inventory/inv:network-elements
                /inv:network-element/inv:components/inv:component:
        +--ro capabilities!
@@ -1593,8 +1589,8 @@ Table of Contents
                       +--ro description?      string
                       +--ro resource-name?    string
                       +--ro units?            string
-                      +--ro max-value?        uint32
-                      +--ro current-value?    uint32
+                      +--ro max-value?        uint64
+                      +--ro current-value?    uint64
      augment /inv:network-inventory:
        +--ro entitlements!
           +--ro entitlement* [entitlement-id]
@@ -1614,17 +1610,15 @@ Table of Contents
              |     +--ro description?      string
              |     +--ro resource-name?    string
              |     +--ro units?            string
-             |     +--ro max-value?        uint32
-             |     +--ro current-value?    uint32
+             |     +--ro max-value?        uint64
+             |     +--ro current-value?    uint64
              +--ro parent-entitlement-id?
              |       -> ../../entitlement/entitlement-id
              +--ro entitlement-attachment
                 +--ro universal-access?   boolean
                 +--ro holders
-                |  +--ro organizations-names
-                |  |  +--ro organizations*   string
-                |  +--ro users-names
-                |     +--ro users*   string
+                |  +--ro organization*   string
+                |  +--ro user*           string
                 +--ro assets
                    +--ro elements
                    |  +--ro network-elements*   leafref
@@ -1767,7 +1761,7 @@ Table of Contents
              "ietf-entitlement-inventory:capabilities": {
                "capability-class": [
                  {
-                   "capability-class": "basic-capability-description",
+                   "capability-class": "basic-capability",
                    "capability": [
                      {
                        "capability-id": "generic-routing-functions",
@@ -1805,9 +1799,7 @@ Table of Contents
                  "entitlement-attachment": {
                    "universal-access": false,
                    "holders": {
-                     "organizations-names": {
-                       "organizations": ["org-1"]
-                     }
+                     "organization": ["org-1"]
                    },
                    "assets": {
                    "elements": {
@@ -1886,9 +1878,7 @@ Table of Contents
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": ["org-1"]
-                 }
+                 "organization": ["org-1"]
                },
                "assets": {
                  "elements": {
@@ -1909,9 +1899,7 @@ Table of Contents
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": ["org-1"]
-                 }
+                 "organization": ["org-1"]
                },
                "assets": {
                  "elements": {
@@ -1949,7 +1937,7 @@ Table of Contents
            "ietf-entitlement-inventory:capabilities": {
              "capability-class": [
                {
-                 "capability-class": "basic-capability-description",
+                 "capability-class": "basic-capability",
                  "capability": [
                    {
                      "capability-id": "stateful-firewall",
@@ -1974,8 +1962,8 @@ Table of Contents
                                                               sessions",
                          "resource-name": "sessions",
                          "units": "connections",
-                         "max-value": 50000,
-                         "current-value": 0
+                         "max-value": "50000",
+                         "current-value": "0"
                        }
                      ]
                    }
@@ -2002,8 +1990,8 @@ Table of Contents
                          "description": "Maximum VPN tunnels",
                          "resource-name": "tunnels",
                          "units": "tunnels",
-                         "max-value": 100,
-                         "current-value": 0
+                         "max-value": "100",
+                         "current-value": "0"
                        }
                      ]
                      }
@@ -2030,8 +2018,8 @@ Table of Contents
                                                            adjacencies",
                          "resource-name": "neighbors",
                          "units": "adjacencies",
-                         "max-value": 50,
-                         "current-value": 8
+                         "max-value": "50",
+                         "current-value": "8"
                        }
                      ]
                      }
@@ -2095,7 +2083,7 @@ Table of Contents
            "ietf-entitlement-inventory:capabilities": {
              "capability-class": [
                {
-                 "capability-class": "basic-capability-description",
+                 "capability-class": "basic-capability",
                  "capability": [
                    {
                      "capability-id": "firewall",
@@ -2119,8 +2107,8 @@ Table of Contents
                                                               sessions",
                          "resource-name": "sessions",
                          "units": "connections",
-                           "max-value": 100000,
-                           "current-value": 45000
+                           "max-value": "100000",
+                           "current-value": "45000"
                          }
                        ]
                      }
@@ -2147,8 +2135,8 @@ Table of Contents
                          "description": "Maximum VPN tunnels",
                          "resource-name": "tunnels",
                          "units": "count",
-                           "max-value": 500,
-                           "current-value": 120
+                           "max-value": "500",
+                           "current-value": "120"
                          }
                        ]
                      }
@@ -2175,8 +2163,8 @@ Table of Contents
                          "description": "Maximum BGP peer sessions",
                          "resource-name": "peers",
                          "units": "sessions",
-                           "max-value": 200,
-                           "current-value": 75
+                           "max-value": "200",
+                           "current-value": "75"
                          }
                        ]
                      }
@@ -2202,9 +2190,7 @@ Table of Contents
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": ["Enterprise Corp"]
-                 }
+                 "organization": ["Enterprise Corp"]
                },
                "assets": {
                  "elements": {
@@ -2225,9 +2211,7 @@ Table of Contents
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": ["Enterprise Corp"]
-                 }
+                 "organization": ["Enterprise Corp"]
                },
                "assets": {
                  "elements": {
@@ -2248,12 +2232,8 @@ Table of Contents
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": ["Enterprise Corp"]
-                 },
-                 "users-names": {
-                   "users": ["telecom-admin"]
-                 }
+                 "organization": ["Enterprise Corp"],
+                 "user": ["telecom-admin"]
                },
                "assets": {
                  "elements": {
@@ -2267,8 +2247,8 @@ Table of Contents
                    "restriction-id": "voice-channels",
                    "description": "Maximum concurrent voice channels",
                    "units": "channels",
-                   "max-value": 100,
-                   "current-value": 0
+                   "max-value": "100",
+                   "current-value": "0"
                  }
                ]
              }
@@ -2308,11 +2288,9 @@ Table of Contents
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": [
+                 "organization": [
                      "Enterprise Networks"
                    ]
-                 }
                },
                "assets": {
                  "elements": {
@@ -2337,11 +2315,9 @@ Table of Contents
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": [
+                 "organization": [
                      "Enterprise Networks"
                    ]
-                 }
                },
                "assets": {
                  "elements": {
@@ -2377,7 +2353,7 @@ Table of Contents
              "ietf-entitlement-inventory:capabilities": {
                "capability-class": [
                  {
-                   "capability-class": "basic-capability-description",
+                   "capability-class": "basic-capability",
                    "capability": [
                      {
                        "capability-id": "ospf-routing",
@@ -2401,8 +2377,8 @@ Table of Contents
                              "description": "Maximum OSPF areas",
                              "resource-name": "routing-areas",
                              "units": "areas",
-                             "max-value": 10,
-                             "current-value": 3
+                             "max-value": "10",
+                             "current-value": "3"
                            }
                          ]
                        }
@@ -2429,8 +2405,8 @@ Table of Contents
                              "description": "Maximum static routes",
                              "resource-name": "routes",
                              "units": "routes",
-                             "max-value": 500,
-                             "current-value": 127
+                             "max-value": "500",
+                             "current-value": "127"
                            }
                          ]
                        }
@@ -2465,7 +2441,7 @@ Table of Contents
              "ietf-entitlement-inventory:capabilities": {
                "capability-class": [
                  {
-                   "capability-class": "basic-capability-description",
+                   "capability-class": "basic-capability",
                    "capability": [
                      {
                        "capability-id": "ospf-routing",
@@ -2489,8 +2465,8 @@ Table of Contents
                              "description": "Maximum OSPF areas",
                              "resource-name": "routing-areas",
                              "units": "areas",
-                             "max-value": 10,
-                             "current-value": 5
+                             "max-value": "10",
+                             "current-value": "5"
                            }
                          ]
                        }
@@ -2517,8 +2493,8 @@ Table of Contents
                              "description": "Maximum static routes",
                              "resource-name": "routes",
                              "units": "routes",
-                             "max-value": 500,
-                             "current-value": 89
+                             "max-value": "500",
+                             "current-value": "89"
                            }
                          ]
                        }
@@ -2548,8 +2524,8 @@ Table of Contents
                              "description": "Maximum BGP peer sessions",
                              "resource-name": "bgp-sessions",
                              "units": "peers",
-                             "max-value": 100,
-                             "current-value": 24
+                             "max-value": "100",
+                             "current-value": "24"
                            }
                          ]
                        }
@@ -2580,8 +2556,8 @@ Table of Contents
                                                         switched paths",
                              "resource-name": "lsps",
                              "units": "paths",
-                             "max-value": 200,
-                             "current-value": 87
+                             "max-value": "200",
+                             "current-value": "87"
                            }
                          ]
                        }
@@ -2612,8 +2588,8 @@ Table of Contents
                                                                classes",
                              "resource-name": "qos-classes",
                              "units": "classes",
-                             "max-value": 16,
-                             "current-value": 0
+                             "max-value": "16",
+                             "current-value": "0"
                            }
                          ]
                        }
@@ -2670,7 +2646,7 @@ Table of Contents
              "ietf-entitlement-inventory:capabilities": {
                "capability-class": [
                  {
-                   "capability-class": "basic-capability-description",
+                   "capability-class": "basic-capability",
                    "capability": [
                      {
                        "capability-id": "enterprise-routing",
@@ -2694,8 +2670,8 @@ Table of Contents
                              "description": "Maximum BGP peers",
                              "resource-name": "bgp-sessions",
                              "units": "peers",
-                             "max-value": 500,
-                             "current-value": 245
+                             "max-value": "500",
+                             "current-value": "245"
                            }
                          ]
                        }
@@ -2723,8 +2699,8 @@ Table of Contents
                                                             throughput",
                              "resource-name": "throughput",
                              "units": "Gbps",
-                             "max-value": 40,
-                             "current-value": 28
+                             "max-value": "40",
+                             "current-value": "28"
                            }
                          ]
                        }
@@ -2754,7 +2730,7 @@ Table of Contents
              "ietf-entitlement-inventory:capabilities": {
                "capability-class": [
                  {
-                   "capability-class": "basic-capability-description",
+                   "capability-class": "basic-capability",
                    "capability": [
                      {
                        "capability-id": "enterprise-routing",
@@ -2778,8 +2754,8 @@ Table of Contents
                              "description": "Maximum BGP peers",
                              "resource-name": "bgp-sessions",
                              "units": "peers",
-                             "max-value": 500,
-                             "current-value": 178
+                             "max-value": "500",
+                             "current-value": "178"
                            }
                          ]
                        }
@@ -2809,7 +2785,7 @@ Table of Contents
              "ietf-entitlement-inventory:capabilities": {
                "capability-class": [
                  {
-                   "capability-class": "basic-capability-description",
+                   "capability-class": "basic-capability",
                    "capability": [
                      {
                        "capability-id": "advanced-firewall",
@@ -2834,8 +2810,8 @@ Table of Contents
                                                             throughput",
                              "resource-name": "throughput",
                              "units": "Gbps",
-                             "max-value": 10,
-                             "current-value": 7
+                             "max-value": "10",
+                             "current-value": "7"
                            }
                          ]
                        }
@@ -2865,19 +2841,17 @@ Table of Contents
                    "description": "Enterprise router licenses consumed \
                                                              from pool",
                    "units": "licenses",
-                   "max-value": 100,
-                   "current-value": 87
+                   "max-value": "100",
+                   "current-value": "87"
                  }
                ]
              },
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": [
+                 "organization": [
                      "Company-A"
                    ]
-                 }
                },
                "assets": {
                  "elements": {
@@ -2905,8 +2879,8 @@ Table of Contents
                    "description": "Security licenses consumed from \
                                                pool (high utilization)",
                    "units": "licenses",
-                   "max-value": 25,
-                   "current-value": 21
+                   "max-value": "25",
+                   "current-value": "21"
                  },
                  {
                    "restriction-id": "total-throughput",
@@ -2914,19 +2888,17 @@ Table of Contents
                                across all devices (real-time snapshot)",
                    "resource-name": "throughput",
                    "units": "Gbps",
-                   "max-value": 100,
-                   "current-value": 50
+                   "max-value": "100",
+                   "current-value": "50"
                  }
                ]
              },
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": [
+                 "organization": [
                      "Company-A"
                    ]
-                 }
                },
                "assets": {
                  "elements": {
@@ -2982,7 +2954,7 @@ Table of Contents
              "ietf-entitlement-inventory:capabilities": {
                "capability-class": [
                  {
-                   "capability-class": "basic-capability-description",
+                   "capability-class": "basic-capability",
                    "capability": [
                      {
                        "capability-id": "sd-wan",
@@ -3008,8 +2980,8 @@ Table of Contents
                                                                tunnels",
                              "resource-name": "tunnels",
                              "units": "count",
-                             "max-value": 100,
-                             "current-value": 45
+                             "max-value": "100",
+                             "current-value": "45"
                            }
                          ]
                        }
@@ -3042,7 +3014,7 @@ Table of Contents
              "ietf-entitlement-inventory:capabilities": {
                "capability-class": [
                  {
-                   "capability-class": "basic-capability-description",
+                   "capability-class": "basic-capability",
                    "capability": [
                      {
                        "capability-id": "evpn-vxlan",
@@ -3072,8 +3044,8 @@ Table of Contents
                                                              endpoints",
                              "resource-name": "vteps",
                              "units": "endpoints",
-                             "max-value": 500,
-                             "current-value": 234
+                             "max-value": "500",
+                             "current-value": "234"
                            }
                          ]
                        }
@@ -3103,7 +3075,7 @@ Table of Contents
              "ietf-entitlement-inventory:capabilities": {
                "capability-class": [
                  {
-                   "capability-class": "basic-capability-description",
+                   "capability-class": "basic-capability",
                    "capability": [
                      {
                        "capability-id": "streaming-telemetry",
@@ -3129,8 +3101,8 @@ Table of Contents
                                                      telemetry streams",
                              "resource-name": "streams",
                              "units": "streams",
-                             "max-value": 200,
-                             "current-value": 87
+                             "max-value": "200",
+                             "current-value": "87"
                            }
                          ]
                        }
@@ -3163,24 +3135,20 @@ Table of Contents
                                                         billing period",
                    "resource-name": "bandwidth",
                    "units": "GB",
-                   "max-value": 10000,
-                   "current-value": 7234
+                   "max-value": "10000",
+                   "current-value": "7234"
                  }
                ]
              },
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": [
+                 "organization": [
                      "Enterprise IT Dept"
-                   ]
-                 },
-                 "users-names": {
-                   "users": [
+                   ],
+                 "user": [
                      "network-admin"
                    ]
-                 }
                },
                "assets": {
                  "elements": {
@@ -3204,16 +3172,12 @@ Table of Contents
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": [
+                 "organization": [
                      "Enterprise IT Dept"
-                   ]
-                 },
-                 "users-names": {
-                   "users": [
+                   ],
+                 "user": [
                      "datacenter-ops"
                    ]
-                 }
                },
                "assets": {
                  "elements": {
@@ -3239,16 +3203,12 @@ Table of Contents
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": [
+                 "organization": [
                      "Enterprise IT Dept"
-                   ]
-                 },
-                 "users-names": {
-                   "users": [
+                   ],
+                 "user": [
                      "datacenter-ops"
                    ]
-                 }
                },
                "assets": {
                  "elements": {
@@ -3277,33 +3237,29 @@ Table of Contents
                    "restriction-id": "subscribed-device-count",
                    "description": "Device count in subscribed tier",
                    "units": "devices",
-                   "max-value": 50,
-                   "current-value": 50
+                   "max-value": "50",
+                   "current-value": "50"
                  },
                  {
                    "restriction-id": "current-device-count",
                    "description": "Actual devices currently managed (\
                                   may exceed tier for overage billing)",
                    "units": "devices",
-                   "max-value": 150,
-                   "current-value": 63
+                   "max-value": "150",
+                   "current-value": "63"
                  }
                ]
              },
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": [
+                 "organization": [
                      "Enterprise IT Dept"
-                   ]
-                 },
-                 "users-names": {
-                   "users": [
+                   ],
+                 "user": [
                      "datacenter-ops",
                      "noc-team"
                    ]
-                 }
                },
                "assets": {
                  "elements": {
@@ -3350,11 +3306,9 @@ Table of Contents
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": [
+                 "organization": [
                      "corp-a"
                    ]
-                 }
                },
                "assets": {
                  "elements": {
@@ -3377,11 +3331,9 @@ Table of Contents
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": [
+                 "organization": [
                      "corp-a"
                    ]
-                 }
                },
                "assets": {
                  "elements": {
@@ -3404,16 +3356,12 @@ Table of Contents
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": [
+                 "organization": [
                      "corp-a"
-                   ]
-                 },
-                 "users-names": {
-                   "users": [
+                   ],
+                 "user": [
                      "admin"
                    ]
-                 }
                },
                "assets": {
                  "components": {
@@ -3439,16 +3387,12 @@ Table of Contents
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": [
+                 "organization": [
                      "corp-a"
-                   ]
-                 },
-                 "users-names": {
-                   "users": [
+                   ],
+                 "user": [
                      "admin"
                    ]
-                 }
                },
                "assets": {
                  "components": {
@@ -3474,16 +3418,12 @@ Table of Contents
              "entitlement-attachment": {
                "universal-access": false,
                "holders": {
-                 "organizations-names": {
-                   "organizations": [
+                 "organization": [
                      "corp-a"
-                   ]
-                 },
-                 "users-names": {
-                   "users": [
+                   ],
+                 "user": [
                      "security-admin"
                    ]
-                 }
                },
                "assets": {
                  "components": {
@@ -3523,8 +3463,7 @@ Table of Contents
                    "ietf-entitlement-inventory:capabilities": {
                      "capability-class": [
                        {
-                         "capability-class": "basic-capability-\
-                                                           description",
+                         "capability-class": "basic-capability",
                          "capability": [
                            {
                              "capability-id": "high-speed-ports-1-8",
@@ -3550,8 +3489,8 @@ Table of Contents
                                                                  ports",
                                    "resource-name": "ports",
                                    "units": "count",
-                                   "max-value": 8,
-                                   "current-value": 8
+                                   "max-value": "8",
+                                   "current-value": "8"
                                  }
                                ]
                              }
@@ -3575,8 +3514,7 @@ Table of Contents
                    "ietf-entitlement-inventory:capabilities": {
                      "capability-class": [
                        {
-                         "capability-class": "basic-capability-\
-                                                           description",
+                         "capability-class": "basic-capability",
                          "capability": [
                            {
                              "capability-id": "high-speed-ports-1-4",
@@ -3602,8 +3540,8 @@ Table of Contents
                                                                  ports",
                                    "resource-name": "ports",
                                    "units": "count",
-                                   "max-value": 4,
-                                   "current-value": 4
+                                   "max-value": "4",
+                                   "current-value": "4"
                                  }
                                ]
                              }
@@ -3627,8 +3565,7 @@ Table of Contents
                    "ietf-entitlement-inventory:capabilities": {
                      "capability-class": [
                        {
-                         "capability-class": "basic-capability-\
-                                                           description",
+                         "capability-class": "basic-capability",
                          "capability": [
                            {
                              "capability-id": "hardware-encryption",
@@ -3655,8 +3592,8 @@ Table of Contents
                                                             throughput",
                                    "resource-name": "throughput",
                                    "units": "Gbps",
-                                   "max-value": 100,
-                                   "current-value": 65
+                                   "max-value": "100",
+                                   "current-value": "65"
                                  }
                                ]
                              }
@@ -3690,7 +3627,7 @@ Table of Contents
              "ietf-entitlement-inventory:capabilities": {
                "capability-class": [
                  {
-                   "capability-class": "basic-capability-description",
+                   "capability-class": "basic-capability",
                    "capability": [
                      {
                        "capability-id": "routing-protocols",
@@ -3716,8 +3653,8 @@ Table of Contents
                                                                entries",
                              "resource-name": "routing-table",
                              "units": "entries",
-                             "max-value": 1000000,
-                             "current-value": 450000
+                             "max-value": "1000000",
+                             "current-value": "450000"
                            }
                          ]
                        }
@@ -3810,10 +3747,11 @@ Table of Contents
 
 5.2.  Entitlement Expiration Handling
 
-   Network elements SHOULD generate notifications when installed
-   entitlements are approaching expiration.  The notification timing and
-   handling are implementation-specific but SHOULD provide sufficient
-   lead time for renewal.
+   This model does not define mechanisms for notifying management
+   applications when entitlements are approaching expiration.  This
+   model, however, exposes the information needed by management
+   applications to detect approaching expiration dates and implement
+   their own notification mechanisms.
 
 5.3.  Performance Considerations
 

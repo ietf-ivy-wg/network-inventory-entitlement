@@ -1052,7 +1052,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Palmero, et al.</td>
-<td class="center">Expires 7 March 2027</td>
+<td class="center">Expires 8 March 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg {
 <dd class="internet-draft">draft-ietf-ivy-entitlement-inventory-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-09-03" class="published">3 September 2026</time>
+<time datetime="2026-09-04" class="published">4 September 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-03-07">7 March 2027</time></dd>
+<dd class="expires"><time datetime="2027-03-08">8 March 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1133,7 +1133,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1814,15 +1814,15 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
                    +--ro description?      string
                    +--ro resource-name?    string
                    +--ro units?            string
-                   +--ro max-value?        uint32
-                   +--ro current-value?    uint32
+                   +--ro max-value?        uint64
+                   +--ro current-value?    uint64
 </pre><a href="#section-3.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-3.2-3">For any given network asset, the capabilities list <span class="bcp14">MAY</span> include all potential capabilities advertised by the vendor, and <span class="bcp14">MUST</span> include those for which the network operator holds a valid entitlement, whether they are active or not.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
 <p id="section-3.2-4">This document does not define a complete theory of capabilities or their internal relationships; such work may be addressed elsewhere. Instead, the model provides a flexible framework through the use of identity-based capability classes:<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-5.1">
-            <p id="section-3.2-5.1.1"><strong>Basic capability class</strong>: The module defines <code>basic-capability-description</code> as a simple capability  class using only identifiers and descriptions. This supports implementations that present capabilities as straightforward lists.<a href="#section-3.2-5.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-5.1.1"><strong>Basic capability class</strong>: The module defines <code>basic-capability</code> as a simple capability  class using only identifiers and descriptions. This supports implementations that present capabilities as straightforward lists.<a href="#section-3.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-5.2">
             <p id="section-3.2-5.2.1"><strong>Extended capability classes</strong>: For structured capability definitions, implementations derive new identities from <code>capability-class</code>. These reference external YANG modules where capabilities have formal structure and semantics. See <a href="#ext-capability" class="auto internal xref">Section 3.2.1</a> for extension examples.<a href="#section-3.2-5.2.1" class="pilcrow">¶</a></p>
@@ -1990,17 +1990,15 @@ module example-capability-extension {
           |     +--ro description?      string
           |     +--ro resource-name?    string
           |     +--ro units?            string
-          |     +--ro max-value?        uint32
-          |     +--ro current-value?    uint32
+          |     +--ro max-value?        uint64
+          |     +--ro current-value?    uint64
           +--ro parent-entitlement-id?
           |       -&gt; ../../entitlement/entitlement-id
           +--ro entitlement-attachment
              +--ro universal-access?   boolean
              +--ro holders
-             |  +--ro organizations-names
-             |  |  +--ro organizations*   string
-             |  +--ro users-names
-             |     +--ro users*   string
+             |  +--ro organization*   string
+             |  +--ro user*           string
              +--ro assets
                 +--ro elements
                 |  +--ro network-elements*   leafref
@@ -2241,7 +2239,7 @@ module ietf-entitlement-inventory {
       "Base identity for capability classes.";
   }
 
-  identity basic-capability-description {
+  identity basic-capability {
     base capability-class;
     description
       "Basic capability class for general capability descriptions.";
@@ -2294,12 +2292,12 @@ module ietf-entitlement-inventory {
          'connections', 'tunnels').";
     }
     leaf max-value {
-      type uint32;
+      type uint64;
       description
         "Maximum permitted value for this restriction.";
     }
     leaf current-value {
-      type uint32;
+      type uint64;
       description
         "Current usage or consumption of this restricted
          resource at query time.";
@@ -2629,38 +2627,36 @@ module ietf-entitlement-inventory {
              for cycles before committing changes.";
         }
         container entitlement-attachment {
+          must "not(universal-access = 'true') or
+                (not(holders) and not(assets))" {
+            error-message
+              "Holders and assets cannot be specified when
+               universal-access is true.";
+          }
           description
             "Defines how the entitlement is attached to holders and
              assets.";
           leaf universal-access {
             type boolean;
             description
-              "True if entitlement has universal access.";
+              "If true, the entitlement is not restricted to
+               any specific holder or asset.
+               Holders or assets MUST NOT be specified when
+               this leaf is true.";
           }
           container holders {
             description
-              "Holders of this entitlement.
-               This is for information purposes only, it
-               does not apply any restrictions on who can
-               use or not the asset where assigned
-               to the entitlement.";
-            container organizations-names {
+              "Holders to which this entitlement
+               is attached.";
+            leaf-list organization {
+              type string;
               description
-                "Organization holders.";
-              leaf-list organizations {
-                type string;
-                description
-                  "List of organization names.";
-              }
+                "Organization holding this entitlement.";
             }
-            container users-names {
+            leaf-list user {
+              type string;
               description
-                "User holders.";
-              leaf-list users {
-                type string;
-                description
-                  "List of user names.";
-              }
+                "User holding this entitlement.";
             }
           }
           container assets {
@@ -2765,8 +2761,8 @@ module: ietf-entitlement-inventory
                    +--ro description?      string
                    +--ro resource-name?    string
                    +--ro units?            string
-                   +--ro max-value?        uint32
-                   +--ro current-value?    uint32
+                   +--ro max-value?        uint64
+                   +--ro current-value?    uint64
   augment /inv:network-inventory/inv:network-elements
             /inv:network-element/inv:components/inv:component:
     +--ro capabilities!
@@ -2787,8 +2783,8 @@ module: ietf-entitlement-inventory
                    +--ro description?      string
                    +--ro resource-name?    string
                    +--ro units?            string
-                   +--ro max-value?        uint32
-                   +--ro current-value?    uint32
+                   +--ro max-value?        uint64
+                   +--ro current-value?    uint64
   augment /inv:network-inventory:
     +--ro entitlements!
        +--ro entitlement* [entitlement-id]
@@ -2808,17 +2804,15 @@ module: ietf-entitlement-inventory
           |     +--ro description?      string
           |     +--ro resource-name?    string
           |     +--ro units?            string
-          |     +--ro max-value?        uint32
-          |     +--ro current-value?    uint32
+          |     +--ro max-value?        uint64
+          |     +--ro current-value?    uint64
           +--ro parent-entitlement-id?
           |       -&gt; ../../entitlement/entitlement-id
           +--ro entitlement-attachment
              +--ro universal-access?   boolean
              +--ro holders
-             |  +--ro organizations-names
-             |  |  +--ro organizations*   string
-             |  +--ro users-names
-             |     +--ro users*   string
+             |  +--ro organization*   string
+             |  +--ro user*           string
              +--ro assets
                 +--ro elements
                 |  +--ro network-elements*   leafref
@@ -3005,7 +2999,7 @@ module: ietf-entitlement-inventory
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "generic-routing-functions",
@@ -3043,9 +3037,7 @@ module: ietf-entitlement-inventory
               "entitlement-attachment": {
                 "universal-access": false,
                 "holders": {
-                  "organizations-names": {
-                    "organizations": ["org-1"]
-                  }
+                  "organization": ["org-1"]
                 },
                 "assets": {
                 "elements": {
@@ -3155,9 +3147,7 @@ module: ietf-entitlement-inventory
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": ["org-1"]
-              }
+              "organization": ["org-1"]
             },
             "assets": {
               "elements": {
@@ -3178,9 +3168,7 @@ module: ietf-entitlement-inventory
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": ["org-1"]
-              }
+              "organization": ["org-1"]
             },
             "assets": {
               "elements": {
@@ -3218,7 +3206,7 @@ module: ietf-entitlement-inventory
         "ietf-entitlement-inventory:capabilities": {
           "capability-class": [
             {
-              "capability-class": "basic-capability-description",
+              "capability-class": "basic-capability",
               "capability": [
                 {
                   "capability-id": "stateful-firewall",
@@ -3243,8 +3231,8 @@ module: ietf-entitlement-inventory
                                                            sessions",
                       "resource-name": "sessions",
                       "units": "connections",
-                      "max-value": 50000,
-                      "current-value": 0
+                      "max-value": "50000",
+                      "current-value": "0"
                     }
                   ]
                 }
@@ -3271,8 +3259,8 @@ module: ietf-entitlement-inventory
                       "description": "Maximum VPN tunnels",
                       "resource-name": "tunnels",
                       "units": "tunnels",
-                      "max-value": 100,
-                      "current-value": 0
+                      "max-value": "100",
+                      "current-value": "0"
                     }
                   ]
                   }
@@ -3299,8 +3287,8 @@ module: ietf-entitlement-inventory
                                                         adjacencies",
                       "resource-name": "neighbors",
                       "units": "adjacencies",
-                      "max-value": 50,
-                      "current-value": 8
+                      "max-value": "50",
+                      "current-value": "8"
                     }
                   ]
                   }
@@ -3382,7 +3370,7 @@ module: ietf-entitlement-inventory
         "ietf-entitlement-inventory:capabilities": {
           "capability-class": [
             {
-              "capability-class": "basic-capability-description",
+              "capability-class": "basic-capability",
               "capability": [
                 {
                   "capability-id": "firewall",
@@ -3406,8 +3394,8 @@ module: ietf-entitlement-inventory
                                                            sessions",
                       "resource-name": "sessions",
                       "units": "connections",
-                        "max-value": 100000,
-                        "current-value": 45000
+                        "max-value": "100000",
+                        "current-value": "45000"
                       }
                     ]
                   }
@@ -3434,8 +3422,8 @@ module: ietf-entitlement-inventory
                       "description": "Maximum VPN tunnels",
                       "resource-name": "tunnels",
                       "units": "count",
-                        "max-value": 500,
-                        "current-value": 120
+                        "max-value": "500",
+                        "current-value": "120"
                       }
                     ]
                   }
@@ -3462,8 +3450,8 @@ module: ietf-entitlement-inventory
                       "description": "Maximum BGP peer sessions",
                       "resource-name": "peers",
                       "units": "sessions",
-                        "max-value": 200,
-                        "current-value": 75
+                        "max-value": "200",
+                        "current-value": "75"
                       }
                     ]
                   }
@@ -3489,9 +3477,7 @@ module: ietf-entitlement-inventory
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": ["Enterprise Corp"]
-              }
+              "organization": ["Enterprise Corp"]
             },
             "assets": {
               "elements": {
@@ -3512,9 +3498,7 @@ module: ietf-entitlement-inventory
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": ["Enterprise Corp"]
-              }
+              "organization": ["Enterprise Corp"]
             },
             "assets": {
               "elements": {
@@ -3535,12 +3519,8 @@ module: ietf-entitlement-inventory
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": ["Enterprise Corp"]
-              },
-              "users-names": {
-                "users": ["telecom-admin"]
-              }
+              "organization": ["Enterprise Corp"],
+              "user": ["telecom-admin"]
             },
             "assets": {
               "elements": {
@@ -3554,8 +3534,8 @@ module: ietf-entitlement-inventory
                 "restriction-id": "voice-channels",
                 "description": "Maximum concurrent voice channels",
                 "units": "channels",
-                "max-value": 100,
-                "current-value": 0
+                "max-value": "100",
+                "current-value": "0"
               }
             ]
           }
@@ -3608,11 +3588,9 @@ module: ietf-entitlement-inventory
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Enterprise Networks"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -3637,11 +3615,9 @@ module: ietf-entitlement-inventory
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Enterprise Networks"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -3677,7 +3653,7 @@ module: ietf-entitlement-inventory
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "ospf-routing",
@@ -3701,8 +3677,8 @@ module: ietf-entitlement-inventory
                           "description": "Maximum OSPF areas",
                           "resource-name": "routing-areas",
                           "units": "areas",
-                          "max-value": 10,
-                          "current-value": 3
+                          "max-value": "10",
+                          "current-value": "3"
                         }
                       ]
                     }
@@ -3729,8 +3705,8 @@ module: ietf-entitlement-inventory
                           "description": "Maximum static routes",
                           "resource-name": "routes",
                           "units": "routes",
-                          "max-value": 500,
-                          "current-value": 127
+                          "max-value": "500",
+                          "current-value": "127"
                         }
                       ]
                     }
@@ -3765,7 +3741,7 @@ module: ietf-entitlement-inventory
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "ospf-routing",
@@ -3789,8 +3765,8 @@ module: ietf-entitlement-inventory
                           "description": "Maximum OSPF areas",
                           "resource-name": "routing-areas",
                           "units": "areas",
-                          "max-value": 10,
-                          "current-value": 5
+                          "max-value": "10",
+                          "current-value": "5"
                         }
                       ]
                     }
@@ -3817,8 +3793,8 @@ module: ietf-entitlement-inventory
                           "description": "Maximum static routes",
                           "resource-name": "routes",
                           "units": "routes",
-                          "max-value": 500,
-                          "current-value": 89
+                          "max-value": "500",
+                          "current-value": "89"
                         }
                       ]
                     }
@@ -3848,8 +3824,8 @@ module: ietf-entitlement-inventory
                           "description": "Maximum BGP peer sessions",
                           "resource-name": "bgp-sessions",
                           "units": "peers",
-                          "max-value": 100,
-                          "current-value": 24
+                          "max-value": "100",
+                          "current-value": "24"
                         }
                       ]
                     }
@@ -3880,8 +3856,8 @@ module: ietf-entitlement-inventory
                                                      switched paths",
                           "resource-name": "lsps",
                           "units": "paths",
-                          "max-value": 200,
-                          "current-value": 87
+                          "max-value": "200",
+                          "current-value": "87"
                         }
                       ]
                     }
@@ -3912,8 +3888,8 @@ module: ietf-entitlement-inventory
                                                             classes",
                           "resource-name": "qos-classes",
                           "units": "classes",
-                          "max-value": 16,
-                          "current-value": 0
+                          "max-value": "16",
+                          "current-value": "0"
                         }
                       ]
                     }
@@ -3982,7 +3958,7 @@ module: ietf-entitlement-inventory
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "enterprise-routing",
@@ -4006,8 +3982,8 @@ module: ietf-entitlement-inventory
                           "description": "Maximum BGP peers",
                           "resource-name": "bgp-sessions",
                           "units": "peers",
-                          "max-value": 500,
-                          "current-value": 245
+                          "max-value": "500",
+                          "current-value": "245"
                         }
                       ]
                     }
@@ -4035,8 +4011,8 @@ module: ietf-entitlement-inventory
                                                          throughput",
                           "resource-name": "throughput",
                           "units": "Gbps",
-                          "max-value": 40,
-                          "current-value": 28
+                          "max-value": "40",
+                          "current-value": "28"
                         }
                       ]
                     }
@@ -4066,7 +4042,7 @@ module: ietf-entitlement-inventory
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "enterprise-routing",
@@ -4090,8 +4066,8 @@ module: ietf-entitlement-inventory
                           "description": "Maximum BGP peers",
                           "resource-name": "bgp-sessions",
                           "units": "peers",
-                          "max-value": 500,
-                          "current-value": 178
+                          "max-value": "500",
+                          "current-value": "178"
                         }
                       ]
                     }
@@ -4121,7 +4097,7 @@ module: ietf-entitlement-inventory
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "advanced-firewall",
@@ -4146,8 +4122,8 @@ module: ietf-entitlement-inventory
                                                          throughput",
                           "resource-name": "throughput",
                           "units": "Gbps",
-                          "max-value": 10,
-                          "current-value": 7
+                          "max-value": "10",
+                          "current-value": "7"
                         }
                       ]
                     }
@@ -4177,19 +4153,17 @@ module: ietf-entitlement-inventory
                 "description": "Enterprise router licenses consumed \
                                                           from pool",
                 "units": "licenses",
-                "max-value": 100,
-                "current-value": 87
+                "max-value": "100",
+                "current-value": "87"
               }
             ]
           },
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Company-A"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -4217,8 +4191,8 @@ module: ietf-entitlement-inventory
                 "description": "Security licenses consumed from \
                                             pool (high utilization)",
                 "units": "licenses",
-                "max-value": 25,
-                "current-value": 21
+                "max-value": "25",
+                "current-value": "21"
               },
               {
                 "restriction-id": "total-throughput",
@@ -4226,19 +4200,17 @@ module: ietf-entitlement-inventory
                             across all devices (real-time snapshot)",
                 "resource-name": "throughput",
                 "units": "Gbps",
-                "max-value": 100,
-                "current-value": 50
+                "max-value": "100",
+                "current-value": "50"
               }
             ]
           },
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Company-A"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -4306,7 +4278,7 @@ module: ietf-entitlement-inventory
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "sd-wan",
@@ -4332,8 +4304,8 @@ module: ietf-entitlement-inventory
                                                             tunnels",
                           "resource-name": "tunnels",
                           "units": "count",
-                          "max-value": 100,
-                          "current-value": 45
+                          "max-value": "100",
+                          "current-value": "45"
                         }
                       ]
                     }
@@ -4366,7 +4338,7 @@ module: ietf-entitlement-inventory
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "evpn-vxlan",
@@ -4396,8 +4368,8 @@ module: ietf-entitlement-inventory
                                                           endpoints",
                           "resource-name": "vteps",
                           "units": "endpoints",
-                          "max-value": 500,
-                          "current-value": 234
+                          "max-value": "500",
+                          "current-value": "234"
                         }
                       ]
                     }
@@ -4427,7 +4399,7 @@ module: ietf-entitlement-inventory
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "streaming-telemetry",
@@ -4453,8 +4425,8 @@ module: ietf-entitlement-inventory
                                                   telemetry streams",
                           "resource-name": "streams",
                           "units": "streams",
-                          "max-value": 200,
-                          "current-value": 87
+                          "max-value": "200",
+                          "current-value": "87"
                         }
                       ]
                     }
@@ -4487,24 +4459,20 @@ module: ietf-entitlement-inventory
                                                      billing period",
                 "resource-name": "bandwidth",
                 "units": "GB",
-                "max-value": 10000,
-                "current-value": 7234
+                "max-value": "10000",
+                "current-value": "7234"
               }
             ]
           },
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Enterprise IT Dept"
-                ]
-              },
-              "users-names": {
-                "users": [
+                ],
+              "user": [
                   "network-admin"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -4528,16 +4496,12 @@ module: ietf-entitlement-inventory
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Enterprise IT Dept"
-                ]
-              },
-              "users-names": {
-                "users": [
+                ],
+              "user": [
                   "datacenter-ops"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -4563,16 +4527,12 @@ module: ietf-entitlement-inventory
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Enterprise IT Dept"
-                ]
-              },
-              "users-names": {
-                "users": [
+                ],
+              "user": [
                   "datacenter-ops"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -4601,33 +4561,29 @@ module: ietf-entitlement-inventory
                 "restriction-id": "subscribed-device-count",
                 "description": "Device count in subscribed tier",
                 "units": "devices",
-                "max-value": 50,
-                "current-value": 50
+                "max-value": "50",
+                "current-value": "50"
               },
               {
                 "restriction-id": "current-device-count",
                 "description": "Actual devices currently managed (\
                                may exceed tier for overage billing)",
                 "units": "devices",
-                "max-value": 150,
-                "current-value": 63
+                "max-value": "150",
+                "current-value": "63"
               }
             ]
           },
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Enterprise IT Dept"
-                ]
-              },
-              "users-names": {
-                "users": [
+                ],
+              "user": [
                   "datacenter-ops",
                   "noc-team"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -4686,11 +4642,9 @@ module: ietf-entitlement-inventory
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "corp-a"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -4713,11 +4667,9 @@ module: ietf-entitlement-inventory
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "corp-a"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -4740,16 +4692,12 @@ module: ietf-entitlement-inventory
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "corp-a"
-                ]
-              },
-              "users-names": {
-                "users": [
+                ],
+              "user": [
                   "admin"
                 ]
-              }
             },
             "assets": {
               "components": {
@@ -4775,16 +4723,12 @@ module: ietf-entitlement-inventory
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "corp-a"
-                ]
-              },
-              "users-names": {
-                "users": [
+                ],
+              "user": [
                   "admin"
                 ]
-              }
             },
             "assets": {
               "components": {
@@ -4810,16 +4754,12 @@ module: ietf-entitlement-inventory
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "corp-a"
-                ]
-              },
-              "users-names": {
-                "users": [
+                ],
+              "user": [
                   "security-admin"
                 ]
-              }
             },
             "assets": {
               "components": {
@@ -4859,8 +4799,7 @@ module: ietf-entitlement-inventory
                 "ietf-entitlement-inventory:capabilities": {
                   "capability-class": [
                     {
-                      "capability-class": "basic-capability-\
-                                                        description",
+                      "capability-class": "basic-capability",
                       "capability": [
                         {
                           "capability-id": "high-speed-ports-1-8",
@@ -4886,8 +4825,8 @@ module: ietf-entitlement-inventory
                                                               ports",
                                 "resource-name": "ports",
                                 "units": "count",
-                                "max-value": 8,
-                                "current-value": 8
+                                "max-value": "8",
+                                "current-value": "8"
                               }
                             ]
                           }
@@ -4911,8 +4850,7 @@ module: ietf-entitlement-inventory
                 "ietf-entitlement-inventory:capabilities": {
                   "capability-class": [
                     {
-                      "capability-class": "basic-capability-\
-                                                        description",
+                      "capability-class": "basic-capability",
                       "capability": [
                         {
                           "capability-id": "high-speed-ports-1-4",
@@ -4938,8 +4876,8 @@ module: ietf-entitlement-inventory
                                                               ports",
                                 "resource-name": "ports",
                                 "units": "count",
-                                "max-value": 4,
-                                "current-value": 4
+                                "max-value": "4",
+                                "current-value": "4"
                               }
                             ]
                           }
@@ -4963,8 +4901,7 @@ module: ietf-entitlement-inventory
                 "ietf-entitlement-inventory:capabilities": {
                   "capability-class": [
                     {
-                      "capability-class": "basic-capability-\
-                                                        description",
+                      "capability-class": "basic-capability",
                       "capability": [
                         {
                           "capability-id": "hardware-encryption",
@@ -4991,8 +4928,8 @@ module: ietf-entitlement-inventory
                                                          throughput",
                                 "resource-name": "throughput",
                                 "units": "Gbps",
-                                "max-value": 100,
-                                "current-value": 65
+                                "max-value": "100",
+                                "current-value": "65"
                               }
                             ]
                           }
@@ -5026,7 +4963,7 @@ module: ietf-entitlement-inventory
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "routing-protocols",
@@ -5052,8 +4989,8 @@ module: ietf-entitlement-inventory
                                                             entries",
                           "resource-name": "routing-table",
                           "units": "entries",
-                          "max-value": 1000000,
-                          "current-value": 450000
+                          "max-value": "1000000",
+                          "current-value": "450000"
                         }
                       ]
                     }
@@ -5172,7 +5109,7 @@ While the model prevents direct self-reference, cycles at greater depth (e.g., A
         <h3 id="name-entitlement-expiration-hand">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-entitlement-expiration-hand" class="section-name selfRef">Entitlement Expiration Handling</a>
         </h3>
-<p id="section-5.2-1">Network elements <span class="bcp14">SHOULD</span> generate notifications when installed entitlements are approaching expiration. The notification timing and handling are implementation-specific but <span class="bcp14">SHOULD</span> provide sufficient lead time for renewal.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">This model does not define mechanisms for notifying management applications when entitlements are approaching expiration. This model, however, exposes the information needed by management applications to detect approaching expiration dates and implement their own notification mechanisms.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="performance-considerations">
