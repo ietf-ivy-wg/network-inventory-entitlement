@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-09-03T03:32:18.802088+00:00",
+  "timestamp": "2026-09-06T03:33:18.376434+00:00",
   "repo": "ietf-ivy-wg/network-inventory-entitlement",
   "labels": [
     {
@@ -197,6 +197,32 @@
           ]
         }
       ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDORlv9Xc8AAAABCPCQ5w",
+      "title": "Version04 reviews Ops and yang doctors",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-entitlement/pull/5",
+      "state": "OPEN",
+      "author": "jccardonar",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-09-04T17:17:52Z",
+      "updatedAt": "2026-09-04T17:17:52Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-entitlement",
+      "baseRefName": "main",
+      "baseRefOid": "61f1360289140900c5bea5cf611acd5ac8584338",
+      "headRepository": "ietf-ivy-wg/network-inventory-entitlement",
+      "headRefName": "version04_reviews_camilo_fixes",
+      "headRefOid": "ad3c6a7edf0efda65c4ad41b58e3b0210098fedf",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
