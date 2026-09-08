@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-09-06T03:33:18.376434+00:00",
+  "timestamp": "2026-09-08T03:38:03.387651+00:00",
   "repo": "ietf-ivy-wg/network-inventory-entitlement",
   "labels": [
     {
@@ -210,7 +210,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2026-09-04T17:17:52Z",
-      "updatedAt": "2026-09-04T17:17:52Z",
+      "updatedAt": "2026-09-07T14:31:59Z",
       "baseRepository": "ietf-ivy-wg/network-inventory-entitlement",
       "baseRefName": "main",
       "baseRefOid": "61f1360289140900c5bea5cf611acd5ac8584338",
@@ -221,8 +221,30 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "marisolpalmero",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Please go ahead. After the PR is approved, as pointed by Diego via email, let's go and publish v05 in datatracker",
+          "createdAt": "2026-09-07T14:31:59Z",
+          "updatedAt": "2026-09-07T14:31:59Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDORlv9Xc8AAAABMXX-xg",
+          "commit": {
+            "abbreviatedOid": "ad3c6a7"
+          },
+          "author": "dr2lopez",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Nothing to object. It addresses the comments received so for.",
+          "createdAt": "2026-09-06T08:47:25Z",
+          "updatedAt": "2026-09-06T08:47:25Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
