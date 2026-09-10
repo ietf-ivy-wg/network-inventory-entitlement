@@ -14,11 +14,9 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "corp-a"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -41,11 +39,9 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "corp-a"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -68,16 +64,12 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "corp-a"
-                ]
-              },
-              "users-names": {
-                "users": [
+                ],
+              "user": [
                   "admin"
                 ]
-              }
             },
             "assets": {
               "components": {
@@ -103,16 +95,12 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "corp-a"
-                ]
-              },
-              "users-names": {
-                "users": [
+                ],
+              "user": [
                   "admin"
                 ]
-              }
             },
             "assets": {
               "components": {
@@ -138,16 +126,12 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "corp-a"
-                ]
-              },
-              "users-names": {
-                "users": [
+                ],
+              "user": [
                   "security-admin"
                 ]
-              }
             },
             "assets": {
               "components": {
@@ -186,7 +170,7 @@
                 "ietf-entitlement-inventory:capabilities": {
                   "capability-class": [
                     {
-                      "capability-class": "basic-capability-description",
+                      "capability-class": "basic-capability",
                       "capability": [
                         {
                           "capability-id": "high-speed-ports-1-8",
@@ -209,8 +193,8 @@
                                 "description": "Number of active ports",
                                 "resource-name": "ports",
                                 "units": "count",
-                                "max-value": 8,
-                                "current-value": 8
+                                "max-value": "8",
+                                "current-value": "8"
                               }
                             ]
                           }
@@ -233,7 +217,7 @@
                 "ietf-entitlement-inventory:capabilities": {
                   "capability-class": [
                     {
-                      "capability-class": "basic-capability-description",
+                      "capability-class": "basic-capability",
                       "capability": [
                         {
                           "capability-id": "high-speed-ports-1-4",
@@ -256,8 +240,8 @@
                                 "description": "Number of active ports",
                                 "resource-name": "ports",
                                 "units": "count",
-                                "max-value": 4,
-                                "current-value": 4
+                                "max-value": "4",
+                                "current-value": "4"
                               }
                             ]
                           }
@@ -280,7 +264,7 @@
                 "ietf-entitlement-inventory:capabilities": {
                   "capability-class": [
                     {
-                      "capability-class": "basic-capability-description",
+                      "capability-class": "basic-capability",
                       "capability": [
                         {
                           "capability-id": "hardware-encryption",
@@ -303,8 +287,8 @@
                                 "description": "Maximum encryption throughput",
                                 "resource-name": "throughput",
                                 "units": "Gbps",
-                                "max-value": 100,
-                                "current-value": 65
+                                "max-value": "100",
+                                "current-value": "65"
                               }
                             ]
                           }
@@ -338,7 +322,7 @@
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "routing-protocols",
@@ -361,8 +345,8 @@
                           "description": "Maximum routing table entries",
                           "resource-name": "routing-table",
                           "units": "entries",
-                          "max-value": 1000000,
-                          "current-value": 450000
+                          "max-value": "1000000",
+                          "current-value": "450000"
                         }
                       ]
                     }

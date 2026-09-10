@@ -22,7 +22,7 @@
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "generic-routing-functions",
@@ -59,9 +59,7 @@
               "entitlement-attachment": {
                 "universal-access": false,
                 "holders": {
-                  "organizations-names": {
-                    "organizations": ["org-1"]
-                  }
+                  "organization": ["org-1"]
                 },
                 "assets": {
                 "elements": {

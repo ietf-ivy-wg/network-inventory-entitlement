@@ -14,9 +14,7 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": ["org-1"]
-              }
+              "organization": ["org-1"]
             },
             "assets": {
               "elements": {
@@ -37,9 +35,7 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": ["org-1"]
-              }
+              "organization": ["org-1"]
             },
             "assets": {
               "elements": {
@@ -77,7 +73,7 @@
         "ietf-entitlement-inventory:capabilities": {
           "capability-class": [
             {
-              "capability-class": "basic-capability-description",
+              "capability-class": "basic-capability",
               "capability": [
                 {
                   "capability-id": "stateful-firewall",
@@ -100,8 +96,8 @@
                       "description": "Maximum concurrent firewall sessions",
                       "resource-name": "sessions",
                       "units": "connections",
-                      "max-value": 50000,
-                      "current-value": 0
+                      "max-value": "50000",
+                      "current-value": "0"
                     }
                   ]
                 }
@@ -127,8 +123,8 @@
                       "description": "Maximum VPN tunnels",
                       "resource-name": "tunnels",
                       "units": "tunnels",
-                      "max-value": 100,
-                      "current-value": 0
+                      "max-value": "100",
+                      "current-value": "0"
                     }
                   ]
                   }
@@ -151,11 +147,11 @@
                   "capability-restriction": [
                     {
                       "restriction-id": "ospf-neighbors",
-                      "description": "Maximum OSPF neighbor adjacencies, just to give an example :)",
+                      "description": "Maximum OSPF neighbor adjacencies",
                       "resource-name": "neighbors",
                       "units": "adjacencies",
-                      "max-value": 50,
-                      "current-value": 8
+                      "max-value": "50",
+                      "current-value": "8"
                     }
                   ]
                   }

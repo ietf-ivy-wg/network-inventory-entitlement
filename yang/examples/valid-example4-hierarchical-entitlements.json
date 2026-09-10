@@ -14,11 +14,9 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Enterprise Networks"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -33,7 +31,7 @@
         {
           "entitlement-id": "silver-routing-upgrade",
           "product-id": "ROUTER-SILVER-UPGRADE",
-          "parent-entitlement-uid": "bronze-routing-base",
+          "parent-entitlement-id": "bronze-routing-base",
           "state": "active",
           "renewal-profile": {
             "start-date": "2025-06-01T00:00:00Z",
@@ -43,11 +41,9 @@
           "entitlement-attachment": {
             "universal-access": false,
             "holders": {
-              "organizations-names": {
-                "organizations": [
+              "organization": [
                   "Enterprise Networks"
                 ]
-              }
             },
             "assets": {
               "elements": {
@@ -83,7 +79,7 @@
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "ospf-routing",
@@ -106,8 +102,8 @@
                           "description": "Maximum OSPF areas",
                           "resource-name": "routing-areas",
                           "units": "areas",
-                          "max-value": 10,
-                          "current-value": 3
+                          "max-value": "10",
+                          "current-value": "3"
                         }
                       ]
                     }
@@ -133,8 +129,8 @@
                           "description": "Maximum static routes",
                           "resource-name": "routes",
                           "units": "routes",
-                          "max-value": 500,
-                          "current-value": 127
+                          "max-value": "500",
+                          "current-value": "127"
                         }
                       ]
                     }
@@ -169,7 +165,7 @@
           "ietf-entitlement-inventory:capabilities": {
             "capability-class": [
               {
-                "capability-class": "basic-capability-description",
+                "capability-class": "basic-capability",
                 "capability": [
                   {
                     "capability-id": "ospf-routing",
@@ -192,8 +188,8 @@
                           "description": "Maximum OSPF areas",
                           "resource-name": "routing-areas",
                           "units": "areas",
-                          "max-value": 10,
-                          "current-value": 5
+                          "max-value": "10",
+                          "current-value": "5"
                         }
                       ]
                     }
@@ -219,8 +215,8 @@
                           "description": "Maximum static routes",
                           "resource-name": "routes",
                           "units": "routes",
-                          "max-value": 500,
-                          "current-value": 89
+                          "max-value": "500",
+                          "current-value": "89"
                         }
                       ]
                     }
@@ -249,8 +245,8 @@
                           "description": "Maximum BGP peer sessions",
                           "resource-name": "bgp-sessions",
                           "units": "peers",
-                          "max-value": 100,
-                          "current-value": 24
+                          "max-value": "100",
+                          "current-value": "24"
                         }
                       ]
                     }
@@ -279,8 +275,8 @@
                           "description": "Maximum MPLS label-switched paths",
                           "resource-name": "lsps",
                           "units": "paths",
-                          "max-value": 200,
-                          "current-value": 87
+                          "max-value": "200",
+                          "current-value": "87"
                         }
                       ]
                     }
@@ -309,8 +305,8 @@
                           "description": "Maximum QoS traffic classes",
                           "resource-name": "qos-classes",
                           "units": "classes",
-                          "max-value": 16,
-                          "current-value": 0
+                          "max-value": "16",
+                          "current-value": "0"
                         }
                       ]
                     }
