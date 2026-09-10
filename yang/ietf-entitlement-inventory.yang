@@ -374,9 +374,9 @@ module ietf-entitlement-inventory {
         leaf sku {
           type string;
           description
-            "Stock Keeping Unit (SKU) - vendor's catalog/ordering number
-             for this entitlement. Used for procurement and asset
-             management integration.";
+            "Stock Keeping Unit (SKU) - vendor's catalog/ordering
+             number for this entitlement. Used for procurement and
+             asset management integration.";
         }
         leaf vendor {
           type string;

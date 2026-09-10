@@ -330,7 +330,7 @@ At this level, the system additionally answers: What can each asset do?
 
 Advanced implementations populate the `supporting-entitlements` container within each capability. This links capabilities to the installed entitlements that enable them, along with the `entitlement-state` container indicating whether each capability is allowed and in use.
 
-When a capability lists multiple supporting entitlements, the `entitlement-state/allowed` field MUST reflect the combined effect of all required entitlements. If any required entitlement is missing, expired, or revoked, the `allowed` leaf SHOULD be false. The `in-use` field indicates whether the capability is currently operational.
+When a capability lists multiple supporting entitlements, the `entitlement-state/allowed` field MUST reflect the combined effect of all required entitlements. If any required entitlement is missing, expired, or revoked, the `allowed` leaf SHOULD be false. The `in-use` leaf indicates whether the capability is currently operational.
 
 At this level, the system additionally answers: Which entitlements enable which capabilities? What is allowed and what is in use?
 
