@@ -5,12 +5,12 @@
 Network Inventory YANG WG                                     M. Palmero
 Internet-Draft                                               Independent
 Intended status: Standards Track                              C. Cardona
-Expires: 8 March 2027                                                NTT
+Expires: 14 March 2027                                               NTT
                                                                 D. Lopez
                                                               Telefonica
                                                                  I. Busi
                                                                   Huawei
-                                                        4 September 2026
+                                                       10 September 2026
 
 
                 A YANG Module for Entitlement Inventory
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 March 2027.
+   This Internet-Draft will expire on 14 March 2027.
 
 Copyright Notice
 
@@ -949,7 +949,7 @@ Table of Contents
    entitlement-state/allowed field MUST reflect the combined effect of
    all required entitlements.  If any required entitlement is missing,
    expired, or revoked, the allowed leaf SHOULD be false.  The in-use
-   field indicates whether the capability is currently operational.
+   leaf indicates whether the capability is currently operational.
 
    At this level, the system additionally answers: Which entitlements
    enable which capabilities?  What is allowed and what is in use?
@@ -1356,9 +1356,9 @@ Table of Contents
            leaf sku {
              type string;
              description
-               "Stock Keeping Unit (SKU) - vendor's catalog/ordering number
-                for this entitlement. Used for procurement and asset
-                management integration.";
+               "Stock Keeping Unit (SKU) - vendor's catalog/ordering
+                number for this entitlement. Used for procurement and
+                asset management integration.";
            }
            leaf vendor {
              type string;
