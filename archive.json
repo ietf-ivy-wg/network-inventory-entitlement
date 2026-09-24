@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-09-22T03:54:47.919167+00:00",
+  "timestamp": "2026-09-24T03:45:37.461475+00:00",
   "repo": "ietf-ivy-wg/network-inventory-entitlement",
   "labels": [
     {
@@ -203,24 +203,26 @@
       "id": "PR_kwDORlv9Xc8AAAABCPCQ5w",
       "title": "Version04 reviews Ops and yang doctors",
       "url": "https://github.com/ietf-ivy-wg/network-inventory-entitlement/pull/5",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "jccardonar",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-09-04T17:17:52Z",
-      "updatedAt": "2026-09-10T19:25:20Z",
+      "updatedAt": "2026-09-23T17:22:45Z",
       "baseRepository": "ietf-ivy-wg/network-inventory-entitlement",
       "baseRefName": "main",
       "baseRefOid": "61f1360289140900c5bea5cf611acd5ac8584338",
       "headRepository": "ietf-ivy-wg/network-inventory-entitlement",
       "headRefName": "version04_reviews_camilo_fixes",
       "headRefOid": "762d2e33cd5c1ab0a3179793a0b3e8a8ed5eceaf",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-09-23T17:22:44Z",
+      "mergedAt": "2026-09-23T17:22:44Z",
+      "mergedBy": "marisolpalmero",
+      "mergeCommit": {
+        "oid": "47b17b300fb9fcd1e677091708c5c6d93bf4d023"
+      },
       "comments": [
         {
           "author": "marisolpalmero",
@@ -242,6 +244,48 @@
           "body": "Nothing to object. It addresses the comments received so for.",
           "createdAt": "2026-09-06T08:47:25Z",
           "updatedAt": "2026-09-06T08:47:25Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDORlv9Xc8AAAABEyzo7Q",
+      "title": "fix proposed to fix the error on the merge",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-entitlement/pull/6",
+      "state": "MERGED",
+      "author": "marisolpalmero",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-09-23T17:34:49Z",
+      "updatedAt": "2026-09-23T22:36:24Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-entitlement",
+      "baseRefName": "main",
+      "baseRefOid": "47b17b300fb9fcd1e677091708c5c6d93bf4d023",
+      "headRepository": "ietf-ivy-wg/network-inventory-entitlement",
+      "headRefName": "version04_reviews_camilo_fixes",
+      "headRefOid": "58d8dcedfabb6cd91443335b517adf0c14dc7550",
+      "closedAt": "2026-09-23T22:36:23Z",
+      "mergedAt": "2026-09-23T22:36:23Z",
+      "mergedBy": "jccardonar",
+      "mergeCommit": {
+        "oid": "566e5949b1789e6a1ac9f0ba3d8fe03800f84be7"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDORlv9Xc8AAAABO5R9rw",
+          "commit": {
+            "abbreviatedOid": "58d8dce"
+          },
+          "author": "marisolpalmero",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "@jccardonar  could you approve?",
+          "createdAt": "2026-09-23T17:35:33Z",
+          "updatedAt": "2026-09-23T17:35:33Z",
           "comments": []
         }
       ]
