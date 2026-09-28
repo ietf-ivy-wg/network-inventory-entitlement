@@ -1,6 +1,8 @@
 LIBDIR := lib
 include $(LIBDIR)/main.mk
 
+.SECONDARY: draft-ietf-ivy-entitlement-inventory.xml
+	
 # Tree files that are included in the document
 TREE_FILES := trees/capability_tree.txt trees/entitlements_tree.txt trees/installed_entitlments_tree.txt yang/trees/ietf-entitlement-inventory.tree
 
